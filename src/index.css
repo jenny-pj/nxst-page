@@ -1,0 +1,84 @@
+@import 'tailwindcss';
+
+@theme {
+  /* ── 컬러 토큰 (§5) ───────────────────────────────────────────── */
+  --color-bg: #0a0e14; /* deep navy-black 배경 */
+  --color-surface: #111722; /* 카드·패널 서피스 */
+  --color-line: #1e2736; /* 헤어라인 보더 */
+  --color-ink: #e8edf4; /* 텍스트 primary */
+  --color-ink-dim: #8b97a8; /* 텍스트 secondary */
+  --color-signal: #ff6b35; /* 액센트1 — 비정상·합성데이터 */
+  --color-physics: #4da3ff; /* 액센트2 — 실측·정상데이터 */
+
+  /* Pillar 색상 (Research 카드 보더, Technology 매핑에서 공유) */
+  --color-pillar-a: #ff6b35; /* A 이상탐지 — 시그널 오렌지 계열 */
+  --color-pillar-b: #ffb35c; /* B 생성모델 */
+  --color-pillar-c: #4da3ff; /* C 산업적용 — 피직스 블루 계열 */
+  --color-pillar-d: #6fd6b8; /* D 도메인적응 */
+  --color-pillar-e: #b08cff; /* E 데이터플랫폼 */
+
+  /* ── 타이포 토큰 ─────────────────────────────────────────────── */
+  --font-sans: 'Pretendard Variable', Pretendard, -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', 'Pretendard Variable', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* 라운딩 최소 원칙 (2~4px) */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--color-signal) 35%, transparent);
+  color: var(--color-ink);
+}
+
+/* 키보드 포커스 가시화 (§5 품질 기준) */
+:focus-visible {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 2px;
+}
+
+/* 고정 네비 높이만큼 앵커 이동 보정 */
+section[id] {
+  scroll-margin-top: 72px;
+}
+
+/* §5-6 Use Cases — 카드 호버 시 라인아이콘 드로잉 재생 */
+.uc-icon :is(path, circle) {
+  stroke-dasharray: 100 100;
+  stroke-dashoffset: 0;
+}
+.uc-card:hover .uc-icon :is(path, circle) {
+  animation: icon-draw 800ms ease-out forwards;
+}
+@keyframes icon-draw {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .uc-card:hover .uc-icon :is(path, circle) {
+    animation: none;
+  }
+}

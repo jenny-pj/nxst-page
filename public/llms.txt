@@ -1,0 +1,16 @@
+# nextstud.io
+
+> Physics-Grounded Synthetic Data for Physical AI — 제조 현장의 희소한 비정상 데이터를
+> 물리정합 합성데이터로 보완하는 AI 연구기업 (대한민국 경상남도 김해).
+
+## 핵심 내용
+
+- Technology: 3계층 기술 스택 — L1 제조데이터 Data Space, L2 PINN + GAN·Diffusion 생성모델, L3 AI 역량(LLM·VLM, GNAIX 자율제조 에이전트, 오염-강건 이상탐지, 데이터 라벨링)
+- Research: 이상탐지·생성모델·산업적용·도메인적응·데이터 플랫폼 분야 논문 22편 (IEEE TNNLS, Neurocomputing, ICRA, IEEE T-ITS, IEEE TII, Information Sciences 등)
+- News: Berkeley AgentX Competition 2025 'Agent Architecture' 부문 1위 (논문 "Agent-based Autonomous Manufacturing from Planning to Production")
+
+## 연락처
+
+- Email: jin@nextstud.io
+- Phone: +82 055 320 4132
+- Address: Seongsan Hall 904, 197, Inje-ro, Gimhae-si, Gyeongsangnam-do, Republic of Korea
