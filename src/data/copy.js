@@ -23,7 +23,7 @@ export const nav = [
 
 export const hero = {
   eyebrow: 'SYNTHETIC DATA · PHYSICAL AI',
-  h1: '현장에 없는 데이터를,\n물리 법칙으로 만든다',
+  h1: '측정의 한계를 넘어서,\n물리가 데이터를 만든다',
   h1En: 'Physics-Grounded Synthetic Data for Physical AI',
   sub: '제조 현장의 희소한 비정상 데이터를 물리정합 합성데이터로 보완하여,\nPhysical AI가 미경험 상황에서도 신뢰할 수 있게 합니다.',
   cta: '연구 보기 ↓',
