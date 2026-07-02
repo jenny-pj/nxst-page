@@ -1,30 +1,24 @@
 @import 'tailwindcss';
 
 @theme {
-  /* ── 컬러 토큰 (§5) ───────────────────────────────────────────── */
-  --color-bg: #0a0e14; /* deep navy-black 배경 */
-  --color-surface: #111722; /* 카드·패널 서피스 */
-  --color-line: #1e2736; /* 헤어라인 보더 */
-  --color-ink: #e8edf4; /* 텍스트 primary */
-  --color-ink-dim: #8b97a8; /* 텍스트 secondary */
-  --color-signal: #ff6b35; /* 액센트1 — 비정상·합성데이터 */
-  --color-physics: #4da3ff; /* 액센트2 — 실측·정상데이터 */
+  /* ── 컬러 토큰 — Figma 시안 (다크 네이비 × 라이트 × 블루 액센트) ── */
+  --color-dark: #010a12; /* 다크 섹션 배경 */
+  --color-bg: #f5f7fa; /* 라이트 섹션 배경 */
+  --color-surface: #ffffff; /* 카드 서피스 */
+  --color-line: #d6d6d6; /* 카드 보더 */
+  --color-ink: #010a12; /* 라이트 섹션 텍스트 primary */
+  --color-ink-dim: #7c7c7c; /* 라이트 섹션 텍스트 secondary */
+  --color-ink-light: #fbfffb; /* 다크 섹션 타이틀 (title-light) */
+  --color-ink-light-soft: #edf5fa; /* 다크 섹션 본문 */
+  --color-dim-dark: #abb3b8; /* 다크 섹션 텍스트 secondary */
+  --color-accent: #5183e8; /* 포인트 블루 (point) */
+  --color-accent-soft: #f1f6fd; /* 액센트 틴트 — 칩 배경 */
+  --color-glow: #75a3ff; /* 다이어그램 글로우 */
 
-  /* Pillar 색상 (Research 카드 보더, Technology 매핑에서 공유) */
-  --color-pillar-a: #ff6b35; /* A 이상탐지 — 시그널 오렌지 계열 */
-  --color-pillar-b: #ffb35c; /* B 생성모델 */
-  --color-pillar-c: #4da3ff; /* C 산업적용 — 피직스 블루 계열 */
-  --color-pillar-d: #6fd6b8; /* D 도메인적응 */
-  --color-pillar-e: #b08cff; /* E 데이터플랫폼 */
-
-  /* ── 타이포 토큰 ─────────────────────────────────────────────── */
+  /* ── 타이포 토큰 — Pretendard 단일 체계 ─────────────────────── */
   --font-sans: 'Pretendard Variable', Pretendard, -apple-system, sans-serif;
-  --font-display: 'Space Grotesk', 'Pretendard Variable', sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
-  /* 라운딩 최소 원칙 (2~4px) */
-  --radius-xs: 2px;
-  --radius-sm: 4px;
+  --radius-chip: 16px;
 }
 
 html {
@@ -41,18 +35,19 @@ body {
   background-color: var(--color-bg);
   color: var(--color-ink);
   font-family: var(--font-sans);
+  letter-spacing: -0.02em; /* Figma 전역 자간 -2% */
+  word-break: keep-all; /* 한글 어절 단위 줄바꿈 */
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
 ::selection {
-  background-color: color-mix(in srgb, var(--color-signal) 35%, transparent);
-  color: var(--color-ink);
+  background-color: color-mix(in srgb, var(--color-accent) 24%, transparent);
 }
 
-/* 키보드 포커스 가시화 (§5 품질 기준) */
+/* 키보드 포커스 가시화 */
 :focus-visible {
-  outline: 2px solid var(--color-signal);
+  outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
 
@@ -61,24 +56,84 @@ section[id] {
   scroll-margin-top: 72px;
 }
 
-/* §5-6 Use Cases — 카드 호버 시 라인아이콘 드로잉 재생 */
-.uc-icon :is(path, circle) {
-  stroke-dasharray: 100 100;
-  stroke-dashoffset: 0;
-}
-.uc-card:hover .uc-icon :is(path, circle) {
-  animation: icon-draw 800ms ease-out forwards;
-}
-@keyframes icon-draw {
+/* ── 마이크로 인터랙션 키프레임 (factory.ai 레퍼런스) ─────────────
+   무한 애니메이션은 반드시 motion-safe: 변형으로만 사용할 것 */
+
+/* 히어로 배경 슬로우 줌 — 켄 번즈 */
+@keyframes heroZoom {
   from {
-    stroke-dashoffset: 100;
+    transform: scale(1);
   }
   to {
-    stroke-dashoffset: 0;
+    transform: scale(1.08);
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  .uc-card:hover .uc-icon :is(path, circle) {
-    animation: none;
+
+/* 진입 페이드업 — 히어로 타이틀 라인 스태거 */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 키워드 마퀴 — 동일 리스트 2개를 이어 붙여 -50%까지 이동 */
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* 다이어그램 노드·글로우 호흡 */
+@keyframes nodePulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent) 35%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 14px transparent;
+  }
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+}
+
+/* 궤도 카드 플로팅 — 카드마다 delay를 달리해 위상차 */
+@keyframes floatY {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+/* 스크롤 유도 커서 */
+@keyframes scrollBob {
+  0%,
+  100% {
+    opacity: 0.9;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.4;
+    transform: translateY(8px);
   }
 }

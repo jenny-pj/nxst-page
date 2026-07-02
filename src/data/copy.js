@@ -1,146 +1,148 @@
 /**
- * 사이트 전역 카피 텍스트 (스펙 §4).
- * i18n 대비 상수 분리 — EN 페이지는 작업 범위 외이나 구조상 추후 대응 가능.
+ * 사이트 전역 카피 텍스트 — Figma 시안(Desktop - 1) 기준.
+ * 각 섹션 eyebrow는 질문, 타이틀은 그 답이 되는 구조.
  */
 
 export const site = {
-  name: 'nextstud.io',
+  name: 'NEXTSTUDIO',
   nameKo: '넥스트스튜디오',
+  tagline: 'Industrial Data for Physical AI',
   email: 'jin@nextstud.io',
   phone: '+82 055 320 4132',
   addressKo: '경상남도 김해시 인제로 197, 성산관 904호',
-  addressEn: 'Seongsan Hall 904, 197, Inje-ro, Gimhae-si, Gyeongsangnam-do, Republic of Korea',
+  addressEn: 'Seongsan Hall 904, 197 Inje-ro, Gimhae-si, Gyeongsangnam-do, Republic of Korea',
 };
 
 export const nav = [
-  { id: 'technology', label: 'Technology' },
   { id: 'research', label: 'Research' },
-  { id: 'use-cases', label: 'Use Cases' },
-  { id: 'news', label: 'News' },
-  { id: 'about', label: 'About' },
+  { id: 'framework', label: 'Framework' },
+  { id: 'expertise', label: 'Core Expertise' },
+  { id: 'principles', label: 'Principles' },
+  { id: 'collaboration', label: 'Collaboration' },
   { id: 'contact', label: 'Contact' },
 ];
 
+/* ── HERO ──────────────────────────────────────────────────────── */
+
 export const hero = {
-  eyebrow: 'SYNTHETIC DATA · PHYSICAL AI',
-  h1: '측정의 한계를 넘어서,\n물리가 데이터를 만든다',
-  h1En: 'Physics-Grounded Synthetic Data for Physical AI',
-  sub: '제조 현장의 희소한 비정상 데이터를 물리정합 합성데이터로 보완하여,\nPhysical AI가 미경험 상황에서도 신뢰할 수 있게 합니다.',
-  cta: '연구 보기 ↓',
-  ctaTarget: 'research',
-};
-
-export const proofBar = [
-  'Berkeley AgentX 2025 — 1st Place (Agent Architecture)',
-  'IEEE TNNLS',
-  'Neurocomputing',
-  'ICRA',
-  'IEEE T-ITS',
-  'IEEE TII',
-  'Information Sciences',
-];
-
-export const problem = {
-  title: '제조 AI의 데이터 역설',
-  titleEn: 'The Data Paradox of Manufacturing AI',
-  points: [
-    {
-      title: '정상 편중',
-      body: '실측 제조데이터의 대부분은 정상 가동 데이터. 품질 저하·설비 고장 등 정작 학습이 필요한 비정상 데이터는 희소합니다.',
-    },
-    {
-      title: '수집 불가능성',
-      body: '비정상 상황은 발생 빈도가 낮고 조건 예측이 어려워, 충분한 양의 실측 확보가 구조적으로 불가능합니다.',
-    },
-    {
-      title: '오염과 비정합',
-      body: '수집된 데이터조차 센서 오작동·누락으로 오염되어 있고, 시계열·제어값·품질결과·경계조건이 연결된 정합 데이터셋 형태가 아닙니다.',
-    },
+  h1: 'Physical AI는\n산업데이터를 이해하는 것에서\n시작됩니다',
+  // 키워드 마퀴 — 연구 정체성을 흐르는 스트립으로
+  keywords: [
+    'Industrial Data Infrastructure',
+    'Synthetic Data',
+    'Physical AI',
+    'World Models',
+    'Embodied Intelligence',
+    'Physics-informed AI',
+    'Simulation & Digital Twin',
+    'Intelligent Agents',
   ],
-  closing: '이 간극을 메우는 것이 물리정합 합성데이터입니다.',
+  banner:
+    '우리는 산업 데이터를 연구합니다.\n\n산업 데이터 인프라와 합성데이터 기술을 기반으로,\n\nPhysical AI가 산업 현장을 이해하고 활용할 수 있는\n데이터 기반 기술을 만들어갑니다.',
 };
 
-export const technology = {
-  title: 'Physics-Grounded Synthetic Data Stack',
-  titleKo: '기술 스택',
-  intro: '다이어그램의 모든 박스와 데이터 소스는 실제 논문 실적으로 추적됩니다. 각 항목을 선택하면 근거 논문을 확인할 수 있습니다.',
+/* ── SECTION · WHY INDUSTRIAL DATA ─────────────────────────────── */
+
+export const whyData = {
+  eyebrow: 'Physical AI는 왜 산업 데이터를 필요로 하는가',
+  title:
+    'Physical AI는 산업 환경을 인식하고 이해하여 의사결정을 수행합니다.\n이를 위해서는 현실을 반영한 산업 데이터의 확보와 활용이 필수적입니다.',
+  support:
+    '제조 설비, 생산 공정, 작업 환경에서 생성되는 산업 데이터는 AI가 산업 환경을 학습하고 이해하기 위한 핵심 기반입니다.\nPhysical AI의 성능은 모델뿐 아니라, 산업 데이터를 얼마나 신뢰성 있게 확보하고 활용하는지에 의해 결정됩니다.',
+  // Flow의 중심은 AI가 아니라 산업 데이터 — accent: true 노드만 강조
+  flow: [
+    { ko: '산업 환경', icon: 'industry' },
+    { ko: '산업 데이터', icon: 'database', accent: true },
+    { ko: 'AI 학습', icon: 'brain' },
+    { ko: '추론 및 의사결정', icon: 'chart' },
+    { ko: 'Physical AI', icon: 'robot' },
+  ],
 };
 
-export const research = {
-  title: '10년의 연구 궤적',
-  titleEn: 'A Decade of Research Toward Synthetic Data',
-  intro:
-    '비정상 데이터의 희소성은 당사가 10년간 풀어온 문제입니다. 비지도 이상탐지에서 출발해 적대적 생성과 확산모델로, 그리고 실제 산업 현장 적용으로 이어진 연구의 자연스러운 다음 단계가 물리정합 합성데이터입니다.',
-  filterAll: '전체',
+/* ── SECTION · RESEARCH AREAS ──────────────────────────────────── */
+
+export const researchAreas = {
+  eyebrow: '우리는 무엇을 연구하는가',
+  title:
+    'Physical AI는 하나의 기술만으로 구현되지 않습니다.\n산업 데이터를 중심으로 다양한 연구 분야가 유기적으로 연결될 때,\n신뢰할 수 있는 Physical AI를 구현할 수 있습니다.',
+  hub: 'Industrial\nData',
+  // pos: 1320×700 다이어그램 캔버스 기준 좌표(px) — Figma 배치 그대로
+  domains: [
+    { name: '산업 데이터 인프라', items: ['산업 데이터 수집 및 구조화', '데이터 자산화 기반 구축'], pos: { x: 510, y: 36, center: true } },
+    { name: '합성 데이터', items: ['산업 데이터 생성 및 확장', '데이터 다양성 확보'], pos: { x: 881, y: 142 } },
+    { name: 'Intelligent Agents', items: ['자율 의사결정', '산업 작업 자동화'], pos: { x: 158, y: 158 } },
+    { name: 'Physics-informed AI', items: ['물리 기반 AI 학습', '산업 도메인 지식 반영'], pos: { x: 922, y: 339 } },
+    { name: 'Embodied Intelligence', items: ['Physical AI 지능 구조', '현실 환경과의 상호작용'], pos: { x: 81, y: 365 } },
+    { name: 'Simulation & Digital Twin', items: ['산업 환경 디지털 재현', 'AI 학습·검증 환경 구축'], pos: { x: 743, y: 526 } },
+    { name: 'World Models', items: ['산업 환경 이해 및 예측', '환경 모델링 기술'], pos: { x: 331, y: 546 } },
+  ],
 };
 
-export const useCases = {
-  title: '적용 분야',
-  titleEn: 'Use Cases',
+/* ── SECTION · RESEARCH FRAMEWORK ──────────────────────────────── */
+
+export const framework = {
+  eyebrow: '우리는 어떻게 연구하는가',
+  title:
+    '산업 데이터는 하나의 AI 모델만으로 활용되지 않습니다.\n데이터 확보부터 모델 학습, 산업 적용까지 이어지는 연구 체계를 통해\nPhysical AI를 구현합니다.',
+  layers: [
+    { no: 'L01', name: 'Industrial Data', items: ['Vision Data', 'Sensor Data', 'Process Data'], base: true },
+    { no: 'L02', name: 'Data Engineering', items: ['Data Pipeline', 'Data Processing', 'Data Quality'] },
+    { no: 'L03', name: 'Synthetic Intelligence', items: ['Synthetic Data', 'Simulation', 'Digital Twin'] },
+    { no: 'L04', name: 'AI Intelligence', items: ['Physics-informed AI', 'World Models', 'Embodied Intelligence'] },
+    { no: 'L05', name: 'Physical AI', items: ['Intelligent Agents', 'Industrial Applications'], terminal: true },
+  ],
+};
+
+/* ── SECTION · CORE EXPERTISE ──────────────────────────────────── */
+
+export const expertise = {
+  eyebrow: '우리는 어떤 역량으로 연구하는가',
+  title:
+    '다양한 AI 기술을 개별적으로 연구하지 않습니다.\n산업 데이터를 중심으로 연구 역량을 융합하여\nPhysical AI를 구현합니다.',
+  clusters: [
+    { name: 'AI Foundation', items: ['LLM', 'Foundation Models', 'Vision Language Models'] },
+    { name: 'Industrial Intelligence', items: ['Industrial AI', 'Data Engineering', 'Synthetic Data'] },
+    { name: 'Physical Intelligence', items: ['Physics-informed AI', 'World Models', 'Embodied Intelligence'] },
+    { name: 'Computer Vision', items: ['Vision AI', 'Video Analytics', 'Image Understanding'] },
+    { name: 'AI Optimization', items: ['Edge AI', 'Model Optimization', 'AI Deployment'] },
+  ],
+};
+
+/* ── SECTION · RESEARCH PRINCIPLES ─────────────────────────────── */
+
+export const principles = {
+  eyebrow: '우리는 무엇을 지향하는가',
+  title: '우리는 새로운 기술보다,\n산업 현장에서 지속적으로 활용 가능한 기술을 연구합니다.',
   items: [
-    {
-      id: 'fault-diagnosis',
-      icon: 'waveform',
-      title: '고장진단',
-      body: '희소 고장 신호의 물리제약 합성으로 진단 모델 성능 확보 (진동·전류·토크 시계열)',
-    },
-    {
-      id: 'quality-inspection',
-      icon: 'lens',
-      title: '품질검사',
-      body: '정상 이미지 기반 결함 합성으로 비전 검사 모델 학습 (표면 결함, 비파괴검사)',
-    },
-    {
-      id: 'predictive-maintenance',
-      icon: 'rul-curve',
-      title: '예지보전 (RUL)',
-      body: '열화 동역학 반영 합성데이터로 잔여수명 예측 정밀화',
-    },
-    {
-      id: 'process-robot-control',
-      icon: 'robot-arm',
-      title: '공정·로봇 제어',
-      body: '디지털트윈 시뮬레이션 합성데이터로 LAM/PINN 학습 지원',
-    },
+    { no: '01', name: 'Industrial-first', desc: '산업 현장의 문제에서 연구를 시작합니다.' },
+    { no: '02', name: 'Data-centric', desc: '산업 데이터를 연구의 중심에 둡니다.' },
+    { no: '03', name: 'Research-driven', desc: '연구의 본질을 기반으로 기술을 개발합니다.' },
+    { no: '04', name: 'Engineering-oriented', desc: '실제 적용 가능한 기술 구현을 지향합니다.' },
+    { no: '05', name: 'Real-world Validation', desc: '현실 환경에서 검증 가능한 AI를 연구합니다.' },
   ],
 };
 
-export const news = {
-  title: 'News',
-  items: [
-    {
-      id: 'agentx-2025',
-      headline: "GNAIX Team, Berkeley AgentX Competition 'Agent Architecture' 부문 1위",
-      date: '2025. 8. 2',
-      place: 'San Francisco, US',
-      body: 'Berkeley RDI 주최 AgentX – LLM Agents MOOC Competition의 Agent Architecture 부문에서 1위를 수상했습니다. 수상 논문 "Agent-based Autonomous Manufacturing from Planning to Production"은 계획 수립부터 생산까지 제조 전 과정을 자율 수행하는 에이전트 프레임워크를 제안합니다.',
-      point: '이 수상은 "제조 자율화"를 향한 당사 비전에 대한 글로벌 검증입니다.',
-    },
+/* ── SECTION · COLLABORATION ───────────────────────────────────── */
+
+export const collaboration = {
+  eyebrow: '우리는 누구와 연구하는가',
+  title:
+    'Physical AI는 하나의 조직만으로 구현되지 않습니다.\n정부, 산업계, 학계와의 협력을 통해\n산업 현장에서 활용 가능한 기술을 연구합니다.',
+  partners: [
+    { name: 'Government R&D', ko: '정부 R&D', items: ['국가 전략기술 연구개발', '대형 국가R&D 수행'] },
+    { name: 'Industry', ko: '산업계', items: ['산업 현장 공동 연구', '실증 기반 기술 개발'] },
+    { name: 'Academia', ko: '학계', items: ['산학 공동 연구', '기술 검증 및 연구 협력'] },
+    { name: 'Technology Transfer', ko: '기술 이전', items: ['연구성과 확산', '산업 적용 지원'] },
   ],
 };
 
-export const about = {
-  headline: '연구에서 현장으로',
-  body1:
-    'nextstud.io는 KAIST IT융합연구소에서 다수의 중대형 국책과제를 함께 수행해 온 연구진이 설립한 AI 연구기업입니다. 이상탐지·생성모델·데이터 플랫폼 분야에서 축적한 연구를 제조 현장의 합성데이터 기술로 잇고 있습니다.',
-  body2:
-    '국가 제조거점 경남에 자리해, 자동차·조선·방산 제조벨트의 현장 데이터와 가장 가까운 곳에서 Physical AI를 연구합니다.',
-  // 지표 숫자는 자동 집계하지 않고 상수로 유지 — 추후 사용자가 직접 조정 (스펙 §4.8)
-  metrics: [
-    { value: 20, suffix: '+편', label: 'SCI(E)급 게재' },
-    { value: 1, prefix: '', suffix: '위', label: 'Berkeley AgentX 2025' },
-    { value: null, text: '국책과제', suffix: '', label: '공동수행 경험' },
-  ],
-};
+/* ── CONTACT ───────────────────────────────────────────────────── */
 
 export const contact = {
-  title: 'Contact',
-  tagline: '경남 제조벨트의 심장부에서, Physical AI를 연구합니다.',
-  // 구글맵 임베드 URL — 기존 사이트 임베드 재사용 가능 시 교체
-  mapEmbedUrl:
-    'https://www.google.com/maps?q=197+Inje-ro,+Gimhae-si,+Gyeongsangnam-do,+Republic+of+Korea&output=embed',
+  eyebrow: 'Contact',
+  title: '산업 데이터와 Physical AI 연구에 대해\n이야기하고 싶다면',
 };
 
 export const footer = {
-  copyright: '© nextstud.io. All Rights Reserved.',
+  copyright: '© NEXTSTUDIO. All Rights Reserved.',
 };
