@@ -78,7 +78,7 @@ function FlowNode({ node, vertical = false }) {
 export default function WhyData() {
   return (
     <section id="why-data" className="bg-dark">
-      <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-14 px-5 pb-24 pt-16 md:gap-[80px] md:px-[60px] md:pb-[160px] md:pt-[100px]">
+      <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-14 px-5 pb-32 pt-24 md:gap-[80px] md:px-[60px] md:pb-[200px] md:pt-[140px]">
         <SectionHeader dark eyebrow={whyData.eyebrow} title={whyData.title} support={whyData.support} />
 
         {/* 데스크톱: 수평 플로우 — 좌→우 스태거 */}

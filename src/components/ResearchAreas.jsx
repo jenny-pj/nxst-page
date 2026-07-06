@@ -57,7 +57,7 @@ export default function ResearchAreas() {
       {/* 배경 텍스처 */}
       <img src={sectionTexture} alt="" aria-hidden="true" className="absolute inset-0 size-full object-cover opacity-20" />
 
-      <div className="relative mx-auto flex max-w-[1440px] flex-col items-center gap-14 px-5 py-16 md:gap-[80px] md:px-[60px] md:py-[100px]">
+      <div className="relative mx-auto flex max-w-[1440px] flex-col items-center gap-14 px-5 py-24 md:gap-[80px] md:px-[60px] md:py-[140px]">
         <SectionHeader eyebrow={researchAreas.eyebrow} title={researchAreas.title} />
 
         {/* 데스크톱: 궤도 다이어그램 */}

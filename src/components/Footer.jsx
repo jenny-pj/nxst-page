@@ -14,7 +14,7 @@ export default function Footer() {
 
   return (
     <footer id="contact" className="scroll-mt-[72px] bg-dark">
-      <div className="mx-auto flex max-w-[1440px] flex-col gap-16 px-5 py-16 md:px-[60px] md:py-[100px]">
+      <div className="mx-auto flex max-w-[1440px] flex-col gap-16 px-5 py-24 md:px-[60px] md:py-[140px]">
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
           <div className="flex flex-col gap-4">
             <p className="text-[24px] font-bold leading-[1.25] text-ink-light-soft md:text-[30px]">{footer.headline}</p>

@@ -48,7 +48,7 @@ function Chip({ children }) {
 export default function Framework() {
   return (
     <section id="framework" className="bg-bg">
-      <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-14 px-5 py-16 md:gap-[80px] md:px-[60px] md:py-[100px]">
+      <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-14 px-5 py-24 md:gap-[80px] md:px-[60px] md:py-[140px]">
         <SectionHeader eyebrow={framework.eyebrow} title={framework.title} />
 
         {/* 데스크톱: 슬랩 스택 */}

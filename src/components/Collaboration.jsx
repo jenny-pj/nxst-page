@@ -80,7 +80,7 @@ export default function Collaboration() {
 
   return (
     <section id="collaboration" className="bg-bg">
-      <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-14 px-5 py-16 md:gap-[80px] md:px-[60px] md:py-[100px]">
+      <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-14 px-5 py-24 md:gap-[80px] md:px-[60px] md:py-[140px]">
         <SectionHeader eyebrow={collaboration.eyebrow} title={collaboration.title} />
 
         {/* 데스크톱: 허브-스포크 다이어그램 */}

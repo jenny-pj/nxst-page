@@ -23,6 +23,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* 오버스크롤(맨 위/아래 바운스) 영역이 footer·hero의 다크와 이어지도록 */
+  background-color: var(--color-dark);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -32,7 +34,7 @@ html {
 }
 
 body {
-  background-color: var(--color-bg);
+  background-color: var(--color-dark);
   color: var(--color-ink);
   font-family: var(--font-sans);
   letter-spacing: -0.02em; /* Figma 전역 자간 -2% */
