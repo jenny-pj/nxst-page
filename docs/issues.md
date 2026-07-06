@@ -24,6 +24,12 @@
 - 해결: 각 도메인에서 최초 제출 → 발송되는 활성화 메일의 링크 클릭. 이후 서버리스 프록시 도입으로 실제 FormSubmit 호출 Origin이 프로덕션으로 통일되어 재발 여지 제거
 - 참고: 수신처 이메일 변경 시 새 이메일로 활성화 1회 다시 필요
 
+### Contact 프록시 403 — Cloudflare의 Vercel IP 차단 (2026-07-06 발견 → 당일 해결)
+- 증상: `/api/contact` 서버리스 프록시가 FormSubmit 호출 시 403 (Cloudflare 차단 페이지 반환)
+- 원인: FormSubmit 앞단 Cloudflare가 데이터센터(Vercel) IP를 차단. 브라우저 UA 위장도 무효, 로컬 Node에서는 성공 → IP 기반 차단
+- 해결: 프록시 폐기, 브라우저 직접 호출 + 빌드 env(`VITE_CONTACT_FORM_ID`) 주입으로 전환
+- 교훈: FormSubmit은 서버 경유 불가 — 반드시 방문자 브라우저에서 직접 호출
+
 ## 알려진 한계
 
 - **궤도 다이어그램은 xl(1280px)+ 전용** — 미만 해상도는 카드 그리드 폴백 (Figma 절대좌표 기반이라 축소 시 카드 겹침)

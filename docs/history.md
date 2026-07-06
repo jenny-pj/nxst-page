@@ -53,6 +53,13 @@
 - 로컬 dev는 vite proxy + `.env.local`로 동일 경로 동작
 - 프로덕션 배포 및 실제 폼 제출 → 메일 수신 확인 (commit `3b17da8` 이후)
 
+## 2026-07-06 — 서버리스 프록시 폐기, 빌드 env 주입 방식으로 전환
+
+- 프로덕션에서 `/api/contact` 프록시가 403 실패 — FormSubmit 앞단 Cloudflare가 Vercel IP 차단 (로컬 Node는 성공, 브라우저 UA 위장 무효)
+- 프록시(`api/contact.js`)·vite dev proxy 제거, 브라우저 직접 FormSubmit 호출로 복귀
+- 대상 주소는 빌드 env `VITE_CONTACT_FORM_ID`로 주입 (Vercel env + `.env.local`) — 저장소 비노출
+- Vercel env `CONTACT_EMAIL` 제거, `VITE_CONTACT_FORM_ID` 등록 (Production/Preview)
+
 ## 2026-07-02 — WhyData 플로우 아이콘 추가 (Figma 시안 업데이트 반영)
 
 - 5개 노드 원 안에 아이콘 삽입: 산업 환경(industry) · 산업 데이터(database, 액센트) · AI 학습(brain) · 추론 및 의사결정(chart-line) · Physical AI(robot)

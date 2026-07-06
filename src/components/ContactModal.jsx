@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import { faArrowRight, faXmark, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { contactForm } from '../data/copy.js';
 
-/* 서버리스 프록시(api/contact.js) — 수신 이메일은 서버 환경 변수로만 관리.
-   로컬 dev에서는 vite.config의 프록시가 같은 경로를 FormSubmit으로 중계한다. */
-const FORM_ENDPOINT = '/api/contact';
+/* FormSubmit AJAX — 브라우저에서 직접 호출 (FormSubmit의 Cloudflare가 서버 경유를 차단).
+   대상은 빌드 env(VITE_CONTACT_FORM_ID)로 주입: 이메일 대신 FormSubmit 랜덤 알리아스 사용 가능 */
+const FORM_ENDPOINT = `https://formsubmit.co/ajax/${import.meta.env.VITE_CONTACT_FORM_ID}`;
 
 const INPUT_CLASS =
   'w-full rounded-lg border border-[#dae5ef] bg-white px-4 py-3 text-[15px] leading-[1.5] text-ink placeholder:text-ink/35 transition-colors duration-200 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20';

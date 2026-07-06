@@ -16,10 +16,11 @@ npm run preview      # 빌드 결과 로컬 확인
 
 | 변수 | 용도 | 위치 |
 |------|------|------|
-| `CONTACT_EMAIL` | Contact 폼 수신 이메일 | Vercel env (Production/Preview) + 로컬 `.env.local` |
+| `VITE_CONTACT_FORM_ID` | Contact 폼 FormSubmit 대상 (이메일 또는 랜덤 알리아스) | Vercel env (Production/Preview) + 로컬 `.env.local` |
 
-- `.env.local` 예시: `CONTACT_EMAIL=<수신 이메일>` — gitignore 대상, 커밋 금지 (public 저장소)
-- 로컬 dev의 폼 테스트는 vite proxy가 `/api/contact`를 FormSubmit으로 중계
+- `.env.local` 예시: `VITE_CONTACT_FORM_ID=<이메일 또는 알리아스>` — gitignore 대상, 커밋 금지 (public 저장소)
+- 빌드 시점에 번들에 주입되므로 값 변경 후 재배포 필요
+- FormSubmit은 도메인별 최초 1회 활성화 필요 — localhost와 프로덕션 각각 활성화
 
 ## Figma 에셋 워크플로
 

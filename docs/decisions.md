@@ -2,12 +2,12 @@
 
 최신순. 각 항목은 "무엇을, 왜"를 기록한다.
 
-## 2026-07-06 — Contact 이메일을 서버리스 프록시 + 환경 변수로 비노출 처리
+## 2026-07-06 — Contact 이메일 비노출: 빌드 env 주입 채택 (서버리스 프록시는 폐기)
 
-- 클라이언트가 FormSubmit을 직접 호출하면 수신 이메일이 번들 JS에 그대로 노출됨. 저장소도 public이라 코드 하드코딩 불가.
-- `/api/contact` Vercel 서버리스 함수로 중계하고, 이메일은 `CONTACT_EMAIL` 환경 변수(Vercel env + 로컬 `.env.local`)로만 관리
-- 검토한 대안: FormSubmit 랜덤 알리아스 — 주소는 숨겨지나 알리아스 문자열을 메일에서 수동 확보해야 하고, 수신처 변경 시 코드 수정 필요. env 변수 방식이 변경에 더 유연해 채택.
-- FormSubmit은 활성화된 도메인 Origin을 검사하므로 프록시가 프로덕션 Origin을 명시해 전달
+- 배경: 저장소가 public이라 수신 이메일을 코드에 하드코딩할 수 없음
+- 1차 시도 — `/api/contact` Vercel 서버리스 프록시: **폐기**. FormSubmit 앞단 Cloudflare가 Vercel 데이터센터 IP를 403 차단 (브라우저 UA 위장도 무효). 로컬 Node에서는 성공 → IP 기반 차단으로 확정.
+- 채택 — 브라우저 직접 호출 + 대상 주소를 빌드 env `VITE_CONTACT_FORM_ID`로 주입: 저장소 비노출, 값 교체 시 코드 수정 불필요 (Vercel env 변경 + 재배포)
+- 잔여 노출: 번들 JS에는 값이 포함됨 — FormSubmit 랜덤 알리아스로 교체하면 번들에서도 이메일 제거 가능 (알리아스는 공개되어도 무방한 값)
 
 ## 2026-07-06 — Contact CTA를 mailto에서 팝업 폼(FormSubmit)으로 전환
 
