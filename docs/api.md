@@ -16,4 +16,5 @@
 - 응답: `{ success: "true" | "false", message }`
 - 도메인(사이트)별 최초 1회 이메일 활성화 필요 (localhost와 프로덕션 별개)
 - **서버 경유 불가**: FormSubmit 앞단 Cloudflare가 데이터센터(Vercel) IP를 403으로 차단 — 반드시 방문자 브라우저에서 직접 호출해야 함
-- `VITE_CONTACT_FORM_ID`에 이메일 대신 FormSubmit 랜덤 알리아스를 넣으면 번들에서도 주소 비노출 가능
+- `VITE_CONTACT_FORM_ID`는 현재 FormSubmit 랜덤 알리아스 사용 — 번들·저장소 모두 이메일 비노출. 알리아스는 기존 도메인 활성화 상태를 그대로 승계
+- 수신처 이메일을 바꾸려면: 새 이메일로 활성화 1회 → 새 알리아스 확보 → env 교체 후 재배포

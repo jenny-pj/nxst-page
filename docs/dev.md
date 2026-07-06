@@ -16,7 +16,7 @@ npm run preview      # 빌드 결과 로컬 확인
 
 | 변수 | 용도 | 위치 |
 |------|------|------|
-| `VITE_CONTACT_FORM_ID` | Contact 폼 FormSubmit 대상 (이메일 또는 랜덤 알리아스) | Vercel env (Production/Preview) + 로컬 `.env.local` |
+| `VITE_CONTACT_FORM_ID` | Contact 폼 FormSubmit 대상 — **현재 랜덤 알리아스 사용 중** (이메일 비노출) | Vercel env (Production/Preview) + 로컬 `.env.local` |
 
 - `.env.local` 예시: `VITE_CONTACT_FORM_ID=<이메일 또는 알리아스>` — gitignore 대상, 커밋 금지 (public 저장소)
 - 빌드 시점에 번들에 주입되므로 값 변경 후 재배포 필요

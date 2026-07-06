@@ -60,6 +60,14 @@
 - 대상 주소는 빌드 env `VITE_CONTACT_FORM_ID`로 주입 (Vercel env + `.env.local`) — 저장소 비노출
 - Vercel env `CONTACT_EMAIL` 제거, `VITE_CONTACT_FORM_ID` 등록 (Production/Preview)
 
+## 2026-07-06 — FormSubmit 랜덤 알리아스 전환 완료 (이메일 제로 노출)
+
+- `VITE_CONTACT_FORM_ID` 값을 이메일 → FormSubmit 랜덤 알리아스(`41fa9f3d…`)로 교체 (Vercel env + `.env.local`)
+- 코드 변경 없이 env 교체 + `vercel --prod --force` 재배포로 완료
+- 검증: 배포 번들에 알리아스만 존재, 이메일 문자열 검색 결과 0건 — 저장소·번들 모두 비노출 달성
+- 알리아스 엔드포인트가 기존 활성화 상태를 그대로 승계함을 사전 curl 검증 후 전환
+- 메일 양식 혼선 해프닝: 진단용 curl 메일(표 양식 미적용)을 실제 폼 메일로 오인 — 실제 폼은 `_template: table` 정상 발송 확인
+
 ## 2026-07-02 — WhyData 플로우 아이콘 추가 (Figma 시안 업데이트 반영)
 
 - 5개 노드 원 안에 아이콘 삽입: 산업 환경(industry) · 산업 데이터(database, 액센트) · AI 학습(brain) · 추론 및 의사결정(chart-line) · Physical AI(robot)
