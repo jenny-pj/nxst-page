@@ -96,53 +96,55 @@ export const framework = {
 /* ── SECTION · CORE EXPERTISE ──────────────────────────────────── */
 
 export const expertise = {
-  eyebrow: '우리는 어떤 역량으로 연구하는가',
+  eyebrow: '핵심 연구 역량',
   title:
-    '다양한 AI 기술을 개별적으로 연구하지 않습니다.\n산업 데이터를 중심으로 연구 역량을 융합하여\nPhysical AI를 구현합니다.',
+    '다양한 AI 기술을 개별적으로 연구하는 것이 아니라,\n산업 데이터를 중심으로 연구 역량을 융합합니다.',
   clusters: [
-    { name: 'AI Foundation', items: ['LLM', 'Foundation Models', 'Vision Language Models'] },
-    { name: 'Industrial Intelligence', items: ['Industrial AI', 'Data Engineering', 'Synthetic Data'] },
-    { name: 'Physical Intelligence', items: ['Physics-informed AI', 'World Models', 'Embodied Intelligence'] },
-    { name: 'Computer Vision', items: ['Vision AI', 'Video Analytics', 'Image Understanding'] },
-    { name: 'AI Optimization', items: ['Edge AI', 'Model Optimization', 'AI Deployment'] },
+    { name: 'AI Foundation', icon: 'brain', items: ['LLM', 'Foundation Models', 'Vision Language Models'] },
+    { name: 'Industrial Intelligence', icon: 'industry', items: ['Industrial AI', 'Data Engineering', 'Synthetic Data'] },
+    { name: 'Physical Intelligence', icon: 'robot', items: ['Physics-informed AI', 'World Models', 'Embodied Intelligence'] },
+    { name: 'Computer Vision', icon: 'eye', items: ['Vision AI', 'Video Analytics', 'Image Understanding'] },
+    { name: 'AI Optimization', icon: 'bolt', items: ['Edge AI', 'Model Optimization', 'AI Deployment'] },
   ],
 };
 
 /* ── SECTION · RESEARCH PRINCIPLES ─────────────────────────────── */
 
 export const principles = {
-  eyebrow: '우리는 무엇을 지향하는가',
+  eyebrow: '연구 철학',
   title: '우리는 새로운 기술보다,\n산업 현장에서 지속적으로 활용 가능한 기술을 연구합니다.',
+  // Figma 27:321 — 화이트 카드(r16) 상단 2행 타이틀 + 하단 라인 일러스트
+  // hover 시 액센트 틴트 워시 + 설명(desc) 페이드인
   items: [
-    { no: '01', name: 'Industrial-first', desc: '산업 현장의 문제에서 연구를 시작합니다.' },
-    { no: '02', name: 'Data-centric', desc: '산업 데이터를 연구의 중심에 둡니다.' },
-    { no: '03', name: 'Research-driven', desc: '연구의 본질을 기반으로 기술을 개발합니다.' },
-    { no: '04', name: 'Engineering-oriented', desc: '실제 적용 가능한 기술 구현을 지향합니다.' },
-    { no: '05', name: 'Real-world Validation', desc: '현실 환경에서 검증 가능한 AI를 연구합니다.' },
+    { name: 'Industrial\nFirst', illo: 'industrial-first', desc: '산업 현장의 문제에서 연구를 시작합니다.' },
+    { name: 'Data\nCentric', illo: 'data-centric', desc: '산업 데이터를 연구의 중심에 둡니다.' },
+    { name: 'Research\nDriven', illo: 'research-driven', desc: '연구의 본질을 기반으로 기술을 개발합니다.' },
+    { name: 'Engineering\nOriented', illo: 'engineering-oriented', desc: '실제 적용 가능한 기술 구현을 지향합니다.' },
+    { name: 'Real-world\nValidation', illo: 'real-world-validation', desc: '현실 환경에서 검증 가능한 AI를 연구합니다.' },
   ],
 };
 
 /* ── SECTION · COLLABORATION ───────────────────────────────────── */
 
 export const collaboration = {
-  eyebrow: '우리는 누구와 연구하는가',
+  eyebrow: 'Collaboration',
   title:
-    'Physical AI는 하나의 조직만으로 구현되지 않습니다.\n정부, 산업계, 학계와의 협력을 통해\n산업 현장에서 활용 가능한 기술을 연구합니다.',
+    'Physical AI는 하나의 조직만으로 구현될 수 없습니다.\n정부, 산업계, 학계와의 협력을 통해 산업 현장에서 활용 가능한 기술을 연구합니다.',
+  // Figma 79:268 — 중앙 로고 허브 + 4개 위성 원(아이콘) 방사형 배치
   partners: [
-    { name: 'Government R&D', ko: '정부 R&D', items: ['국가 전략기술 연구개발', '대형 국가R&D 수행'] },
-    { name: 'Industry', ko: '산업계', items: ['산업 현장 공동 연구', '실증 기반 기술 개발'] },
-    { name: 'Academia', ko: '학계', items: ['산학 공동 연구', '기술 검증 및 연구 협력'] },
-    { name: 'Technology Transfer', ko: '기술 이전', items: ['연구성과 확산', '산업 적용 지원'] },
+    { name: 'Government R&D', icon: 'landmark', side: 'left', items: ['국가 전략기술 연구개발', '대형 국가R&D 수행'] },
+    { name: 'Industry', icon: 'industry', side: 'left', items: ['산업 현장 공동 연구', '실증 기반 기술 개발'] },
+    { name: 'Academia', icon: 'academia', side: 'right', items: ['산학 공동 연구', '기술 검증 및 연구 협력'] },
+    { name: 'Technology Transfer', icon: 'transfer', side: 'right', items: ['연구성과 확산', '산업 적용 지원'] },
   ],
 };
 
-/* ── CONTACT ───────────────────────────────────────────────────── */
-
-export const contact = {
-  eyebrow: 'Contact',
-  title: '산업 데이터와 Physical AI 연구에 대해\n이야기하고 싶다면',
-};
+/* ── FOOTER ────────────────────────────────────────────────────── */
 
 export const footer = {
-  copyright: '© NEXTSTUDIO. All Rights Reserved.',
+  // Figma 81:407 — 다크 배너: 헤드라인 + 서브카피 + Contact Us 버튼 + 로고/네비 행
+  headline: '함께, 산업의 미래를 연구합니다',
+  sub: 'NEXTSTUDIO는 산업 데이터를 기반으로\nPhysical AI의 새로운 가능성을 연구합니다.',
+  cta: 'Contact Us',
+  copyright: '© 2026 nextstud.io. All rights reserved',
 };

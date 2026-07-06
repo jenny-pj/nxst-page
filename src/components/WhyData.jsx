@@ -38,20 +38,30 @@ function FlowNode({ node, vertical = false }) {
   return (
     <div className={`group flex flex-col items-center gap-3 md:gap-4 ${vertical ? '' : 'w-[120px] lg:w-[160px]'}`}>
       <div
-        className={`rounded-full border-2 transition-all duration-300 ${vertical ? 'size-[88px]' : 'size-[120px] lg:size-[160px]'} ${
-          node.accent
-            ? 'border-accent bg-glow/20 text-accent motion-safe:animate-[nodePulse_3.2s_ease-in-out_infinite]'
-            : 'border-[#d9d9d9] text-white group-hover:border-glow group-hover:bg-glow/10 group-hover:text-glow'
-        }`}
+        className="relative transition-transform duration-300 ease-out group-hover:-translate-y-1.5 motion-reduce:transition-none"
         aria-hidden="true"
       >
-        <svg viewBox="0 0 160 160" className="size-full transition-colors duration-300" fill="currentColor">
-          <path d={ICON_PATHS[node.icon]} />
-        </svg>
+        {/* 산업 데이터 노드 — 배경으로 약하게 퍼지는 파동 링 (위상차 2겹) */}
+        {node.accent && (
+          <>
+            <span className="pointer-events-none absolute inset-0 rounded-full border-2 border-accent/70 motion-safe:animate-[nodeRipple_3s_ease-out_infinite]" />
+            <span className="pointer-events-none absolute inset-0 rounded-full border-2 border-accent/50 motion-safe:animate-[nodeRipple_3s_ease-out_1.5s_infinite]" />
+          </>
+        )}
+        <div
+          className={`relative rounded-full border-2 ${vertical ? 'size-[88px]' : 'size-[120px] lg:size-[160px]'} ${
+            node.accent ? 'border-accent bg-glow/20 text-accent' : 'border-[#d9d9d9] text-white'
+          }`}
+        >
+          {/* 아이콘 글리프 80px→60px — 원 대비 0.75 스케일 */}
+          <svg viewBox="0 0 160 160" className="size-full scale-75" fill="currentColor">
+            <path d={ICON_PATHS[node.icon]} />
+          </svg>
+        </div>
       </div>
       <p
-        className={`whitespace-nowrap text-center text-[15px] font-semibold leading-[1.25] transition-colors duration-300 md:text-[20px] lg:text-[24px] ${
-          node.accent ? 'text-accent' : 'text-dim-dark group-hover:text-ink-light-soft'
+        className={`whitespace-nowrap text-center text-[15px] font-semibold leading-[1.25] md:text-[20px] lg:text-[24px] ${
+          node.accent ? 'text-accent' : 'text-dim-dark'
         }`}
       >
         {node.ko}

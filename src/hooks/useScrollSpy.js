@@ -6,6 +6,22 @@ import { useEffect, useState } from 'react';
  */
 export function useScrollSpy(sectionIds) {
   const [activeId, setActiveId] = useState(null);
+  const [atBottom, setAtBottom] = useState(false);
+
+  /* 마지막 섹션(푸터)은 짧아서 가시 비율로는 활성화되지 못함 —
+     페이지 최하단 도달 시 마지막 id를 강제 활성 */
+  useEffect(() => {
+    const onScroll = () => {
+      setAtBottom(window.innerHeight + Math.ceil(window.scrollY) >= document.documentElement.scrollHeight - 2);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
 
   useEffect(() => {
     const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
@@ -33,5 +49,5 @@ export function useScrollSpy(sectionIds) {
     return () => observer.disconnect();
   }, [sectionIds]);
 
-  return activeId;
+  return atBottom ? sectionIds[sectionIds.length - 1] : activeId;
 }

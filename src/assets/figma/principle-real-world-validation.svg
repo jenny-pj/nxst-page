@@ -1,0 +1,26 @@
+<svg width="240" height="200" viewBox="0 0 240 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_72_250)">
+<path d="M95.5 140C55.5 131.6 14.8333 131.5 -0.5 132.5V199.5H240.5V174.5C208.833 166.5 135.5 148.4 95.5 140Z" fill="url(#paint0_linear_72_250)"/>
+<path d="M130.5 167C101.3 177.4 30.6667 184 -1 186V202H240.5V147C216 149.333 159.7 156.6 130.5 167Z" fill="url(#paint1_linear_72_250)"/>
+<circle cx="119.996" cy="75.4257" r="43.8298" stroke="#E3E9F2" stroke-width="0.851064" stroke-dasharray="3.4 3.4"/>
+<circle cx="119.996" cy="75.4256" r="56.5957" stroke="#E3E9F2" stroke-width="0.851064"/>
+<path d="M146.571 63.0728L114.074 95.5698L93.6128 75.1089L100.834 67.8872L114.074 81.1265L139.349 55.8511L146.571 63.0728Z" fill="#E3E9F2"/>
+<line x1="120.421" y1="15" x2="120.421" y2="21.8085" stroke="#E3E9F2" stroke-width="0.851064"/>
+<line x1="120.421" y1="128.191" x2="120.421" y2="135" stroke="#E3E9F2" stroke-width="0.851064"/>
+<line x1="180" y1="75.4211" x2="173.191" y2="75.4211" stroke="#E3E9F2" stroke-width="0.851064"/>
+<line x1="66.8085" y1="75.4211" x2="60" y2="75.4211" stroke="#E3E9F2" stroke-width="0.851064"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_72_250" x1="120" y1="132.069" x2="120" y2="173" gradientUnits="userSpaceOnUse">
+<stop stop-color="#CDD8E6"/>
+<stop offset="1" stop-color="#E1EAF2"/>
+</linearGradient>
+<linearGradient id="paint1_linear_72_250" x1="119.75" y1="147" x2="119.75" y2="202" gradientUnits="userSpaceOnUse">
+<stop stop-color="#CDD8E6"/>
+<stop offset="1" stop-color="#E1EAF2"/>
+</linearGradient>
+<clipPath id="clip0_72_250">
+<rect width="240" height="200" fill="white"/>
+</clipPath>
+</defs>
+</svg>

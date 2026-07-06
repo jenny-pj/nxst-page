@@ -69,6 +69,25 @@ export default function ResearchAreas() {
             <img src={ringInner} alt="" aria-hidden="true" className="absolute left-1/2 top-1/2 h-[400px] w-[702px] max-w-none -translate-x-1/2 -translate-y-1/2 opacity-10" />
             {/* 궤도 라인 */}
             <img src={orbitUnion} alt="" aria-hidden="true" className="absolute left-1/2 top-1/2 h-[542px] w-[943px] max-w-none -translate-x-1/2 -translate-y-1/2" />
+            {/* 궤도 스윕 — 궤도 SVG를 마스크로 쓰고 액센트 하이라이트가 시계방향으로 순회 */}
+            <div
+              aria-hidden="true"
+              className="absolute left-1/2 top-1/2 h-[542px] w-[943px] max-w-none -translate-x-1/2 -translate-y-1/2"
+              style={{
+                maskImage: `url(${orbitUnion})`,
+                maskSize: '100% 100%',
+                WebkitMaskImage: `url(${orbitUnion})`,
+                WebkitMaskSize: '100% 100%',
+              }}
+            >
+              <div
+                className="absolute left-1/2 top-1/2 size-[1100px] -translate-x-1/2 -translate-y-1/2 motion-safe:animate-[ringSpin_9s_linear_infinite]"
+                style={{
+                  background:
+                    'conic-gradient(from 0deg, transparent 0deg, var(--color-accent) 45deg, transparent 90deg)',
+                }}
+              />
+            </div>
             {/* 허브 글로우 + 라벨 */}
             <div
               aria-hidden="true"

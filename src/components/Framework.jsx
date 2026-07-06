@@ -27,6 +27,7 @@ function LayerSlab({ stroke, fillOpacity }) {
         d="M1205.5 1V122L1166.5 144.517H1V23.5167L40 1H1205.5ZM1 23.5167H1166.5M1166.5 144.517V23.5167M1166.5 23.5167L1205.5 1"
         stroke={stroke}
         strokeWidth="2"
+        vectorEffect="non-scaling-stroke"
       />
     </svg>
   );
@@ -70,33 +71,34 @@ export default function Framework() {
                       <Chip key={item}>{item}</Chip>
                     ))}
                   </ul>
-                  <p className="shrink-0 self-end pb-3 text-[20px] leading-[1.25] text-ink-dim">{layer.no}</p>
+                  {/* 슬랩 면의 오른쪽 경계는 접힘 때문에 40px 안쪽 — mr로 보정 */}
+                  <p className="mr-6 shrink-0 self-end pb-3 text-[20px] leading-[1.25] text-ink-dim">{layer.no}</p>
                 </div>
               </div>
             </Reveal>
           ))}
         </div>
 
-        {/* 태블릿·모바일: 카드 스택 */}
-        <div className="flex w-full flex-col gap-3 lg:hidden">
+        {/* 태블릿·모바일: 슬랩 스택 — 데스크톱과 같은 직사면체 형태 유지 */}
+        <div className="flex w-full flex-col gap-2 lg:hidden">
           {framework.layers.map((layer, i) => (
             <Reveal key={layer.no} delay={i * 60}>
-              <div
-                className={`rounded-2xl border-2 bg-white/70 p-5 ${
-                  layer.base ? 'border-accent' : layer.terminal ? 'border-ink bg-white' : 'border-line'
-                }`}
-              >
-                <div className="flex items-baseline justify-between gap-3">
-                  <p className={`text-[19px] leading-[1.25] text-ink ${layer.terminal ? 'font-semibold' : 'font-normal'}`}>
-                    {layer.name}
-                  </p>
-                  <p className="text-[14px] text-ink-dim">{layer.no}</p>
+              <div className="relative">
+                <LayerSlab {...SLAB_TONES[i]} />
+                {/* 콘텐츠는 슬랩 면(상단 접힘선 아래) 안쪽에 배치 */}
+                <div className="relative px-5 pb-5 pt-8">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <p className={`text-[19px] leading-[1.25] text-ink ${layer.terminal ? 'font-semibold' : 'font-normal'}`}>
+                      {layer.name}
+                    </p>
+                    <p className="mr-4 text-[14px] text-ink-dim">{layer.no}</p>
+                  </div>
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {layer.items.map((item) => (
+                      <Chip key={item}>{item}</Chip>
+                    ))}
+                  </ul>
                 </div>
-                <ul className="mt-3 flex flex-wrap gap-2">
-                  {layer.items.map((item) => (
-                    <Chip key={item}>{item}</Chip>
-                  ))}
-                </ul>
               </div>
             </Reveal>
           ))}
