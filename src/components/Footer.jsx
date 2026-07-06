@@ -1,12 +1,17 @@
+import { useState } from 'react';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { footer, nav, site } from '../data/copy.js';
+import { footer, nav } from '../data/copy.js';
 import logoWhite from '../assets/figma/logo-white.png';
+import ContactModal from './ContactModal.jsx';
 
 /**
  * FOOTER — Figma 81:407 다크 배너.
  * 헤드라인 + 서브카피 + 카피라이트 (좌) / Contact Us 버튼 (우) / 로고 + 네비 행 (하단).
+ * Contact Us 버튼은 문의 폼 모달을 연다.
  */
 export default function Footer() {
+  const [modalOpen, setModalOpen] = useState(false);
+
   return (
     <footer id="contact" className="scroll-mt-[72px] bg-dark">
       <div className="mx-auto flex max-w-[1440px] flex-col gap-16 px-5 py-16 md:px-[60px] md:py-[100px]">
@@ -21,8 +26,9 @@ export default function Footer() {
             </p>
           </div>
 
-          <a
-            href={`mailto:${site.email}`}
+          <button
+            type="button"
+            onClick={() => setModalOpen(true)}
             className="group inline-flex h-[50px] w-full max-w-[300px] items-center justify-center gap-3 self-start rounded-lg bg-white text-[18px] leading-[1.25] text-ink transition-all duration-300 hover:bg-accent hover:text-white md:text-[20px]"
           >
             {footer.cta}
@@ -34,7 +40,7 @@ export default function Footer() {
             >
               <path d={faArrowRight.icon[4]} />
             </svg>
-          </a>
+          </button>
         </div>
 
         <div className="flex flex-col gap-6 border-t border-white/10 pt-8 md:flex-row md:items-center md:justify-between">
@@ -55,6 +61,8 @@ export default function Footer() {
           </nav>
         </div>
       </div>
+
+      <ContactModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </footer>
   );
 }

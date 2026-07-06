@@ -7,6 +7,17 @@
 - 원인: React 18은 소문자 `fetchpriority` 표기 필요 (camelCase는 React 19부터)
 - 해결: `Hero.jsx`의 img 속성을 `fetchpriority="high"`로 수정
 
+### Contact 내비게이션 하이라이트 미작동 (2026-07-06 발견 → 당일 해결)
+- 증상: navbar에서 Contact 클릭 시 이동은 되나 하이라이트가 Collaboration에 머묾. 페이지 끝까지 스크롤해도 동일.
+- 원인: footer가 짧아 IntersectionObserver 가시 비율 기준으로는 contact 섹션이 collaboration보다 낮게 측정됨
+- 해결: `useScrollSpy`에 `window.scrollY + innerHeight >= scrollHeight - 2` 최하단 감지 추가 → 페이지 끝 도달 시 마지막 id 강제 활성
+
+### Vite CSS 분석 에러 (2026-07-06 발견 → 당일 해결)
+- 증상: `[plugin:vite:css-analysis] ENOENT: ...tmp-connector/connector-bottom-left.svg`
+- 원인: Figma에서 임시 다운로드한 SVG를 `src/` 내부에서 삭제하면, Vite의 CSS 분석 워처가 스테일 참조를 유지함
+- 해결: dev 서버 재시작으로 캐시 초기화
+- 예방: 임시 에셋은 `src/` 외부(scratchpad 등)에서 작업 후 필요한 것만 복사
+
 ## 알려진 한계
 
 - **궤도 다이어그램은 xl(1280px)+ 전용** — 미만 해상도는 카드 그리드 폴백 (Figma 절대좌표 기반이라 축소 시 카드 겹침)

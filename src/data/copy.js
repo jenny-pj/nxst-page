@@ -148,3 +148,32 @@ export const footer = {
   cta: 'Contact Us',
   copyright: '© 2026 nextstud.io. All rights reserved',
 };
+
+/* ── CONTACT FORM (모달) ───────────────────────────────────────── */
+
+export const contactForm = {
+  title: 'Contact Us',
+  sub: '협력·문의 내용을 남겨주시면 확인 후 회신드리겠습니다.',
+  labels: {
+    name: '이름',
+    email: '이메일',
+    organization: '소속 (기관/기업)',
+    topic: '문의 유형',
+    message: '문의 내용',
+  },
+  placeholders: {
+    name: '홍길동',
+    email: 'name@example.com',
+    organization: '소속 기관 또는 기업명',
+    topic: '문의 유형을 선택해주세요',
+    message: '협력 또는 문의하고 싶은 내용을 자유롭게 적어주세요.',
+  },
+  // Collaboration 섹션의 협력 축과 호응하는 유형 구성
+  topics: ['공동연구 협력', '정부 R&D 협력', '기술이전 문의', '데이터 구축·활용 문의', '기타'],
+  submit: '보내기',
+  submitting: '전송 중…',
+  successTitle: '문의가 접수되었습니다',
+  successSub: '남겨주신 내용을 확인한 뒤\n입력하신 이메일로 회신드리겠습니다.',
+  close: '닫기',
+  error: '전송에 실패했습니다. 잠시 후 다시 시도해주세요.',
+};

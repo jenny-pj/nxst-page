@@ -20,4 +20,12 @@ npm run preview      # 빌드 결과 로컬 확인
 
 ## 배포
 
-- Vercel 연동 (CLI: `vercel`). 프리뷰 배포 후 production promote 방식 권장.
+```bash
+npx vercel --prod   # 프로덕션 배포 (jenny-pj Vercel 계정)
+```
+
+- GitHub 저장소: `jenny-pj/nxst-page` (main 브랜치)
+- 프로덕션 URL: https://nxst-page.vercel.app
+- Vercel 프로젝트명: `nxst-page` (팀: `jenny-8405s-projects`)
+- 현재 GitHub 자동 배포 연동 없음 — push 후 수동으로 `vercel --prod` 실행 필요
+- git 인증: `gh auth setup-git`으로 jenny-pj 계정 연결됨 (booo-st와 멀티 계정)

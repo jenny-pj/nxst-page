@@ -31,6 +31,19 @@
 - Contact: 글로우 펄스 + 버튼 리프트·섀도·화살표 슬라이드
 - 데스크톱 브라우저 검증 및 프로덕션 빌드 통과
 
+## 2026-07-06 — Collaboration 섹션 Figma 재현 + contact 내비게이션 수정 + 프로덕션 배포
+
+- Figma MCP로 Collaboration 섹션(노드 79:272) 직접 참조, 곡선 커넥터 SVG 베지어 패스(노드 80:381/384) 재현
+- `@fortawesome/free-solid-svg-icons` 도입 — Collaboration 위성 아이콘 교체 (landmark·industry·graduation-cap·right-left)
+- WhyData 섹션 아이콘과 동일한 비율(scale-75, 160px viewBox) 적용
+- 타이틀 데스크톱 한 줄 표기: `whitespace-nowrap` + `min-width` 전환
+- `useScrollSpy` 개선: 페이지 최하단 감지 추가 → footer(contact) 스크롤 스파이 하이라이트 정상화
+- Footer CTA 버튼 선(line) → `fa-arrow-right` 화살표 아이콘, 호버 이동 모션 추가
+- Footer 네비 글씨 16~20px → 13~14px, 투명도 50% 축소 (실제 상단 navbar와 위계 차별화)
+- `Collaboration 2.jsx` 중복 파일 제거 (iCloud 동기화 사본)
+- light → main fast-forward 머지, Vercel CLI `vercel --prod` 프로덕션 배포 완료
+- 배포 URL: https://nxst-page.vercel.app (commit `301983c`)
+
 ## 2026-07-02 — WhyData 플로우 아이콘 추가 (Figma 시안 업데이트 반영)
 
 - 5개 노드 원 안에 아이콘 삽입: 산업 환경(industry) · 산업 데이터(database, 액센트) · AI 학습(brain) · 추론 및 의사결정(chart-line) · Physical AI(robot)
