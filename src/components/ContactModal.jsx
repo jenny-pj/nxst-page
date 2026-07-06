@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import { faArrowRight, faXmark, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { contactForm } from '../data/copy.js';
 
-/* FormSubmit.co AJAX 엔드포인트 — 첫 제출 시 수신 메일로 활성화 링크가 발송됨 */
-const FORM_ENDPOINT = 'https://formsubmit.co/ajax/jenny@projectg.ai';
+/* 서버리스 프록시(api/contact.js) — 수신 이메일은 서버 환경 변수로만 관리.
+   로컬 dev에서는 vite.config의 프록시가 같은 경로를 FormSubmit으로 중계한다. */
+const FORM_ENDPOINT = '/api/contact';
 
 const INPUT_CLASS =
   'w-full rounded-lg border border-[#dae5ef] bg-white px-4 py-3 text-[15px] leading-[1.5] text-ink placeholder:text-ink/35 transition-colors duration-200 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20';

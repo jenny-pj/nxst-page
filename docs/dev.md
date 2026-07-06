@@ -9,8 +9,17 @@ npm run build        # dist/ 프로덕션 빌드
 npm run preview      # 빌드 결과 로컬 확인
 ```
 
-- Node.js LTS 기준. 환경 변수 없음.
+- Node.js LTS 기준.
 - 현재 작업 브랜치: `light` (main은 다크 버전 보존용)
+
+## 환경 변수
+
+| 변수 | 용도 | 위치 |
+|------|------|------|
+| `CONTACT_EMAIL` | Contact 폼 수신 이메일 | Vercel env (Production/Preview) + 로컬 `.env.local` |
+
+- `.env.local` 예시: `CONTACT_EMAIL=<수신 이메일>` — gitignore 대상, 커밋 금지 (public 저장소)
+- 로컬 dev의 폼 테스트는 vite proxy가 `/api/contact`를 FormSubmit으로 중계
 
 ## Figma 에셋 워크플로
 

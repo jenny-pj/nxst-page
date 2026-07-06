@@ -44,6 +44,15 @@
 - light → main fast-forward 머지, Vercel CLI `vercel --prod` 프로덕션 배포 완료
 - 배포 URL: https://nxst-page.vercel.app (commit `301983c`)
 
+## 2026-07-06 — Contact Us 팝업 폼 도입 + 이메일 비노출 프록시
+
+- Footer의 mailto 링크를 `ContactModal` 팝업 폼으로 교체 (이름·이메일·소속·문의 유형·문의 내용)
+- FormSubmit.co AJAX로 폼 제출을 이메일 전달, 허니팟 스팸 방지 + 성공/실패 상태 UI
+- FormSubmit 도메인별 활성화 이슈 진단·해결 (localhost와 프로덕션 별개 활성화)
+- `/api/contact` Vercel 서버리스 프록시 추가 — 수신 이메일을 `CONTACT_EMAIL` 환경 변수로만 관리 (public 저장소·번들 비노출)
+- 로컬 dev는 vite proxy + `.env.local`로 동일 경로 동작
+- 프로덕션 배포 및 실제 폼 제출 → 메일 수신 확인 (commit `3b17da8` 이후)
+
 ## 2026-07-02 — WhyData 플로우 아이콘 추가 (Figma 시안 업데이트 반영)
 
 - 5개 노드 원 안에 아이콘 삽입: 산업 환경(industry) · 산업 데이터(database, 액센트) · AI 학습(brain) · 추론 및 의사결정(chart-line) · Physical AI(robot)
