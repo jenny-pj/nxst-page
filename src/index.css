@@ -1,5 +1,10 @@
 @import 'tailwindcss';
 
+/* public/은 정적 에셋 폴더 — Tailwind 클래스 스캔 대상에서 제외.
+   (git 브랜치 전환 시 public 파일이 생겼다 사라지면 dev 서버의
+   스캐너 캐시가 삭제된 파일을 계속 참조해 ENOENT 500이 나는 것 방지) */
+@source not "../public";
+
 @theme {
   /* ── 컬러 토큰 — Figma 시안 (다크 네이비 × 라이트 × 블루 액센트) ── */
   --color-dark: #010a12; /* 다크 섹션 배경 */
