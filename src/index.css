@@ -5,6 +5,11 @@
    스캐너 캐시가 삭제된 파일을 계속 참조해 ENOENT 500이 나는 것 방지) */
 @source not "../public";
 
+/* Tailwind v4 기본값은 hover:를 @media (hover: hover)로 감싸 터치 기기에서
+   hover 효과를 전부 배제함 — 이 사이트는 탭으로 hover 효과가 발동돼야 하므로
+   v3 방식(&:hover)으로 복원. (main.jsx의 touchstart 리스너와 한 쌍) */
+@custom-variant hover (&:hover);
+
 @theme {
   /* ── 컬러 토큰 — Figma 시안 (다크 네이비 × 라이트 × 블루 액센트) ── */
   --color-dark: #010a12; /* 다크 섹션 배경 */
