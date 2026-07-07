@@ -1,16 +1,62 @@
-# nextstud.io
+# NEXTSTUDIO (nextstud.io)
 
-> Physics-Grounded Synthetic Data for Physical AI — 제조 현장의 희소한 비정상 데이터를
-> 물리정합 합성데이터로 보완하는 AI 연구기업 (대한민국 경상남도 김해).
+> Industrial Data for Physical AI — 산업 데이터 인프라와 합성데이터 기술을 기반으로,
+> Physical AI를 위한 데이터 기반 기술을 연구하는 연구기업 (대한민국 경상남도 김해).
 
-## 핵심 내용
+Physical AI는 산업 데이터를 이해하는 것에서 시작됩니다. Physical AI의 성능은 모델뿐 아니라,
+산업 데이터를 얼마나 신뢰성 있게 확보하고 활용하는지에 의해 결정됩니다.
 
-- Technology: 3계층 기술 스택 — L1 제조데이터 Data Space, L2 PINN + GAN·Diffusion 생성모델, L3 AI 역량(LLM·VLM, GNAIX 자율제조 에이전트, 오염-강건 이상탐지, 데이터 라벨링)
-- Research: 이상탐지·생성모델·산업적용·도메인적응·데이터 플랫폼 분야 논문 22편 (IEEE TNNLS, Neurocomputing, ICRA, IEEE T-ITS, IEEE TII, Information Sciences 등)
-- News: Berkeley AgentX Competition 2025 'Agent Architecture' 부문 1위 (논문 "Agent-based Autonomous Manufacturing from Planning to Production")
+## 연구 분야 (Research Areas)
+
+산업 데이터(Industrial Data)를 중심으로 7개 연구 분야가 유기적으로 연결됩니다.
+
+- 산업 데이터 인프라: 산업 데이터 수집 및 구조화, 데이터 자산화 기반 구축
+- 합성 데이터 (Synthetic Data): 산업 데이터 생성 및 확장, 데이터 다양성 확보
+- Physics-informed AI: 물리 기반 AI 학습, 산업 도메인 지식 반영
+- World Models: 산업 환경 이해 및 예측, 환경 모델링 기술
+- Embodied Intelligence: Physical AI 지능 구조, 현실 환경과의 상호작용
+- Simulation & Digital Twin: 산업 환경 디지털 재현, AI 학습·검증 환경 구축
+- Intelligent Agents: 자율 의사결정, 산업 작업 자동화
+
+## 연구 체계 (Research Framework)
+
+데이터 확보부터 모델 학습, 산업 적용까지 이어지는 5계층 연구 체계.
+
+- L01 Industrial Data: Vision Data, Sensor Data, Process Data
+- L02 Data Engineering: Data Pipeline, Data Processing, Data Quality
+- L03 Synthetic Intelligence: Synthetic Data, Simulation, Digital Twin
+- L04 AI Intelligence: Physics-informed AI, World Models, Embodied Intelligence
+- L05 Physical AI: Intelligent Agents, Industrial Applications
+
+## 핵심 연구 역량 (Core Expertise)
+
+- AI Foundation: LLM, Foundation Models, Vision Language Models
+- Industrial Intelligence: Industrial AI, Data Engineering, Synthetic Data
+- Physical Intelligence: Physics-informed AI, World Models, Embodied Intelligence
+- Computer Vision: Vision AI, Video Analytics, Image Understanding
+- AI Optimization: Edge AI, Model Optimization, AI Deployment
+
+## 연구 철학 (Principles)
+
+새로운 기술보다, 산업 현장에서 지속적으로 활용 가능한 기술을 연구합니다.
+
+- Industrial First: 산업 현장의 문제에서 연구를 시작합니다
+- Data Centric: 산업 데이터를 연구의 중심에 둡니다
+- Research Driven: 연구의 본질을 기반으로 기술을 개발합니다
+- Engineering Oriented: 실제 적용 가능한 기술 구현을 지향합니다
+- Real-world Validation: 현실 환경에서 검증 가능한 AI를 연구합니다
+
+## 협력 (Collaboration)
+
+정부, 산업계, 학계와의 협력을 통해 산업 현장에서 활용 가능한 기술을 연구합니다.
+
+- Government R&D: 국가 전략기술 연구개발, 대형 국가R&D 수행
+- Industry: 산업 현장 공동 연구, 실증 기반 기술 개발
+- Academia: 산학 공동 연구, 기술 검증 및 연구 협력
+- Technology Transfer: 연구성과 확산, 산업 적용 지원
 
 ## 연락처
 
 - Email: jin@nextstud.io
 - Phone: +82 055 320 4132
-- Address: Seongsan Hall 904, 197, Inje-ro, Gimhae-si, Gyeongsangnam-do, Republic of Korea
+- Address: Seongsan Hall 904, 197 Inje-ro, Gimhae-si, Gyeongsangnam-do, Republic of Korea
