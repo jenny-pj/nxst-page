@@ -2,6 +2,20 @@
 
 최신순. 각 항목은 "무엇을, 왜"를 기록한다.
 
+## 2026-07-07 — Tailwind 소스 스캔에서 public/ 제외 (`@source not "../public"`)
+
+- 배경: git 브랜치 전환으로 public 파일이 생겼다 사라지면 Tailwind 스캐너의 프로세스 내 캐시가 삭제된 svg를 계속 참조 → dev 서버 CSS 변환이 ENOENT 500 (재시작 무효, 상세는 issues.md)
+- public/은 정적 에셋(이미지·sitemap·robots 등) 폴더라 Tailwind 클래스가 존재할 수 없음 — 스캔 제외가 안전하고 빌드 결과도 동일 (CSS 해시 불변 확인)
+- 대안 검토: dev 서버 재시작(임시방편, 재발), Vite/Tailwind 버전 업(원인 미해결) — 모두 기각
+
+## 2026-07-07 — SEO/GEO 메타데이터: canonical은 nextstud.io 기준으로 선반영
+
+- canonical·og:url·og:image를 최종 도메인 `https://nextstud.io` 절대 URL로 지정 — 도메인 전환 후 수정 없이 그대로 유효하도록
+- 트레이드오프: 전환 전까지는 og:image 등이 옛 S3 사이트(현재 nextstud.io를 서빙 중)를 가리켜 SNS 미리보기가 깨질 수 있음 — 임시 URL(vercel.app) 기준으로 썼다가 재수정하는 것보다 낫다고 판단
+- 구조화 데이터는 JSON-LD `ResearchOrganization` + `WebSite` 채택 — 연구기업 포지셔닝에 맞는 가장 구체적인 schema.org 타입
+- GEO: `llms.txt`를 현재 사이트 카피(연구 분야·프레임워크·역량·철학·협력) 기준으로 전면 재작성 — 이전 버전은 옛 사이트(GNAIX·논문 실적) 내용이라 AI 검색이 잘못된 정보를 인용할 위험
+- OG 이미지는 화이트 로고 + 다크(#010A12) 배경의 1200×630 단순 구성 — 별도 디자인 없이 sips로 생성, 추후 교체 가능
+
 ## 2026-07-06 — Contact 이메일 비노출: 빌드 env 주입 채택 (서버리스 프록시는 폐기)
 
 - 배경: 저장소가 public이라 수신 이메일을 코드에 하드코딩할 수 없음

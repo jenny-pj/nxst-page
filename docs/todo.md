@@ -3,11 +3,13 @@
 ## 할 일
 
 - [ ] 모바일 실기기에서 인터랙션 검수 (reduced-motion 포함 — 데스크톱은 2026-07-02 검증 완료)
-- [ ] `light` 브랜치 커밋 (리뉴얼 + 인터랙션)
-- [ ] 파비콘(`/favicon.svg`) 존재 확인 및 신규 로고 반영
-- [ ] OG 이미지 제작·적용
-- [ ] Vercel 프리뷰 배포 → 확인 후 production
 - [ ] 실기기 모바일 QA (iOS Safari 스크롤 성능)
+- [ ] **nextstud.io 도메인 DNS를 Vercel로 전환** — 현재 옛 S3/CloudFront 사이트(2025-08 빌드)가 서빙 중. 전환 전까지 검색엔진은 옛 사이트를 색인함 (2026-07-07 발견)
+- [ ] 도메인 전환 후 Google Search Console 등록 + sitemap.xml 제출
+- [x] `light` 브랜치 커밋 (리뉴얼 + 인터랙션) — 2026-07-06 완료
+- [x] 파비콘 신규 로고 반영 — 2026-07-07 완료 (`favicon.ico` + `apple-touch-icon.png`)
+- [x] OG 이미지 제작·적용 — 2026-07-07 완료 (`og.png` 1200×630, 화이트 로고 + 다크 배경)
+- [x] Vercel production 배포 — 2026-07-06~07 완료 (수동 `npx vercel deploy --prod` 플로)
 
 ## 안 하기로 한 것
 

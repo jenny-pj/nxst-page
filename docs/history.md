@@ -73,3 +73,14 @@
 - 5개 노드 원 안에 아이콘 삽입: 산업 환경(industry) · 산업 데이터(database, 액센트) · AI 학습(brain) · 추론 및 의사결정(chart-line) · Physical AI(robot)
 - Figma SVG에서 아이콘 패스만 추출해 인라인 SVG(`currentColor`)로 구현 — 기존 CSS 원의 펄스·호버 인터랙션 유지, 호버 시 아이콘도 글로우 색으로 전환
 - `copy.js` flow 항목에 `icon` 키 추가
+
+## 2026-07-07 — 파비콘 교체 + SEO/GEO 최적화 (commit 0de4e48, 7455901)
+
+- 파비콘을 신규 로고 `favicon.ico`(256px)로 교체, 구 placeholder `favicon.svg` 삭제. ico에서 추출해 `apple-touch-icon.png`(180×180) 생성
+- `index.html` 메타 강화: canonical, theme-color, og:image·og:locale, Twitter Card, JSON-LD 구조화 데이터(`ResearchOrganization` + `WebSite`)
+- `og.png`(1200×630, 화이트 로고 + 다크 배경) 생성, `sitemap.xml` 신규, `robots.txt`에 Sitemap 등록
+- `llms.txt`를 현재 사이트 카피 기준으로 전면 재작성 (구버전은 옛 사이트 내용) — AI 검색(GEO) 대응
+- 페이지 컨텐츠·스타일 변경 없음 (JS/CSS 번들 해시 동일 확인)
+- **발견**: nextstud.io 도메인이 아직 옛 S3/CloudFront 사이트(2025-08)를 서빙 중 — DNS를 Vercel로 전환해야 SEO 설정이 실도메인에서 효력 (todo 등록)
+- dev 서버 ENOENT 500 근본 해결: Tailwind 스캔에서 public/ 제외 (`@source not "../public"`, 상세는 issues.md/decisions.md)
+- production 배포 및 검증 완료 (파비콘·og·sitemap·robots·llms 모두 200, 메타 태그 반영 확인)

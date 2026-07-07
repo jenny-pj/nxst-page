@@ -30,6 +30,12 @@
 - 해결: 프록시 폐기, 브라우저 직접 호출 + 빌드 env(`VITE_CONTACT_FORM_ID`) 주입으로 전환
 - 교훈: FormSubmit은 서버 경유 불가 — 반드시 방문자 브라우저에서 직접 호출
 
+### Vite CSS 분석 ENOENT 재발 — 근본 원인은 Tailwind의 public/ 스캔 (2026-07-07 발견 → 당일 해결)
+- 증상: `[plugin:vite:css-analysis] ENOENT: ...public/favicon.svg` — dev 서버 재시작 후에도 재발
+- 원인: Tailwind v4가 클래스 자동 감지를 위해 `public/`까지 스캔하며 `addWatchFile`로 등록 → `vite:css-analysis`가 등록된 svg 파일 내용을 읽음(`fileToDevUrl`). 배포 플로의 `git checkout main`(구 트리)으로 favicon.svg가 잠깐 되살아났다 사라지면, 프로세스 내 스캐너 캐시가 삭제된 파일을 계속 참조해 매 CSS 변환이 500
+- 해결: `src/index.css`에 `@source not "../public";` 추가 — public/은 정적 에셋 폴더라 스캔 불필요. 빌드 산출물 해시 동일(스타일 영향 0) 확인
+- 참고: 2026-07-06의 동일 증상(connector svg) 이슈는 "재시작으로 해결"이라 기록했으나 임시방편이었음 — 이 항목이 근본 원인·해결에 해당. 파일 생성→삭제 재현 테스트 및 실제 배포 중 브랜치 전환에서 재발 없음 검증 완료
+
 ## 알려진 한계
 
 - **궤도 다이어그램은 xl(1280px)+ 전용** — 미만 해상도는 카드 그리드 폴백 (Figma 절대좌표 기반이라 축소 시 카드 겹침)

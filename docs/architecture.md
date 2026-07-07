@@ -19,9 +19,16 @@
 ## 폴더 구조
 
 ```
+public/                      # 정적 서빙 파일 (Tailwind 스캔 제외 — index.css의 @source not)
+├── favicon.ico              # 파비콘 (신규 로고, 2026-07-07)
+├── apple-touch-icon.png     # iOS 홈 화면 아이콘 (180×180)
+├── og.png                   # SNS 공유 미리보기 (1200×630)
+├── sitemap.xml / robots.txt # 검색엔진 크롤링
+└── llms.txt                 # AI 검색(GEO)용 사이트 요약 — 카피 변경 시 함께 갱신할 것
+
 src/
 ├── App.jsx                  # 섹션 조립 (Hero → WhyData → ResearchAreas → Framework
-│                            #   → Expertise → Principles → Collaboration → Contact → Footer)
+│                            #   → Expertise → Principles → Collaboration → Footer)
 ├── index.css                # Tailwind @theme 토큰 + 전역 스타일 + 모션 키프레임
 ├── data/copy.js             # 전 섹션 카피 단일 소스 (Figma 텍스트 기준)
 ├── assets/figma/            # Figma에서 추출한 에셋 (hero-bg.jpg, logo-white.png, 궤도 SVG/PNG 등)
@@ -34,8 +41,8 @@ src/
 │   ├── Expertise.jsx        # 역량군 카드 5개
 │   ├── Principles.jsx       # 다크 섹션, 01~05 원칙 리스트
 │   ├── Collaboration.jsx    # 협력 파트너 카드 4개
-│   ├── Contact.jsx          # 다크 CTA (이메일 버튼 + 글로우)
-│   ├── Footer.jsx           # 다크 푸터
+│   ├── Footer.jsx           # 다크 푸터 (#contact 앵커, Contact Us 버튼 → 모달)
+│   ├── ContactModal.jsx     # 문의 폼 팝업 (FormSubmit.co AJAX, env 주입 알리아스)
 │   ├── SectionHeader.jsx    # 공통 헤더 (eyebrow 질문 + 타이틀 답, dark 변형)
 │   ├── Reveal.jsx           # IntersectionObserver 진입 모션 (1회, reduced-motion 대응)
 │   └── ScrambleText.jsx     # factory.ai식 영문 디코드 효과 (1회, reduced-motion 대응)
