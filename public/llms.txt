@@ -3,12 +3,14 @@
 > Industrial Data for Physical AI — 산업 데이터 인프라와 합성데이터 기술을 기반으로,
 > Physical AI를 위한 데이터 기반 기술을 연구하는 연구기업 (대한민국 경상남도 김해).
 
-Physical AI는 산업 데이터를 이해하는 것에서 시작됩니다. Physical AI의 성능은 모델뿐 아니라,
-산업 데이터를 얼마나 신뢰성 있게 확보하고 활용하는지에 의해 결정됩니다.
+Physical AI는 산업 데이터를 이해하는 것에서 시작됩니다. 현실을 반영한 산업 데이터가
+Physical AI의 인식과 판단을 만들며, 그 성능은 산업 데이터를 얼마나 신뢰성 있게
+확보하고 활용하는지에 따라 결정됩니다.
 
 ## 연구 분야 (Research Areas)
 
-산업 데이터(Industrial Data)를 중심으로 7개 연구 분야가 유기적으로 연결됩니다.
+산업 데이터(Industrial Data)를 중심으로 7개 연구 분야가 연결될 때
+신뢰할 수 있는 Physical AI가 구현됩니다.
 
 - 산업 데이터 인프라: 산업 데이터 수집 및 구조화, 데이터 자산화 기반 구축
 - 합성 데이터 (Synthetic Data): 산업 데이터 생성 및 확장, 데이터 다양성 확보
@@ -20,7 +22,7 @@ Physical AI는 산업 데이터를 이해하는 것에서 시작됩니다. Physi
 
 ## 연구 체계 (Research Framework)
 
-데이터 확보부터 모델 학습, 산업 적용까지 이어지는 5계층 연구 체계.
+데이터 확보부터 산업 적용까지, 하나의 5계층 연구 체계로 Physical AI를 구현합니다.
 
 - L01 Industrial Data: Vision Data, Sensor Data, Process Data
 - L02 Data Engineering: Data Pipeline, Data Processing, Data Quality
@@ -38,7 +40,7 @@ Physical AI는 산업 데이터를 이해하는 것에서 시작됩니다. Physi
 
 ## 연구 철학 (Principles)
 
-새로운 기술보다, 산업 현장에서 지속적으로 활용 가능한 기술을 연구합니다.
+새로운 기술보다, 산업 현장에서 지속 가능한 기술을 연구합니다.
 
 - Industrial First: 산업 현장의 문제에서 연구를 시작합니다
 - Data Centric: 산업 데이터를 연구의 중심에 둡니다
@@ -48,7 +50,7 @@ Physical AI는 산업 데이터를 이해하는 것에서 시작됩니다. Physi
 
 ## 협력 (Collaboration)
 
-정부, 산업계, 학계와의 협력을 통해 산업 현장에서 활용 가능한 기술을 연구합니다.
+정부·산업계·학계와 함께 현장에서 활용되는 기술을 연구합니다.
 
 - Government R&D: 국가 전략기술 연구개발, 대형 국가R&D 수행
 - Industry: 산업 현장 공동 연구, 실증 기반 기술 개발

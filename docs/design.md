@@ -27,12 +27,12 @@ Figma에 없는 하위 섹션(Expertise·Principles·Collaboration·Contact·Foo
 - 한글 어절 단위 줄바꿈: `word-break: keep-all`
 - 스케일(데스크톱): 히어로 h1 60px / 섹션 타이틀 40px / eyebrow·서포트 24px / 카드 타이틀 24px / 카드 항목 16px
 
-## 카피 (v1/v2 비교 중 — 2026-07-08)
+## 카피 (v2 확정 — 2026-07-10)
 
-- 원칙(v2): **타이틀은 한 호흡**, 핵심 설명은 보조문으로 이관, 의미 유지
-- v2에서 정리된 곳: WhyData(타이틀+보조문)·Research·Framework·Expertise·Principles·Collaboration 타이틀
+- 원칙: **타이틀은 한 호흡**, 핵심 설명은 보조문으로 이관, 의미 유지
+- 적용된 곳: WhyData(타이틀+보조문)·Research·Framework·Expertise·Principles·Collaboration 타이틀
 - 히어로 h1·선언 배너는 사용자 결정으로 **v1 원문 유지**
-- 우하단 임시 토글 버튼으로 v1/v2 전환 비교 가능 (localStorage `copyVersion`, 기본 v2) — 확정 시 토글·v1 제거 예정
+- `copy.js` 단일 소스로 병합 완료 — v1/v2 파일과 토글은 제거됨 (이력은 git 참조)
 
 ## 섹션 패턴
 

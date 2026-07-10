@@ -7,7 +7,6 @@ import Framework from './components/Framework.jsx';
 import Expertise from './components/Expertise.jsx';
 import Principles from './components/Principles.jsx';
 import Collaboration from './components/Collaboration.jsx';
-import CopyVersionToggle from './components/CopyVersionToggle.jsx';
 
 export default function App() {
   return (
@@ -31,7 +30,6 @@ export default function App() {
       </main>
 
       <Footer />
-      <CopyVersionToggle /> {/* 카피 v1/v2 비교용 임시 토글 — 확정 시 제거 */}
     </>
   );
 }

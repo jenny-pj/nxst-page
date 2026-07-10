@@ -109,3 +109,9 @@
 - Vercel API로 배포(dpl_8nUU…)의 업로드 소스를 내려받아 복원 — 복구 빌드 CSS 해시가 업로드된 dist와 일치함을 확인(바이트 단위 동일 검증)
 - `.env.local`의 `VITE_CONTACT_FORM_ID`가 Sensitive 타입이라 `vercel env pull`로 빈 값이 오는 문제 발견 — 배포 번들에서 값 추출해 복구
 - 교훈: `vercel --prod` 전에 반드시 커밋·푸시할 것 (todo 참고)
+
+## 2026-07-10 — 카피 v2 확정, 비교 시스템 제거
+
+- v2 카피(타이틀 한 호흡 원칙)를 `copy.js` 단일 소스로 병합 — 히어로 h1·선언 배너는 v1 원문 유지
+- `copy.v1.js`/`copy.v2.js`/`CopyVersionToggle.jsx` 제거, App 렌더 라인 정리
+- `public/llms.txt`를 확정 카피 기준으로 갱신 (WhyData 보조문·Research·Framework·Principles·Collaboration)
