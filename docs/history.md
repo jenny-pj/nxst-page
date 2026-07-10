@@ -84,3 +84,28 @@
 - **발견**: nextstud.io 도메인이 아직 옛 S3/CloudFront 사이트(2025-08)를 서빙 중 — DNS를 Vercel로 전환해야 SEO 설정이 실도메인에서 효력 (todo 등록)
 - dev 서버 ENOENT 500 근본 해결: Tailwind 스캔에서 public/ 제외 (`@source not "../public"`, 상세는 issues.md/decisions.md)
 - production 배포 및 검증 완료 (파비콘·og·sitemap·robots·llms 모두 200, 메타 태그 반영 확인)
+
+## 2026-07-07 — 모바일 터치에서 hover 효과 발동 (commit c27d1b9)
+
+- 원인 규명: Tailwind v4 기본값이 `hover:` 스타일을 `@media (hover: hover)`로 감싸 터치 전용 기기에서 hover 효과를 전부 배제 (빌드 CSS에서 게이트 확인)
+- `@custom-variant hover (&:hover)`로 v3 방식 복원 (`index.css`) + 빈 `touchstart` 리스너 추가 (`main.jsx`, iOS Safari 탭-호버 활성화 트릭)
+- Principles 카드 `focus-visible:` → `focus:` 완화 — 기존 `tabIndex`로 탭하면 열리고 다른 곳 탭하면 닫히는 토글 동작 확보
+- 배포 CSS에서 `@media (hover:hover)` 규칙 0개 검증, 프로덕션 배포 후 실기기 확인 완료
+- push 시 403 발생 — gh 활성 계정(booo-st)과 저장소 소유(jenny-pj) 불일치. jenny-pj 토큰을 일회성 credential로 사용해 해결 (상세는 dev.md)
+
+## 2026-07-08 — 메인 카피 v2 정리 + v1/v2 토글 + 줄간격 확대 (commit 1dfadb2~936fc9d)
+
+- 카피 정리 v2 작성: 섹션 타이틀 6곳을 "타이틀은 한 호흡" 원칙으로 축약 (WhyData 타이틀+보조문, Research, Framework, Expertise, Principles, Collaboration)
+- `copy.js`를 버전 선택기로 전환 — v1 스냅샷(`copy.v1.js`) 보존, v2(`copy.v2.js`)는 변경 키만 재정의. localStorage `copyVersion` 기본 v2, 카피 소비 컴포넌트 8개 무수정
+- 우하단 임시 토글 버튼(`CopyVersionToggle.jsx`)으로 v1/v2 즉시 전환 비교 (확정 시 제거 예정)
+- 줄간격 확대(버전 공통): 히어로 h1 1.25→1.35, 선언 배너 1.3→1.5, 섹션 타이틀 1.25→1.4, 보조문 1.4→1.6, 섹션 헤더 gap 확대
+- 사용자 검토 후 조정: 히어로 h1·선언 배너는 v1 원문 유지로 결정 (v2에서 hero를 v1 re-export)
+- 프로세스: 스펙(`docs/superpowers/specs/`)·구현 계획(`docs/superpowers/plans/`) 문서화 후 태스크별 서브에이전트 구현+리뷰, 최종 전체 리뷰 통과 (빌드·스모크 체크 검증)
+- 미배포 — llms.txt 갱신·토글 제거와 함께 카피 확정 후 배포 예정
+
+## 2026-07-10 — 미커밋 작업분 Vercel 배포 소스에서 복구
+
+- 7/8~7/9 작업(카피 v2 시스템·줄간격 확대)이 다른 컴퓨터에서 커밋 없이 `vercel --prod`로만 배포된 상태였음
+- Vercel API로 배포(dpl_8nUU…)의 업로드 소스를 내려받아 복원 — 복구 빌드 CSS 해시가 업로드된 dist와 일치함을 확인(바이트 단위 동일 검증)
+- `.env.local`의 `VITE_CONTACT_FORM_ID`가 Sensitive 타입이라 `vercel env pull`로 빈 값이 오는 문제 발견 — 배포 번들에서 값 추출해 복구
+- 교훈: `vercel --prod` 전에 반드시 커밋·푸시할 것 (todo 참고)

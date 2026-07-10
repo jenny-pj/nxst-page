@@ -41,7 +41,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-dark/30 via-transparent to-dark" aria-hidden="true" />
 
         <h1
-          className="relative px-5 text-center text-[32px] font-semibold leading-[1.25] text-ink-light md:text-[48px] lg:text-[60px]"
+          className="relative px-5 text-center text-[32px] font-semibold leading-[1.35] text-ink-light md:text-[48px] lg:text-[60px]"
           style={{ textShadow: '0px 0px 20px rgba(0,0,0,0.5)' }}
         >
           {hero.h1.split('\n').map((line, i) => (
@@ -67,7 +67,7 @@ export default function Hero() {
       {/* 선언 배너 */}
       <div className="flex items-center justify-center px-5 py-16 md:px-[60px] md:py-[100px]">
         <Reveal>
-          <p className="whitespace-pre-line text-center text-[17px] font-semibold leading-[1.5] text-ink-light-soft md:text-[30px] md:leading-[1.3]">
+          <p className="whitespace-pre-line text-center text-[17px] font-semibold leading-[1.7] text-ink-light-soft md:text-[30px] md:leading-[1.5]">
             {hero.banner}
           </p>
         </Reveal>

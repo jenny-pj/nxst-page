@@ -6,13 +6,13 @@ import Reveal from './Reveal.jsx';
  */
 export default function SectionHeader({ eyebrow, title, support, dark = false }) {
   return (
-    <div className="flex w-full flex-col items-center gap-6 text-center md:gap-8">
+    <div className="flex w-full flex-col items-center gap-7 text-center md:gap-10">
       <Reveal>
         <p className="text-[17px] font-semibold leading-[1.25] text-accent md:text-[24px]">{eyebrow}</p>
       </Reveal>
       <Reveal delay={80}>
         <h2
-          className={`whitespace-pre-line text-[24px] font-semibold leading-[1.35] md:text-[40px] md:leading-[1.25] ${
+          className={`whitespace-pre-line text-[24px] font-semibold leading-[1.5] md:text-[40px] md:leading-[1.4] ${
             dark ? 'text-ink-light' : 'text-ink'
           }`}
         >
@@ -22,7 +22,7 @@ export default function SectionHeader({ eyebrow, title, support, dark = false })
       {support && (
         <Reveal delay={160}>
           <p
-            className={`whitespace-pre-line text-[15px] leading-[1.6] md:text-[24px] md:leading-[1.4] ${
+            className={`whitespace-pre-line text-[15px] leading-[1.75] md:text-[24px] md:leading-[1.6] ${
               dark ? 'text-dim-dark' : 'text-ink-dim'
             }`}
           >

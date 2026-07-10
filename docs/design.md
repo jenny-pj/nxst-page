@@ -22,9 +22,17 @@ Figma에 없는 하위 섹션(Expertise·Principles·Collaboration·Contact·Foo
 
 ## 타이포그래피
 
-- Pretendard 단일 체계. 전역 자간 -2% (`letter-spacing: -0.02em`), leading 1.25
+- Pretendard 단일 체계. 전역 자간 -2% (`letter-spacing: -0.02em`)
+- 줄간격(2026-07-08 확대 — 텍스트 밀도 완화): 히어로 h1 `1.35` / 선언 배너 `1.5`(모바일 1.7) / 섹션 타이틀 `1.4`(모바일 1.5) / 보조문 `1.6`(모바일 1.75). 섹션 헤더 gap도 `gap-7 md:gap-10`으로 확대
 - 한글 어절 단위 줄바꿈: `word-break: keep-all`
 - 스케일(데스크톱): 히어로 h1 60px / 섹션 타이틀 40px / eyebrow·서포트 24px / 카드 타이틀 24px / 카드 항목 16px
+
+## 카피 (v1/v2 비교 중 — 2026-07-08)
+
+- 원칙(v2): **타이틀은 한 호흡**, 핵심 설명은 보조문으로 이관, 의미 유지
+- v2에서 정리된 곳: WhyData(타이틀+보조문)·Research·Framework·Expertise·Principles·Collaboration 타이틀
+- 히어로 h1·선언 배너는 사용자 결정으로 **v1 원문 유지**
+- 우하단 임시 토글 버튼으로 v1/v2 전환 비교 가능 (localStorage `copyVersion`, 기본 v2) — 확정 시 토글·v1 제거 예정
 
 ## 섹션 패턴
 
@@ -45,3 +53,4 @@ Figma에 없는 하위 섹션(Expertise·Principles·Collaboration·Contact·Foo
 - `Reveal`: IntersectionObserver 페이드+슬라이드(16px/400ms), delay로 스태거
 - `ScrambleText`: 영문 라벨 디코드 효과 (뷰포트 진입 1회)
 - 호버 언어: 카드 리프트(-translate-y) + 액센트 보더 + 소프트 섀도, 네비 언더라인 그로우, 칩 액센트 필
+- 터치 대응 (2026-07-07): hover 변형을 `&:hover`로 복원해 모바일에서 탭 = hover 발동 (스티키 — 다른 곳 탭까지 유지). Principles 카드는 탭 포커스로 열고 닫는 토글. 새 hover 효과도 이 전제로 설계할 것

@@ -3,13 +3,13 @@ import Reveal from './Reveal.jsx';
 import SectionHeader from './SectionHeader.jsx';
 import ScrambleText from './ScrambleText.jsx';
 
-/* 레이어별 슬랩 톤 — L01 액센트 → L05 블랙으로 수렴 (Figma Vector 2~6) */
+/* 레이어별 슬랩 톤 — L01~L04 회색, 종착점 L05만 액센트. 면은 공통 white 50% */
 const SLAB_TONES = [
-  { stroke: '#5183e8', fillOpacity: 0.2 },
-  { stroke: '#d6d6d6', fillOpacity: 0.4 },
-  { stroke: '#d6d6d6', fillOpacity: 0.6 },
-  { stroke: '#d6d6d6', fillOpacity: 0.8 },
-  { stroke: '#010a12', fillOpacity: 1 },
+  { stroke: '#d6d6d6', fillOpacity: 0.5 },
+  { stroke: '#d6d6d6', fillOpacity: 0.5 },
+  { stroke: '#d6d6d6', fillOpacity: 0.5 },
+  { stroke: '#d6d6d6', fillOpacity: 0.5 },
+  { stroke: '#5183e8', fillOpacity: 0.5 },
 ];
 
 /* 등각 레이어 판 — 상단 모서리가 접힌 슬랩 형태 */
