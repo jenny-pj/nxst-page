@@ -33,7 +33,8 @@ export default function Expertise() {
       <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-14 px-5 py-24 md:gap-[80px] md:px-[80px] md:py-[140px]">
         <SectionHeader eyebrow={expertise.eyebrow} title={expertise.title} />
 
-        <ul className="grid w-full grid-cols-1 gap-x-5 gap-y-12 sm:grid-cols-2 lg:grid-cols-5">
+        {/* 5칼럼은 제목이 안전하게 들어가는 xl+에서만 — 그 아래는 3/2/1칼럼 */}
+        <ul className="grid w-full grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
           {expertise.clusters.map((cluster, i) => (
             <Reveal key={cluster.name} as="li" delay={i * 80}>
               <div className="group flex flex-col items-center">
@@ -47,8 +48,8 @@ export default function Expertise() {
                   </svg>
                 </div>
 
-                {/* 역량명 */}
-                <h3 className="mt-6 whitespace-nowrap text-center text-[20px] font-semibold leading-[1.25] text-ink transition-colors duration-300 group-hover:text-accent md:text-[24px]">
+                {/* 역량명 — 좁은 칼럼에서는 2줄 래핑, min-h로 1줄 제목과 칩 시작선 정렬 */}
+                <h3 className="mt-6 flex min-h-[56px] items-center text-center text-[20px] font-semibold leading-[1.25] text-ink transition-colors duration-300 group-hover:text-accent md:text-[22px]">
                   {cluster.name}
                 </h3>
 
