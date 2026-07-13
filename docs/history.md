@@ -115,3 +115,10 @@
 - v2 카피(타이틀 한 호흡 원칙)를 `copy.js` 단일 소스로 병합 — 히어로 h1·선언 배너는 v1 원문 유지
 - `copy.v1.js`/`copy.v2.js`/`CopyVersionToggle.jsx` 제거, App 렌더 라인 정리
 - `public/llms.txt`를 확정 카피 기준으로 갱신 (WhyData 보조문·Research·Framework·Principles·Collaboration)
+
+## 2026-07-13 — 연구 분야·핵심 역량 카피 업데이트
+
+- Research 타이틀 → "Generative Physical AI for Industries" (영문 한 줄)
+- Research 카드: 합성 데이터·Physics-informed AI·Intelligent Agents 세부 항목을 구체 기술 표현으로 교체
+- Core Expertise: AI Foundation·Industrial Intelligence 칩을 실제 역량 명칭으로 교체 (Multi-modal LLM, Industrial Foundation Model, Vision-language-action Model, Industrial Inspection System, Generative model for Industries, Time-series forecasting)
+- llms.txt 동기화

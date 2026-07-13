@@ -64,14 +64,14 @@ export const whyData = {
 
 export const researchAreas = {
   eyebrow: '우리는 무엇을 연구하는가',
-  title: '산업 데이터를 중심으로 연구가 연결될 때\n신뢰할 수 있는 Physical AI가 구현됩니다',
+  title: 'Generative Physical AI for Industries',
   hub: 'Industrial\nData',
   // pos: 1320×700 다이어그램 캔버스 기준 좌표(px) — Figma 배치 그대로
   domains: [
     { name: '산업 데이터 인프라', items: ['산업 데이터 수집 및 구조화', '데이터 자산화 기반 구축'], pos: { x: 510, y: 36, center: true } },
-    { name: '합성 데이터', items: ['산업 데이터 생성 및 확장', '데이터 다양성 확보'], pos: { x: 881, y: 142 } },
-    { name: 'Intelligent Agents', items: ['자율 의사결정', '산업 작업 자동화'], pos: { x: 158, y: 158 } },
-    { name: 'Physics-informed AI', items: ['물리 기반 AI 학습', '산업 도메인 지식 반영'], pos: { x: 922, y: 339 } },
+    { name: '합성 데이터', items: ['물리 정합된 산업 데이터 생성', '단일&다중 모달리티 데이터 품질 고도화'], pos: { x: 881, y: 142 } },
+    { name: 'Intelligent Agents', items: ['AI 기반 이상 탐지 및 대응 Agent', 'AI 기반 공정 최적화'], pos: { x: 158, y: 158 } },
+    { name: 'Physics-informed AI', items: ['물리 정합 AI 모델 구축', '산업 도메인 지식 반영'], pos: { x: 922, y: 339 } },
     { name: 'Embodied Intelligence', items: ['Physical AI 지능 구조', '현실 환경과의 상호작용'], pos: { x: 81, y: 365 } },
     { name: 'Simulation & Digital Twin', items: ['산업 환경 디지털 재현', 'AI 학습·검증 환경 구축'], pos: { x: 743, y: 526 } },
     { name: 'World Models', items: ['산업 환경 이해 및 예측', '환경 모델링 기술'], pos: { x: 331, y: 546 } },
@@ -98,8 +98,8 @@ export const expertise = {
   eyebrow: '핵심 연구 역량',
   title: '산업 데이터를 중심으로\n연구 역량을 융합합니다',
   clusters: [
-    { name: 'AI Foundation', icon: 'brain', items: ['LLM', 'Foundation Models', 'Vision Language Models'] },
-    { name: 'Industrial Intelligence', icon: 'industry', items: ['Industrial AI', 'Data Engineering', 'Synthetic Data'] },
+    { name: 'AI Foundation', icon: 'brain', items: ['Multi-modal LLM', 'Industrial Foundation Model', 'Vision-language-action Model'] },
+    { name: 'Industrial Intelligence', icon: 'industry', items: ['Industrial Inspection System', 'Generative model for Industries', 'Time-series forecasting'] },
     { name: 'Physical Intelligence', icon: 'robot', items: ['Physics-informed AI', 'World Models', 'Embodied Intelligence'] },
     { name: 'Computer Vision', icon: 'eye', items: ['Vision AI', 'Video Analytics', 'Image Understanding'] },
     { name: 'AI Optimization', icon: 'bolt', items: ['Edge AI', 'Model Optimization', 'AI Deployment'] },

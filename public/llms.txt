@@ -9,16 +9,16 @@ Physical AI의 인식과 판단을 만들며, 그 성능은 산업 데이터를 
 
 ## 연구 분야 (Research Areas)
 
-산업 데이터(Industrial Data)를 중심으로 7개 연구 분야가 연결될 때
-신뢰할 수 있는 Physical AI가 구현됩니다.
+Generative Physical AI for Industries — 산업 데이터(Industrial Data)를 중심으로
+7개 연구 분야가 연결됩니다.
 
 - 산업 데이터 인프라: 산업 데이터 수집 및 구조화, 데이터 자산화 기반 구축
-- 합성 데이터 (Synthetic Data): 산업 데이터 생성 및 확장, 데이터 다양성 확보
-- Physics-informed AI: 물리 기반 AI 학습, 산업 도메인 지식 반영
+- 합성 데이터 (Synthetic Data): 물리 정합된 산업 데이터 생성, 단일&다중 모달리티 데이터 품질 고도화
+- Physics-informed AI: 물리 정합 AI 모델 구축, 산업 도메인 지식 반영
 - World Models: 산업 환경 이해 및 예측, 환경 모델링 기술
 - Embodied Intelligence: Physical AI 지능 구조, 현실 환경과의 상호작용
 - Simulation & Digital Twin: 산업 환경 디지털 재현, AI 학습·검증 환경 구축
-- Intelligent Agents: 자율 의사결정, 산업 작업 자동화
+- Intelligent Agents: AI 기반 이상 탐지 및 대응 Agent, AI 기반 공정 최적화
 
 ## 연구 체계 (Research Framework)
 
@@ -32,8 +32,8 @@ Physical AI의 인식과 판단을 만들며, 그 성능은 산업 데이터를 
 
 ## 핵심 연구 역량 (Core Expertise)
 
-- AI Foundation: LLM, Foundation Models, Vision Language Models
-- Industrial Intelligence: Industrial AI, Data Engineering, Synthetic Data
+- AI Foundation: Multi-modal LLM, Industrial Foundation Model, Vision-language-action Model
+- Industrial Intelligence: Industrial Inspection System, Generative model for Industries, Time-series forecasting
 - Physical Intelligence: Physics-informed AI, World Models, Embodied Intelligence
 - Computer Vision: Vision AI, Video Analytics, Image Understanding
 - AI Optimization: Edge AI, Model Optimization, AI Deployment
