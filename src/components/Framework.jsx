@@ -35,7 +35,7 @@ function LayerSlab({ stroke, fillOpacity }) {
 
 function Chip({ children }) {
   return (
-    <li className="rounded-2xl bg-accent-soft px-3 py-2 text-[14px] leading-[1.25] text-accent transition-colors duration-300 hover:bg-accent hover:text-white lg:px-4 lg:py-2.5 lg:text-[18px] xl:text-[22px]">
+    <li className="rounded-2xl bg-accent-soft px-3 py-2 text-[14px] leading-[1.25] text-accent transition-colors duration-300 hover:bg-accent hover:text-white lg:px-4 lg:py-2.5 lg:text-[16px] xl:text-[18px]">
       {children}
     </li>
   );
@@ -55,12 +55,12 @@ export default function Framework() {
         <div className="hidden w-full max-w-[1204px] flex-col gap-1.5 lg:flex">
           {framework.layers.map((layer, i) => (
             <Reveal key={layer.no} delay={i * 80}>
-              <div className="relative h-[144px] w-full transition-all duration-300 hover:-translate-y-1 hover:drop-shadow-[0_10px_24px_rgba(81,131,232,0.15)]">
+              <div className="relative h-[156px] w-full transition-all duration-300 hover:-translate-y-1 hover:drop-shadow-[0_10px_24px_rgba(81,131,232,0.15)]">
                 <LayerSlab {...SLAB_TONES[i]} />
                 {/* 콘텐츠는 슬랩 상단 접힘선(y=23) 아래 배치 */}
                 <div className="absolute inset-x-0 bottom-0 top-[23px] flex items-center gap-6 pl-8 pr-8">
                   <p
-                    className={`w-[340px] shrink-0 text-[26px] leading-[1.25] text-ink xl:text-[32px] ${
+                    className={`w-[340px] shrink-0 text-[24px] leading-[1.25] text-ink xl:text-[28px] ${
                       layer.terminal ? 'font-semibold' : 'font-normal'
                     }`}
                   >
