@@ -84,11 +84,11 @@ export const framework = {
   eyebrow: '우리는 어떻게 연구하는가',
   title: '데이터 확보부터 산업 적용까지,\n하나의 연구 체계로 Physical AI를 구현합니다',
   layers: [
-    { no: 'L01', name: 'Industrial Data', items: ['Vision Data', 'Sensor Data', 'Process Data'], base: true },
-    { no: 'L02', name: 'Data Engineering', items: ['Data Pipeline', 'Data Processing', 'Data Quality'] },
-    { no: 'L03', name: 'Synthetic Intelligence', items: ['Synthetic Data', 'Simulation', 'Digital Twin'] },
-    { no: 'L04', name: 'AI Intelligence', items: ['Physics-informed AI', 'World Models', 'Embodied Intelligence'] },
-    { no: 'L05', name: 'Physical AI', items: ['Intelligent Agents', 'Industrial Applications'], terminal: true },
+    { no: 'L01', name: 'Multimodal Industrial Data', items: ['Vision & Video', 'IoT & Sensor', 'Behavioral Data'], base: true },
+    { no: 'L02', name: 'Trusted Data Ecosystem', items: ['MyData & Commons', 'Privacy & Consent', 'Data Quality'] },
+    { no: 'L03', name: 'Robust Learning Core', items: ['Self-Supervised Learning', 'Domain Adaptation', 'Generative Models'] },
+    { no: 'L04', name: 'Perception & Predictive Intelligence', items: ['Anomaly Detection', 'Spatiotemporal Graph', 'Predictive Modeling'] },
+    { no: 'L05', name: 'Industrial AI Applications', items: ['Inspection & Safety', 'Security & Insider Risk', 'Mobility & Energy'], terminal: true },
   ],
 };
 

@@ -24,11 +24,11 @@ Generative Physical AI for Industries — 산업 데이터(Industrial Data)를 �
 
 데이터 확보부터 산업 적용까지, 하나의 5계층 연구 체계로 Physical AI를 구현합니다.
 
-- L01 Industrial Data: Vision Data, Sensor Data, Process Data
-- L02 Data Engineering: Data Pipeline, Data Processing, Data Quality
-- L03 Synthetic Intelligence: Synthetic Data, Simulation, Digital Twin
-- L04 AI Intelligence: Physics-informed AI, World Models, Embodied Intelligence
-- L05 Physical AI: Intelligent Agents, Industrial Applications
+- L01 Multimodal Industrial Data: Vision & Video, IoT & Sensor, Behavioral Data
+- L02 Trusted Data Ecosystem: MyData & Commons, Privacy & Consent, Data Quality
+- L03 Robust Learning Core: Self-Supervised Learning, Domain Adaptation, Generative Models
+- L04 Perception & Predictive Intelligence: Anomaly Detection, Spatiotemporal Graph, Predictive Modeling
+- L05 Industrial AI Applications: Inspection & Safety, Security & Insider Risk, Mobility & Energy
 
 ## 핵심 연구 역량 (Core Expertise)
 

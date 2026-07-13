@@ -122,3 +122,8 @@
 - Research 카드: 합성 데이터·Physics-informed AI·Intelligent Agents 세부 항목을 구체 기술 표현으로 교체
 - Core Expertise: AI Foundation·Industrial Intelligence 칩을 실제 역량 명칭으로 교체 (Multi-modal LLM, Industrial Foundation Model, Vision-language-action Model, Industrial Inspection System, Generative model for Industries, Time-series forecasting)
 - llms.txt 동기화
+
+## 2026-07-13 — Framework 계층 체계 개편
+
+- L01~L05 계층명·키워드 칩 전면 교체: Multimodal Industrial Data → Trusted Data Ecosystem → Robust Learning Core → Perception & Predictive Intelligence → Industrial AI Applications
+- llms.txt 동기화. 긴 계층명은 슬랩 안에서 2줄 래핑 확인
