@@ -88,7 +88,7 @@ export const framework = {
     { no: 'L02', name: 'Trusted Data Ecosystem', items: ['MyData & Commons', 'Privacy & Consent', 'Data Quality'] },
     { no: 'L03', name: 'Robust Learning Core', items: ['Self-Supervised Learning', 'Domain Adaptation', 'Generative Models'] },
     { no: 'L04', name: 'Perception & Predictive Intelligence', items: ['Anomaly Detection', 'Spatiotemporal Graph', 'Predictive Modeling'] },
-    { no: 'L05', name: 'Industrial AI Applications', items: ['Inspection & Safety', 'Security & Insider Risk', 'Mobility & Energy'], terminal: true },
+    { no: 'L05', name: 'Industrial Physics AI', items: ['Inspection & Safety', 'Security & Insider Risk', 'Mobility & Energy'], terminal: true },
   ],
 };
 
@@ -110,7 +110,7 @@ export const expertise = {
 
 export const principles = {
   eyebrow: '연구 철학',
-  title: '새로운 기술보다,\n산업 현장에서 지속 가능한 기술을 연구합니다',
+  title: '물리 세계와 산업 현장을 이해하는\n지속 가능한 고지능 기술을 연구합니다',
   // Figma 27:321 — 화이트 카드(r16) 상단 2행 타이틀 + 하단 라인 일러스트
   // hover 시 액센트 틴트 워시 + 설명(desc) 페이드인
   items: [
