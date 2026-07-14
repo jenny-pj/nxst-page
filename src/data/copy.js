@@ -20,7 +20,6 @@ export const nav = [
   { id: 'framework', label: 'Framework' },
   { id: 'expertise', label: 'Core Expertise' },
   { id: 'principles', label: 'Principles' },
-  { id: 'collaboration', label: 'Collaboration' },
   { id: 'contact', label: 'Contact' },
 ];
 
@@ -104,6 +103,43 @@ export const expertise = {
     { name: 'Computer Vision', icon: 'eye', items: ['Vision AI', 'Video Analytics', 'Image Understanding'] },
     { name: 'AI Optimization', icon: 'bolt', items: ['Edge AI', 'Model Optimization', 'AI Deployment'] },
   ],
+  // 연구 성과 하이라이트 — Figma 155:1574: 타이틀 + 지표 3종 + 논문 리스트 + 로고 스트립
+  research: {
+    title: '글로벌 연구 협력을 통해\n신뢰할 수 있는 연구 성과를 만들어 갑니다',
+    stats: [
+      { value: '12+', label: 'Peer-reviewed Publications' },
+      { value: '20+', label: 'Global Research Partners' },
+      { value: '10+', label: 'Years of Research Experience' },
+    ],
+    publicationsTitle: '주요 논문 및 협력 기관',
+    publications: [
+      {
+        year: '2026',
+        venue: 'Neurocomputing',
+        title: 'Normality-calibrated autoencoder for unsupervised anomaly detection on data contamination',
+        partners: ['KAIST', 'Harvard Medical School', 'Harvard University'],
+      },
+      {
+        year: '2025',
+        venue: 'Expert Systems with Applications',
+        title: 'From News to Returns: A Granger-Causal Hypergraph Transformer on the Sphere',
+        partners: ['University of Cambridge', 'University of Kent'],
+      },
+      {
+        year: '2025',
+        venue: 'ICCV Workshop',
+        title: 'MagicMask: A Fast and High-fidelity Face Swapping Method Robust to Face Pose',
+        partners: ['University of Cambridge', 'Imperial College London'],
+      },
+      {
+        year: '2024',
+        venue: 'ICCV Workshop',
+        title: 'MagicMask: A Fast and High-fidelity Face Swapping Method Robust to Face Pose',
+        partners: ['University of Cambridge', 'Imperial College London'],
+      },
+    ],
+    caption: '국내외 유수 연구기관과의 지속적인 협력을 통해 연구의 깊이와 영역을 확장하고 있습니다',
+  },
 };
 
 /* ── SECTION · RESEARCH PRINCIPLES ─────────────────────────────── */
@@ -119,20 +155,6 @@ export const principles = {
     { name: 'Research\nDriven', illo: 'research-driven', desc: '연구의 본질을 기반으로 기술을 개발합니다.' },
     { name: 'Engineering\nOriented', illo: 'engineering-oriented', desc: '실제 적용 가능한 기술 구현을 지향합니다.' },
     { name: 'Real-world\nValidation', illo: 'real-world-validation', desc: '현실 환경에서 검증 가능한 AI를 연구합니다.' },
-  ],
-};
-
-/* ── SECTION · COLLABORATION ───────────────────────────────────── */
-
-export const collaboration = {
-  eyebrow: 'Collaboration',
-  title: '정부·산업계·학계와 함께\n현장에서 활용되는 기술을 연구합니다',
-  // Figma 79:268 — 중앙 로고 허브 + 4개 위성 원(아이콘) 방사형 배치
-  partners: [
-    { name: 'Government R&D', icon: 'landmark', side: 'left', items: ['국가 전략기술 연구개발', '대형 국가R&D 수행'] },
-    { name: 'Industry', icon: 'industry', side: 'left', items: ['산업 현장 공동 연구', '실증 기반 기술 개발'] },
-    { name: 'Academia', icon: 'academia', side: 'right', items: ['산학 공동 연구', '기술 검증 및 연구 협력'] },
-    { name: 'Technology Transfer', icon: 'transfer', side: 'right', items: ['연구성과 확산', '산업 적용 지원'] },
   ],
 };
 
@@ -165,7 +187,6 @@ export const contactForm = {
     topic: '문의 유형을 선택해주세요',
     message: '협력 또는 문의하고 싶은 내용을 자유롭게 적어주세요.',
   },
-  // Collaboration 섹션의 협력 축과 호응하는 유형 구성
   topics: ['공동연구 협력', '정부 R&D 협력', '기술이전 문의', '데이터 구축·활용 문의', '기타'],
   submit: '보내기',
   submitting: '전송 중…',

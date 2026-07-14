@@ -1,6 +1,74 @@
+import { useEffect, useRef, useState } from 'react';
 import { expertise } from '../data/copy.js';
 import Reveal from './Reveal.jsx';
 import SectionHeader from './SectionHeader.jsx';
+
+/* 협력 기관 로고 — 스트립 원본(Figma image 2)을 카드 단위로 슬라이스한 11장 */
+const PARTNER_LOGOS = Object.entries(
+  import.meta.glob('../assets/figma/partners/partner-*.png', { eager: true, import: 'default' })
+)
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([, src], i) => ({
+    src,
+    name: [
+      'University of Cambridge',
+      'Harvard Medical School',
+      'Harvard SEAS',
+      'KAIST',
+      'Imperial College London',
+      'GIST',
+      "King's College London",
+      'University of Oxford',
+      'University of Kent',
+      'University of Liverpool',
+      'Mass Eye and Ear',
+    ][i],
+  }));
+
+/* 스크롤 진입 시 0 → 목표값 카운트업 ("12+" → 숫자 12 + 접미사 "+").
+   reduced-motion 시 즉시 최종값 표시. */
+function CountUp({ value, duration = 1600 }) {
+  const [, num, suffix] = value.match(/^(\d+)(.*)$/) ?? [null, '0', ''];
+  const target = parseInt(num, 10);
+  const ref = useRef(null);
+  const [n, setN] = useState(0);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setN(target);
+      return;
+    }
+    let raf;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        io.disconnect();
+        const t0 = performance.now();
+        const tick = (t) => {
+          const p = Math.min((t - t0) / duration, 1);
+          setN(Math.round((1 - Math.pow(1 - p, 3)) * target)); // ease-out cubic
+          if (p < 1) raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+      },
+      { threshold: 0.5 }
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [target, duration]);
+
+  return (
+    <span ref={ref} className="tabular-nums">
+      {n}
+      {suffix}
+    </span>
+  );
+}
 
 /* 원 안 아이콘 — Font Awesome solid 계열 패스, 160×160 좌표계 (WhyData와 동일 체계) */
 const ICON_PATHS = {
@@ -68,6 +136,96 @@ export default function Expertise() {
             </Reveal>
           ))}
         </ul>
+
+        {/* 연구 성과 하이라이트 — Figma 155:1574 */}
+        <div className="flex w-full flex-col items-center gap-14 md:gap-[80px]">
+          <Reveal>
+            <h3 className="whitespace-pre-line text-center text-[24px] font-semibold leading-[1.5] tracking-[-0.02em] text-ink md:text-[40px] md:leading-[1.25]">
+              {expertise.research.title}
+            </h3>
+          </Reveal>
+
+          {/* 핵심 지표 3종 — 액센트 숫자 + 영문 레이블 */}
+          <div className="flex flex-col items-center gap-10 sm:flex-row sm:items-start sm:gap-12 lg:gap-[80px]">
+            {expertise.research.stats.map((stat, i) => (
+              <Reveal key={stat.label} delay={i * 80} className="flex flex-col items-center gap-2">
+                <p className="text-[36px] font-semibold leading-[1.25] tracking-[-0.02em] text-accent md:text-[48px]">
+                  <CountUp value={stat.value} />
+                </p>
+                <p className="text-center text-[16px] leading-[1.5] text-ink md:text-[20px]">{stat.label}</p>
+              </Reveal>
+            ))}
+          </div>
+
+          <div className="flex w-full flex-col items-center gap-8">
+            {/* 논문 리스트 — 연도·게재처 / 논문명 / 협력 기관 칩 3칼럼 */}
+            <div className="w-full">
+              <Reveal>
+                <p className="border-b border-[#d9d9d9] py-4 text-[20px] font-semibold leading-[1.25] text-ink md:text-[24px]">
+                  {expertise.research.publicationsTitle}
+                </p>
+              </Reveal>
+              <ul>
+                {expertise.research.publications.map((pub, i) => (
+                  <Reveal
+                    as="li"
+                    key={`${pub.year}-${pub.title}-${i}`}
+                    delay={i * 60}
+                    className="flex flex-col gap-4 border-b border-[#d9d9d9] py-6 xl:grid xl:grid-cols-[160px_400px_540px] xl:justify-between xl:gap-0"
+                  >
+                    <div className="flex items-baseline gap-3 leading-[1.5] xl:flex-col xl:items-start xl:gap-2">
+                      <p className="text-[16px] font-bold text-ink md:text-[20px]">{pub.year}</p>
+                      <p className="text-[14px] text-ink-dim md:text-[16px]">{pub.venue}</p>
+                    </div>
+                    <p className="text-[16px] leading-[1.5] text-ink md:text-[20px]">{pub.title}</p>
+                    <ul className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                      {pub.partners.map((partner) => (
+                        <li
+                          key={partner}
+                          className="rounded-full border border-ink px-4 py-1 text-[14px] leading-[1.5] text-ink md:text-[17px]"
+                        >
+                          {partner}
+                        </li>
+                      ))}
+                    </ul>
+                  </Reveal>
+                ))}
+              </ul>
+            </div>
+
+            {/* 협력 기관 로고 마퀴 — 동일 세트 2개를 이어 붙여 우→좌 무한 루프.
+                각 세트에 pr(=gap)을 줘 -50% 이동 주기가 정확히 한 세트가 되도록 */}
+            <Reveal className="w-full">
+              <div className="w-full overflow-hidden" role="img" aria-label="협력 기관 로고 — Cambridge, Harvard, KAIST, Imperial, GIST 등">
+                <div className="flex w-max motion-safe:animate-[ticker_40s_linear_infinite]">
+                  {[0, 1].map((copy) => (
+                    <div
+                      key={copy}
+                      aria-hidden={copy === 1}
+                      className="flex items-center gap-[10px] pr-[10px] md:gap-[15px] md:pr-[15px]"
+                    >
+                      {PARTNER_LOGOS.map((logo) => (
+                        <img
+                          key={logo.name}
+                          src={logo.src}
+                          alt={copy === 0 ? logo.name : ''}
+                          loading="lazy"
+                          className="h-[72px] w-auto max-w-none md:h-[111px]"
+                        />
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal>
+              <p className="text-center text-[15px] leading-[1.5] text-ink md:text-[20px]">
+                {expertise.research.caption}
+              </p>
+            </Reveal>
+          </div>
+        </div>
       </div>
     </section>
   );

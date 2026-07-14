@@ -6,7 +6,6 @@ import ResearchAreas from './components/ResearchAreas.jsx';
 import Framework from './components/Framework.jsx';
 import Expertise from './components/Expertise.jsx';
 import Principles from './components/Principles.jsx';
-import Collaboration from './components/Collaboration.jsx';
 
 export default function App() {
   return (
@@ -26,7 +25,6 @@ export default function App() {
         <Framework /> {/* SECTION 04 — 어떻게 연구하는가 */}
         <Expertise /> {/* SECTION 05 — 핵심 연구 역량 */}
         <Principles /> {/* SECTION 06 — 연구 철학 */}
-        <Collaboration /> {/* SECTION 07 — 연구 협력 */}
       </main>
 
       <Footer />
