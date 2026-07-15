@@ -2,13 +2,15 @@ import Reveal from './Reveal.jsx';
 import { hero } from '../data/copy.js';
 import heroBg from '../assets/figma/hero-bg.jpg';
 
-/* 연구 키워드 마퀴 — 동일 리스트 2개를 이어 무한 루프 */
+/* 연구 키워드 마퀴 — 동일 리스트 4개를 이어 무한 루프.
+   리스트 1개(~1900px)가 와이드 화면보다 좁으면 -50% 이동 중 오른쪽이 비므로,
+   4개를 이어 이동 후에도 항상 2개 분량이 화면을 덮게 함 (88s = 기존과 동일 속도) */
 function KeywordTicker() {
   return (
     <div className="overflow-hidden border-y border-white/10 py-4" aria-label="연구 키워드">
-      <div className="flex w-max motion-safe:animate-[ticker_44s_linear_infinite]">
-        {[0, 1].map((dup) => (
-          <ul key={dup} aria-hidden={dup === 1 || undefined} className="flex shrink-0 items-center">
+      <div className="flex w-max motion-safe:animate-[ticker_88s_linear_infinite]">
+        {[0, 1, 2, 3].map((dup) => (
+          <ul key={dup} aria-hidden={dup > 0 || undefined} className="flex shrink-0 items-center">
             {hero.keywords.map((kw) => (
               <li key={kw} className="flex items-center whitespace-nowrap text-[13px] font-medium uppercase tracking-[0.1em] text-dim-dark/80">
                 <span className="px-7">{kw}</span>
@@ -41,7 +43,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-dark/30 via-transparent to-dark" aria-hidden="true" />
 
         <h1
-          className="relative px-5 text-center text-[32px] font-semibold leading-[1.35] text-ink-light md:text-[48px] lg:text-[60px]"
+          className="relative px-5 text-center text-[28px] font-semibold leading-[1.8] text-ink-light md:text-[44px] lg:text-[54px]"
           style={{ textShadow: '0px 0px 20px rgba(0,0,0,0.5)' }}
         >
           {hero.h1.split('\n').map((line, i) => (
@@ -65,9 +67,9 @@ export default function Hero() {
       <KeywordTicker />
 
       {/* 선언 배너 */}
-      <div className="flex items-center justify-center px-5 py-16 md:px-[60px] md:py-[100px]">
+      <div className="flex items-center justify-center px-5 py-20 md:px-[60px] md:py-[140px]">
         <Reveal>
-          <p className="whitespace-pre-line text-center text-[17px] font-semibold leading-[1.7] text-ink-light-soft md:text-[30px] md:leading-[1.5]">
+          <p className="whitespace-pre-line text-center text-[17px] font-semibold leading-[1.8] text-ink-light-soft md:text-[28px] md:leading-[1.7]">
             {hero.banner}
           </p>
         </Reveal>

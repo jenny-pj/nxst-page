@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { expertise } from '../data/copy.js';
+import { Fragment, useEffect, useRef, useState } from 'react';
+import { expertise, framework } from '../data/copy.js';
 import Reveal from './Reveal.jsx';
 import SectionHeader from './SectionHeader.jsx';
 
@@ -70,86 +70,267 @@ function CountUp({ value, duration = 1600 }) {
   );
 }
 
-/* 원 안 아이콘 — Font Awesome solid 계열 패스, 160×160 좌표계 (WhyData와 동일 체계) */
-const ICON_PATHS = {
-  /* Brain — AI Foundation */
-  brain:
-    'M63 55C63 51.1375 66.1375 48 70 48H73C75.2125 48 77 49.7875 77 52V108C77 110.213 75.2125 112 73 112H69C65.275 112 62.1375 109.45 61.25 106C61.1625 106 61.0875 106 61 106C55.475 106 51 101.525 51 96C51 93.75 51.75 91.675 53 90C50.575 88.175 49 85.275 49 82C49 78.1375 51.2 74.775 54.4 73.1125C53.5125 71.6125 53 69.8625 53 68C53 62.475 57.475 58 63 58V55ZM97 55V58C102.525 58 107 62.475 107 68C107 69.875 106.487 71.625 105.6 73.1125C108.812 74.775 111 78.125 111 82C111 85.275 109.425 88.175 107 90C108.25 91.675 109 93.75 109 96C109 101.525 104.525 106 99 106C98.9125 106 98.8375 106 98.75 106C97.8625 109.45 94.725 112 91 112H87C84.7875 112 83 110.213 83 108V52C83 49.7875 84.7875 48 87 48H90C93.8625 48 97 51.1375 97 55Z',
-  /* Industry — Industrial Intelligence */
-  industry:
-    'M52 52C49.7875 52 48 53.7875 48 56V102C48 105.312 50.6875 108 54 108H106C109.312 108 112 105.312 112 102V67.025C112 64.75 109.575 63.3125 107.575 64.3875L88 74.925V67.025C88 64.75 85.575 63.3125 83.575 64.3875L64 74.925V56C64 53.7875 62.2125 52 60 52H52Z',
-  /* Robot — Physical Intelligence */
-  robot:
-    'M84 48C84 45.7875 82.2125 44 80 44C77.7875 44 76 45.7875 76 48V56H64C57.375 56 52 61.375 52 68V96C52 102.625 57.375 108 64 108H96C102.625 108 108 102.625 108 96V68C108 61.375 102.625 56 96 56H84V48ZM60 94C60 92.3375 61.3375 91 63 91H67C68.6625 91 70 92.3375 70 94C70 95.6625 68.6625 97 67 97H63C61.3375 97 60 95.6625 60 94ZM75 94C75 92.3375 76.3375 91 78 91H82C83.6625 91 85 92.3375 85 94C85 95.6625 83.6625 97 82 97H78C76.3375 97 75 95.6625 75 94ZM90 94C90 92.3375 91.3375 91 93 91H97C98.6625 91 100 92.3375 100 94C100 95.6625 98.6625 97 97 97H93C91.3375 97 90 95.6625 90 94ZM68 70C71.3125 70 74 72.6875 74 76C74 79.3125 71.3125 82 68 82C64.6875 82 62 79.3125 62 76C62 72.6875 64.6875 70 68 70ZM86 76C86 72.6875 88.6875 70 92 70C95.3125 70 98 72.6875 98 76C98 79.3125 95.3125 82 92 82C88.6875 82 86 79.3125 86 76ZM48 76C48 73.7875 46.2125 72 44 72C41.7875 72 40 73.7875 40 76V88C40 90.2125 41.7875 92 44 92C46.2125 92 48 90.2125 48 88V76ZM116 72C113.787 72 112 73.7875 112 76V88C112 90.2125 113.787 92 116 92C118.213 92 120 90.2125 120 88V76C120 73.7875 118.213 72 116 72Z',
-  /* Eye (evenodd) — Computer Vision */
-  eye:
-    'M43 80C50 65 63 54 80 54C97 54 110 65 117 80C110 95 97 106 80 106C63 106 50 95 43 80ZM64 80C64 71.2 71.2 64 80 64C88.8 64 96 71.2 96 80C96 88.8 88.8 96 80 96C71.2 96 64 88.8 64 80ZM74 80C74 76.7 76.7 74 80 74C83.3 74 86 76.7 86 80C86 83.3 83.3 86 80 86C76.7 86 74 83.3 74 80Z',
-  /* Lightning Bolt — AI Optimization */
-  bolt: 'M93 48L57 88H79L69 112L103 72H81L93 48Z',
-};
+const LAYER_IDS = [1, 2, 3, 4, 5];
 
-const ICON_FILL_RULE = { eye: 'evenodd' };
+/* L01~L05 파이프라인 축 — 카드 hover 시 해당 레이어 점등 (Framework 레이어명 공유) */
+function LayerAxis({ lit }) {
+  return (
+    <div className="flex w-full items-start justify-center">
+      {LAYER_IDS.map((id, i) => {
+        const on = lit.includes(id);
+        return (
+          <Fragment key={id}>
+            {i > 0 && (
+              <span
+                aria-hidden="true"
+                className={`mt-[13px] h-px w-5 shrink-0 transition-colors duration-200 sm:w-9 md:w-14 ${
+                  lit.includes(id - 1) && on ? 'bg-accent' : 'bg-line'
+                }`}
+              />
+            )}
+            <div className="flex max-w-[190px] flex-col items-center gap-2 px-1.5">
+              <span
+                className={`rounded-full border px-3 py-1 text-[13px] font-semibold tracking-[0.08em] transition-colors duration-200 md:text-[14px] ${
+                  on ? 'border-accent bg-accent text-white' : 'border-line bg-surface text-ink-dim'
+                }`}
+              >
+                L0{id}
+              </span>
+              <span
+                className={`hidden text-center text-[14px] font-medium leading-[1.4] transition-colors duration-200 md:block ${
+                  on ? 'text-accent' : 'text-ink-dim'
+                }`}
+              >
+                {framework.layers[id - 1].name}
+              </span>
+            </div>
+          </Fragment>
+        );
+      })}
+    </div>
+  );
+}
+
+/* 카드 헤더 커버리지 바 — L01~L05 5칸 세그먼트, 매핑된 레이어만 액센트 */
+function CoverageBar({ layers }) {
+  return (
+    <div className="flex items-center gap-1" aria-label={`파이프라인 커버리지 — ${layers.map((l) => `L0${l}`).join(', ')}`}>
+      {LAYER_IDS.map((id) => (
+        <span
+          key={id}
+          title={`L0${id}`}
+          className={`h-[5px] w-6 rounded-full ${layers.includes(id) ? 'bg-accent' : 'bg-line/60'}`}
+        />
+      ))}
+    </div>
+  );
+}
+
+/* 역량 아이템 행 — hover/포커스 시 디테일 펼침, 탭(클릭)으로 열림 고정 (터치 대응) */
+function GroupItem({ item, open, onToggle }) {
+  return (
+    <div
+      role="button"
+      tabIndex={0}
+      aria-expanded={open}
+      onClick={(e) => {
+        // 아이템 자신의 클릭은 document의 '바깥 클릭 닫기'까지 올라가지 않게 — 토글만 수행
+        e.stopPropagation();
+        onToggle();
+      }}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onToggle();
+        }
+      }}
+      className="group/item relative cursor-pointer border-b border-[#e3e9f1] outline-none last:border-b-0"
+    >
+      {/* 왼쪽 액센트 틱 — hover 시 위에서 아래로 펼침 */}
+      <span
+        aria-hidden="true"
+        className={`absolute inset-y-0 left-0 w-0.5 origin-top bg-accent transition-transform duration-200 ${
+          open ? 'scale-y-100' : 'scale-y-0 group-hover/item:scale-y-100 group-focus-visible/item:scale-y-100'
+        }`}
+      />
+      <div
+        className={`flex items-center justify-between gap-3 px-5 py-3.5 transition-colors duration-200 md:px-6 ${
+          open ? 'bg-accent/5' : 'group-hover/item:bg-accent/5'
+        }`}
+      >
+        <span
+          className={`text-[15px] font-medium leading-[1.5] transition-colors duration-200 md:text-[16px] ${
+            open ? 'text-accent' : 'text-ink group-hover/item:text-accent'
+          }`}
+        >
+          {item.name}
+        </span>
+        <span
+          aria-hidden="true"
+          className={`shrink-0 text-[13px] transition-all duration-200 ${
+            open ? 'rotate-90 text-accent' : 'text-ink-dim group-hover/item:text-accent'
+          }`}
+        >
+          ▸
+        </span>
+      </div>
+      {/* 디테일 펼침 — hover 시 150ms 지연 후 천천히 펼침(스치듯 지나갈 땐 안 열림), 닫힘도 500ms로 완만하게 */}
+      <div
+        className={`overflow-hidden transition-[max-height,opacity] duration-500 ease-in-out ${
+          open
+            ? 'max-h-[220px] opacity-100'
+            : 'max-h-0 opacity-0 delay-0 group-hover/item:max-h-[220px] group-hover/item:opacity-100 group-hover/item:delay-150'
+        }`}
+      >
+        <p className="px-5 pb-4 text-[14px] leading-[1.65] text-ink-dim md:px-6 md:text-[15px]">{item.detail}</p>
+      </div>
+    </div>
+  );
+}
+
+/* 역량 그룹 카드 — CORE 그룹은 액센트 보더 + 틴트 배경, hover 시 커서 추적 글로우.
+   coverage: 헤더에 L01~L05 커버리지 바 표시, onEnter/onLeave: 축 점등 연동.
+   열림 고정 상태(openKey)는 섹션 전역 — 다른 카드 클릭 시에도 이전 고정이 풀린다 */
+function GroupCard({ group, index, openKey, setOpenKey, coverage = false, onEnter, onLeave }) {
+  const ref = useRef(null);
+
+  const onMouseMove = (e) => {
+    const el = ref.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty('--mx', `${e.clientX - r.left}px`);
+    el.style.setProperty('--my', `${e.clientY - r.top}px`);
+  };
+
+  const isCore = group.badge === 'CORE';
+
+  return (
+    <article
+      ref={ref}
+      onMouseMove={onMouseMove}
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+      className={`group/card relative h-full overflow-hidden rounded-2xl border transition-all duration-300 ${
+        isCore
+          ? 'border-accent bg-accent-soft'
+          : 'border-line bg-surface hover:border-accent/50 hover:shadow-[0_8px_24px_rgba(1,10,18,0.07)]'
+      }`}
+    >
+      {/* 커서 추적 글로우 */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover/card:opacity-100"
+        style={{
+          background:
+            'radial-gradient(340px circle at var(--mx, -200px) var(--my, -200px), rgba(81,131,232,0.08), transparent 65%)',
+        }}
+      />
+
+      <div className="relative border-b border-[#e3e9f1] px-5 pb-4 pt-5 md:px-6 md:pt-6">
+        {/* 상단 행 — 커버리지 바(좌) + CORE 뱃지(우) */}
+        <div className="flex min-h-[28px] flex-wrap items-center justify-between gap-2">
+          {coverage && <CoverageBar layers={group.layers} />}
+          {isCore && (
+            <span className="rounded-full bg-accent px-3 py-1 text-[12px] font-semibold tracking-[0.08em] text-white">
+              CORE
+            </span>
+          )}
+        </div>
+        <h3 className="mt-2 text-[20px] font-semibold leading-[1.4] text-ink md:text-[22px]">{group.name}</h3>
+        <p className="mt-1 text-[14px] leading-[1.5] text-ink-dim md:text-[15px]">{group.cap}</p>
+      </div>
+
+      <div className="relative">
+        {group.items.map((item, i) => {
+          const key = `${index}-${i}`;
+          return (
+            <GroupItem
+              key={item.name}
+              item={item}
+              open={openKey === key}
+              onToggle={() => setOpenKey(openKey === key ? null : key)}
+            />
+          );
+        })}
+      </div>
+    </article>
+  );
+}
 
 /**
  * SECTION 05 — 핵심 연구 역량 (Figma 20:160).
  * 라이트 배경(#f5f7fa) 위 5컬럼 — 72px 원형 아이콘 + 역량명 + 흰색 칩 3개(r16).
  * 원 안 아이콘은 시안에 비어 있어 역량 성격에 맞는 아이콘으로 채움.
  */
+const PUBLICATIONS_COLLAPSED_COUNT = 4;
+
 export default function Expertise() {
+  const [showAllPublications, setShowAllPublications] = useState(false);
+  const [litLayers, setLitLayers] = useState([]); // hover된 카드가 커버하는 레이어 — 축 점등
+  const [openKey, setOpenKey] = useState(null); // 클릭으로 고정된 아이템 ('카드idx-아이템idx') — 전 카드 통틀어 하나만
+
+  // 아이템 바깥 아무 곳이나 클릭하면 고정 해제 — 아이템 클릭은 stopPropagation으로 여기 안 옴
+  useEffect(() => {
+    if (openKey == null) return undefined;
+    const close = () => setOpenKey(null);
+    document.addEventListener('click', close);
+    return () => document.removeEventListener('click', close);
+  }, [openKey]);
+
+  const visiblePublications = showAllPublications
+    ? expertise.research.publications
+    : expertise.research.publications.slice(0, PUBLICATIONS_COLLAPSED_COUNT);
+
   return (
     <section id="expertise" className="bg-bg">
-      <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-14 px-5 py-24 md:gap-[80px] md:px-[80px] md:py-[140px]">
-        <SectionHeader eyebrow={expertise.eyebrow} title={expertise.title} />
+      <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-16 px-5 py-28 md:gap-[100px] md:px-[80px] md:py-[160px]">
+        <SectionHeader tight eyebrow={expertise.eyebrow} title={expertise.title} support={expertise.support} />
 
-        {/* 5칼럼은 제목이 안전하게 들어가는 xl+에서만 — 그 아래는 3/2/1칼럼 */}
-        <ul className="grid w-full grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
-          {expertise.clusters.map((cluster, i) => (
-            <Reveal key={cluster.name} as="li" delay={i * 80}>
-              <div className="group flex flex-col items-center">
-                {/* 원형 아이콘 — 흰 원 + 연블루 보더, 아이콘은 액센트 */}
-                <div
-                  className="flex size-[72px] items-center justify-center rounded-full border-2 border-[#dae5ef] bg-white text-accent transition-all duration-300 group-hover:border-accent group-hover:shadow-[0_8px_24px_rgba(81,131,232,0.2)]"
-                  aria-hidden="true"
-                >
-                  <svg viewBox="0 0 160 160" className="size-full" fill="currentColor">
-                    <path d={ICON_PATHS[cluster.icon]} fillRule={ICON_FILL_RULE[cluster.icon] ?? 'nonzero'} />
-                  </svg>
-                </div>
-
-                {/* 역량명 — 좁은 칼럼에서는 2줄 래핑, min-h로 1줄 제목과 칩 시작선 정렬 */}
-                <h3 className="mt-6 flex min-h-[56px] items-center text-center text-[20px] font-semibold leading-[1.25] text-ink transition-colors duration-300 group-hover:text-accent md:text-[22px]">
-                  {cluster.name}
-                </h3>
-
-                {/* 세부 항목 칩 — 흰색 카드, r16 */}
-                <ul className="mt-8 flex w-full max-w-[240px] flex-col gap-4">
-                  {cluster.items.map((item) => (
-                    <li
-                      key={item}
-                      className="rounded-2xl bg-white px-4 py-4 text-center text-[16px] leading-[1.5] text-ink transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent hover:text-white hover:shadow-[0_8px_20px_rgba(81,131,232,0.25)] md:text-[18px] lg:text-[17px] xl:text-[18px]"
-                    >
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Reveal>
-          ))}
-        </ul>
+        {/* 역량 그룹 카드 2×2 — 아이템 hover/탭 시 디테일 펼침 */}
+        {/* 파이프라인 축 + 역량 그룹 카드 — 카드 hover 시 축의 매핑 레이어 점등 */}
+        <div className="flex w-full flex-col items-center gap-8">
+          <Reveal className="w-full">
+            <LayerAxis lit={litLayers} />
+          </Reveal>
+          {/* row stretch — 디테일 펼침 시 같은 행의 카드도 함께 늘어나 행 바닥선이 정렬 유지 */}
+          <div className="grid w-full max-w-[1060px] grid-cols-1 gap-4 md:grid-cols-2">
+            {expertise.groups.map((group, i) => (
+              <Reveal key={group.name} delay={i * 80} className="h-full">
+                <GroupCard
+                  group={group}
+                  index={i}
+                  openKey={openKey}
+                  setOpenKey={setOpenKey}
+                  coverage
+                  onEnter={() => setLitLayers(group.layers)}
+                  onLeave={() => setLitLayers([])}
+                />
+              </Reveal>
+            ))}
+          </div>
+        </div>
 
         {/* 연구 성과 하이라이트 — Figma 155:1574 */}
         <div className="flex w-full flex-col items-center gap-14 md:gap-[80px]">
-          <Reveal>
-            <h3 className="whitespace-pre-line text-center text-[24px] font-semibold leading-[1.5] tracking-[-0.02em] text-ink md:text-[40px] md:leading-[1.25]">
-              {expertise.research.title}
-            </h3>
-          </Reveal>
+          <div className="flex flex-col items-center gap-8">
+            <Reveal>
+              <h3 className="whitespace-pre-line text-center text-[24px] font-semibold leading-[1.5] tracking-[-0.02em] text-ink md:text-[40px] md:leading-[1.5]">
+                {expertise.research.title}
+              </h3>
+            </Reveal>
+
+            <Reveal delay={80}>
+              <p className="text-center text-[15px] font-medium leading-[1.5] tracking-[-0.3px] text-ink-dim md:text-[24px] md:tracking-[-0.48px]">
+                {expertise.research.caption}
+              </p>
+            </Reveal>
+          </div>
 
           {/* 핵심 지표 3종 — 액센트 숫자 + 영문 레이블 */}
           <div className="flex flex-col items-center gap-10 sm:flex-row sm:items-start sm:gap-12 lg:gap-[80px]">
             {expertise.research.stats.map((stat, i) => (
               <Reveal key={stat.label} delay={i * 80} className="flex flex-col items-center gap-2">
-                <p className="text-[36px] font-semibold leading-[1.25] tracking-[-0.02em] text-accent md:text-[48px]">
+                <p className="text-[36px] font-semibold leading-[1.5] tracking-[-0.02em] text-accent md:text-[48px]">
                   <CountUp value={stat.value} />
                 </p>
                 <p className="text-center text-[16px] leading-[1.5] text-ink md:text-[20px]">{stat.label}</p>
@@ -161,24 +342,24 @@ export default function Expertise() {
             {/* 논문 리스트 — 연도·게재처 / 논문명 / 협력 기관 칩 3칼럼 */}
             <div className="w-full">
               <Reveal>
-                <p className="border-b border-[#d9d9d9] py-4 text-[20px] font-semibold leading-[1.25] text-ink md:text-[24px]">
+                <p className="border-b border-[#d9d9d9] py-4 text-[20px] font-semibold leading-[1.5] text-ink md:text-[24px]">
                   {expertise.research.publicationsTitle}
                 </p>
               </Reveal>
               <ul>
-                {expertise.research.publications.map((pub, i) => (
+                {visiblePublications.map((pub, i) => (
                   <Reveal
                     as="li"
                     key={`${pub.year}-${pub.title}-${i}`}
                     delay={i * 60}
-                    className="flex flex-col gap-4 border-b border-[#d9d9d9] py-6 xl:grid xl:grid-cols-[160px_400px_540px] xl:justify-between xl:gap-0"
+                    className="flex flex-col gap-4 border-b border-[#d9d9d9] py-6 xl:grid xl:grid-cols-[160px_400px_1fr] xl:items-start xl:gap-x-10"
                   >
-                    <div className="flex items-baseline gap-3 leading-[1.5] xl:flex-col xl:items-start xl:gap-2">
+                    <div className="flex min-w-0 items-baseline gap-3 leading-[1.5] xl:flex-col xl:items-start xl:gap-2">
                       <p className="text-[16px] font-bold text-ink md:text-[20px]">{pub.year}</p>
                       <p className="text-[14px] text-ink-dim md:text-[16px]">{pub.venue}</p>
                     </div>
-                    <p className="text-[16px] leading-[1.5] text-ink md:text-[20px]">{pub.title}</p>
-                    <ul className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                    <p className="min-w-0 text-[16px] leading-[1.5] text-ink md:text-[20px]">{pub.title}</p>
+                    <ul className="flex min-w-0 flex-wrap items-center gap-x-4 gap-y-2">
                       {pub.partners.map((partner) => (
                         <li
                           key={partner}
@@ -191,6 +372,17 @@ export default function Expertise() {
                   </Reveal>
                 ))}
               </ul>
+              {expertise.research.publications.length > PUBLICATIONS_COLLAPSED_COUNT && (
+                <Reveal className="flex justify-center">
+                  <button
+                    type="button"
+                    onClick={() => setShowAllPublications((v) => !v)}
+                    className="mt-8 text-[15px] font-medium leading-[1.5] text-accent transition-colors duration-300 hover:text-ink md:text-[17px]"
+                  >
+                    {showAllPublications ? '− 간략히 보기' : '+ 논문 더보기'}
+                  </button>
+                </Reveal>
+              )}
             </div>
 
             {/* 협력 기관 로고 마퀴 — 동일 세트 2개를 이어 붙여 우→좌 무한 루프.
@@ -217,12 +409,6 @@ export default function Expertise() {
                   ))}
                 </div>
               </div>
-            </Reveal>
-
-            <Reveal>
-              <p className="text-center text-[15px] leading-[1.5] text-ink md:text-[20px]">
-                {expertise.research.caption}
-              </p>
             </Reveal>
           </div>
         </div>

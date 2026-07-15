@@ -127,3 +127,44 @@
 
 - L01~L05 계층명·키워드 칩 전면 교체: Multimodal Industrial Data → Trusted Data Ecosystem → Robust Learning Core → Perception & Predictive Intelligence → Industrial AI Applications
 - llms.txt 동기화. 긴 계층명은 슬랩 안에서 2줄 래핑 확인
+
+## 2026-07-14 — Collaboration 섹션 제거 + 파트너 로고를 Expertise로 통합 (commit 891cdc5)
+
+- `Collaboration.jsx` 삭제, `App.jsx` 렌더 라인 제거
+- `src/assets/figma/partners/partner-01~11.png` 추가 — Expertise 섹션 하단 협력 기관 로고 마퀴(Cambridge·Harvard·KAIST·Imperial College 등 11곳)
+- git push + `vercel --prod` 배포 완료
+
+## 2026-07-15 — 메타 디스크립션 통일
+
+- `index.html`의 meta description / og:description / twitter:description / JSON-LD description 4곳을 "물리 제약 기반 합성데이터 기술로 Physical AI의 데이터 병목을 해결" 문구로 통일
+
+## 2026-07-15 — Hero·WhyData·Research·Framework·Expertise 카피 재작성 + 섹션 여백 확대
+
+- Hero h1("Real-world Scarcity, Synthetic Abundance...")·배너, WhyData eyebrow/title/support, Research 타이틀("Physics-grounded data & Intelligence"), Framework 타이틀, Expertise 타이틀 전면 교체
+- `SectionHeader` eyebrow에 `whitespace-pre-line` 추가, 섹션 헤더 gap 및 섹션 상하 padding 전반 확대(Hero·WhyData·ResearchAreas·Framework·Expertise)
+- 로컬 dev 서버로 렌더링 확인 후 반복 조정
+
+## 2026-07-15 — Framework 슬랩 인터랙티브 리빌드
+
+- 사용자 제공 HTML 목업(`nextstudio-framework-interactive.html`)의 인터랙션을 기존 라이트 톤·슬랩 레이아웃에 이식: 파이프라인 크럼 점등, 호버 시 디테일 펼침(+클릭 고정, 바깥 클릭 시 해제), 슬랩 사이 흐름 커넥터, L03~L05 물리 검증 레일
+- 계층 콘텐츠 갱신: L02 → Trusted Data Infrastructure, L03 → Physics-Grounded Generative Core(CORE 배지), L05 칩 교체 + OUTCOME 배지
+- 반복 조정: 박스 내부 패딩·간격 확대 → 좌우 패딩 원복, 폰트를 모노스페이스에서 사이트 기본(Pretendard)으로 통일, L01~L05 슬랩 너비 동일화(레일을 스택 바깥으로 이동), OUTCOME 보더를 액센트에서 회색으로, 배지를 role 태그와 같은 줄로 이동해 GENERATIVE CORE와 y축 정렬, 크럼-슬랩 간격 축소
+- 미커밋 상태(dev 서버 로컬 확인만 완료) — 커밋·배포는 사용자 후속 요청 시 진행 예정
+
+## 2026-07-15 — Framework 디테일 텍스트 폭 확장 + Principles 5원칙 전면 재작성
+
+- Framework 슬랩의 펼침 디테일 텍스트를 `max-w-[920px]` → `w-full`로 변경해 슬랩 폭 전체를 채우도록 하고, 슬랩 오른쪽 접힘 보정과 동일한 `mr-6`으로 좌우 여백 균형 확보
+- Principles 5원칙 제목·순서·설명을 전면 교체(Industrial First → Physics Grounded(Core Principle) → Data Centric → Validated, Not Assumed → Research to Deployment), 일러스트를 실제 SVG 시각 내용 기준으로 재매칭
+- 카드 그리드를 CSS Grid에서 flex-wrap(calc 기반 basis)으로 전환 — 5개를 3+2 가운데 정렬로 표시하기 위함
+- Core Principle 배지를 Framework CORE/OUTCOME과 동일한 디자인으로 통일, 각 카드에 `subtitle`(상시 노출 한 줄 선언) 추가, 5번째 원칙 설명 문구 조정, 카드 타이틀 폰트 한 단계 확대
+- Core Principle 배지 전체 대문자화(`CORE PRINCIPLE`), 카드 보더를 Framework L03과 동일한 완전 불투명 액센트로 통일, desc(설명)를 카드 하단에 항상 고정(`flex-1` + `justify-between`)
+
+## 2026-07-15 — 섹션 eyebrow 영문화 + WhyData 플로우 Figma 재동기화 + line-height 150% 전환
+
+- 섹션 eyebrow 4곳 영문 라벨로 교체: Research Areas / Research Framework / Core Expertise / Research Principles
+- Figma Dev Mode MCP로 선택 레이어 재확인 → WhyData 플로우가 5노드 직선 구조에서 6노드 분기/합류 구조(산업 데이터·합성 데이터 분기 후 AI 학습 합류, 각 노드 서브텍스트 추가)로 바뀐 것을 발견해 동기화. 대각선 화살표는 기존 `FlowArrow`에 `angle` prop을 추가해 재사용, 모바일은 순차 나열로 평탄화
+- `leading-[1.25]`를 쓰던 6개 컴포넌트(Framework·ResearchAreas·WhyData·Expertise·Footer·Nav) 전부 `leading-[1.5]`(150%)로 전환
+- 후속 조정: Hero h1 line-height 180%로 확대 후 폰트 크기를 60px→54px(반응형 비례 축소)로 재조정, 선언 배너 문구 정리(NEXTSTUDIO 표기 통일·대시를 괄호로·문단 분리 복원), WhyData eyebrow/support 한 줄 정리, Research Areas 타이틀 Data 대문자화 + 서포트 문구 신규 추가
+- `SectionHeader`에 `tight` prop 추가 — Research 섹션 헤더 gap을 32px로 축소했다가, 이후 Research/Framework/Core Expertise/Principles 4개 섹션 모두 16px(`gap-4`)로 통일
+- WhyData 키워드 마퀴가 와이드 화면에서 중간에 끊기는 버그 발견·수정 (원인·해결은 decisions.md/issues.md 참고)
+- 전 작업 미커밋 — dev 서버 로컬 확인만 완료, 커밋·배포는 사용자 후속 요청 대기

@@ -17,11 +17,11 @@ export default function Footer() {
       <div className="mx-auto flex max-w-[1440px] flex-col gap-16 px-5 py-24 md:px-[60px] md:py-[140px]">
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
           <div className="flex flex-col gap-4">
-            <p className="text-[24px] font-bold leading-[1.25] text-ink-light-soft md:text-[30px]">{footer.headline}</p>
+            <p className="text-[24px] font-bold leading-[1.5] text-ink-light-soft md:text-[30px]">{footer.headline}</p>
             <p className="whitespace-pre-line text-[16px] font-medium leading-[1.5] text-ink-light-soft md:text-[20px]">
               {footer.sub}
             </p>
-            <p className="mt-2 text-[14px] font-medium leading-[1.25] text-ink-light-soft/70 md:text-[16px]">
+            <p className="mt-2 text-[14px] font-medium leading-[1.5] text-ink-light-soft/70 md:text-[16px]">
               {footer.copyright}
             </p>
           </div>
@@ -29,7 +29,7 @@ export default function Footer() {
           <button
             type="button"
             onClick={() => setModalOpen(true)}
-            className="group inline-flex h-[50px] w-full max-w-[300px] items-center justify-center gap-3 self-start rounded-lg bg-white text-[18px] leading-[1.25] text-ink transition-all duration-300 hover:bg-accent hover:text-white md:text-[20px]"
+            className="group inline-flex h-[50px] w-full max-w-[300px] items-center justify-center gap-3 self-start rounded-lg bg-white text-[18px] leading-[1.5] text-ink transition-all duration-300 hover:bg-accent hover:text-white md:text-[20px]"
           >
             {footer.cta}
             <svg
@@ -51,7 +51,7 @@ export default function Footer() {
                 <li key={item.id}>
                   <a
                     href={`#${item.id}`}
-                    className="text-[13px] font-medium leading-[1.25] text-ink-light-soft/50 transition-colors duration-300 hover:text-ink-light-soft md:text-[14px]"
+                    className="text-[13px] font-medium leading-[1.5] text-ink-light-soft/50 transition-colors duration-300 hover:text-ink-light-soft md:text-[14px]"
                   >
                     {item.label}
                   </a>

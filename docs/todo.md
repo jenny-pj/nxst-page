@@ -2,6 +2,8 @@
 
 ## 할 일
 
+- [ ] **2026-07-15 작업분 커밋·배포** — 카피 재작성(Hero/WhyData/Research/Framework/Expertise) + Framework 인터랙티브 리빌드 + Principles 5원칙 전면 재작성(배지·보더·레이아웃) + 섹션 eyebrow 영문화 + WhyData 플로우 분기 구조 개편(Figma 재동기화) + line-height 150% 전환 + 키워드 마퀴 버그 수정 + **Expertise 역량 그룹 카드 전면 교체**(L01~L05 매핑 축·커버리지 바, 섹션 전역 클릭-고정, 서포트 텍스트 추가) — 현재 로컬 dev 서버 확인만 완료, 미커밋
+- [ ] `public/llms.txt`를 2026-07-15 신규 카피 + Framework 계층(L02/L03/L05) + Principles 5원칙 + WhyData 분기 구조 기준으로 갱신, Collaboration 섹션 제거 반영
 - [x] 카피 v2 확정 후 정리 — 2026-07-10 완료 (copy.js 병합, v1/v2/토글 제거, llms.txt 갱신)
 - [ ] 모바일 실기기에서 인터랙션 검수 (reduced-motion 포함 — 데스크톱은 2026-07-02 검증 완료)
 - [ ] 실기기 모바일 QA (iOS Safari 스크롤 성능)

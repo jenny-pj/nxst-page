@@ -41,7 +41,7 @@ export default function Nav() {
               <a
                 href={`#${item.id}`}
                 aria-current={activeId === item.id ? 'true' : undefined}
-                className={`relative text-[16px] font-medium leading-[1.25] transition-colors after:absolute after:-bottom-1.5 after:left-0 after:h-px after:bg-accent after:transition-[width] after:duration-300 xl:text-[18px] ${
+                className={`relative text-[16px] font-medium leading-[1.5] transition-colors after:absolute after:-bottom-1.5 after:left-0 after:h-px after:bg-accent after:transition-[width] after:duration-300 xl:text-[18px] ${
                   activeId === item.id
                     ? 'text-accent after:w-full'
                     : 'text-ink-light-soft after:w-0 hover:text-glow hover:after:w-full'

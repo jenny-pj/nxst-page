@@ -18,10 +18,10 @@ function DomainCard({ domain, absolute = false, index = 0 }) {
         absolute ? '' : 'w-full max-w-[340px]'
       }`}
     >
-      <p className="whitespace-nowrap text-center text-[20px] font-semibold leading-[1.25] text-ink transition-colors duration-300 group-hover:text-accent md:text-[24px]">
+      <p className="whitespace-nowrap text-center text-[20px] font-semibold leading-[1.5] text-ink transition-colors duration-300 group-hover:text-accent md:text-[24px]">
         {domain.name}
       </p>
-      <ul className="flex flex-col items-center gap-1.5 text-[14px] font-semibold leading-[1.25] text-ink-dim md:text-[16px]">
+      <ul className="flex flex-col items-center gap-1.5 text-[14px] font-semibold leading-[1.5] text-ink-dim md:text-[16px]">
         {domain.items.map((item) => (
           <li key={item}>{item}</li>
         ))}
@@ -57,8 +57,8 @@ export default function ResearchAreas() {
       {/* 배경 텍스처 */}
       <img src={sectionTexture} alt="" aria-hidden="true" className="absolute inset-0 size-full object-cover opacity-20" />
 
-      <div className="relative mx-auto flex max-w-[1440px] flex-col items-center gap-14 px-5 py-24 md:gap-[80px] md:px-[60px] md:py-[140px]">
-        <SectionHeader eyebrow={researchAreas.eyebrow} title={researchAreas.title} />
+      <div className="relative mx-auto flex max-w-[1440px] flex-col items-center gap-16 px-5 py-28 md:gap-[100px] md:px-[60px] md:py-[160px]">
+        <SectionHeader tight eyebrow={researchAreas.eyebrow} title={researchAreas.title} support={researchAreas.support} />
 
         {/* 데스크톱: 궤도 다이어그램 */}
         <Reveal className="hidden w-full xl:block">
@@ -93,7 +93,7 @@ export default function ResearchAreas() {
               aria-hidden="true"
               className="absolute left-1/2 top-1/2 h-[177px] w-[290px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-glow/20 blur-[33px] motion-safe:animate-[glowPulse_4.5s_ease-in-out_infinite]"
             />
-            <p className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-pre-line text-center text-[40px] font-semibold leading-[1.25] text-accent">
+            <p className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-pre-line text-center text-[40px] font-semibold leading-[1.5] text-accent">
               <ScrambleText text={researchAreas.hub} duration={900} />
             </p>
 
@@ -108,7 +108,7 @@ export default function ResearchAreas() {
           <div className="flex flex-col items-center gap-6">
             <div className="relative flex h-[160px] w-full items-center justify-center">
               <div aria-hidden="true" className="absolute h-[140px] w-[240px] rounded-full bg-glow/20 blur-[33px]" />
-              <p className="relative whitespace-pre-line text-center text-[28px] font-semibold leading-[1.25] text-accent md:text-[36px]">
+              <p className="relative whitespace-pre-line text-center text-[28px] font-semibold leading-[1.5] text-accent md:text-[36px]">
                 {researchAreas.hub}
               </p>
             </div>
