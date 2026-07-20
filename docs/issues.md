@@ -48,8 +48,15 @@
 - 해결: 복제 개수 2→4, `ticker` 애니메이션 duration 44s→88s(이동 거리 2배 보정)
 - 참고: Expertise 파트너 로고 마퀴도 동일 구조(2-복제)라 초와이드 환경에서 같은 증상이 보이면 동일 처방 적용
 
+### CSS `mask-image`가 조용히 드롭됨 — 따옴표 없는 url() 안의 data URI 홑따옴표 (2026-07-20 발견 → 당일 해결)
+- 증상: ResearchAreas 3D 스택 렌더 위에 계층별 하이라이트 마스크를 씌웠는데, 스크롤해도 어느 계층도 컬러로 드러나지 않고 전부 흑백으로만 보임
+- 원인: Vite 개발 서버가 4KB 미만 SVG를 URL-인코딩 raw data URI로 인라인(`data:image/svg+xml,%3csvg...preserveAspectRatio='none'...`) — 내부에 SVG 자체 속성용 홑따옴표(`'`)가 포함됨. 이를 `mask-image: url(${dataUri})`처럼 따옴표 없이 CSS에 넣으면, 따옴표 없는 `url()` 토큰 안에 홑/쌍따옴표가 나타나는 순간 파싱 오류가 되어 **해당 선언 전체가 조용히 드롭**됨(콘솔 에러 없음). 같은 style 객체의 형제 선언(mask-position, mask-size, mask-mode)은 값 자체엔 따옴표가 없어 정상 적용되었기 때문에, 처음엔 "밝기(luminance) 마스킹으로 반투명하게만 보이는 문제"로 오판해 마스크 fill을 흰색으로 바꾸는 등 잘못된 방향으로 먼저 대응함
+- 진단: Playwright로 실제 dev 서버를 스크롤시켜 스크린샷 비교(계속 흑백) → `img.getAttribute('style')`로 인라인 스타일 문자열을 직접 덤프해 `mask-image` 선언 자체가 통째로 빠져 있는 것을 확인 → 컴포넌트에 임시 `console.log(hl.mask)`를 추가해 런타임 값이 홑따옴표 포함 data URI라는 사실을 최종 확정
+- 해결: `mask-image`/`-webkit-mask-image` 값을 `url("${dataUri}")`로 따옴표를 씌워 감쌈 — Figma가 자체 생성한 참조 코드도 원래 이 형태(`url("${img}")`)로 따옴표를 씌우고 있었는데, 코드를 옮기며 따옴표를 빠뜨린 것이 직접 원인
+- 교훈: Vite/번들러가 반환하는 asset URL(특히 SVG)을 인라인 스타일의 CSS `url()`에 넣을 땐 항상 따옴표로 감쌀 것 — dev 모드 쿼리스트링(`?t=...&import`)이나 소용량 SVG의 특수문자 포함 data URI 인라인 등, 값 자체를 신뢰할 수 없는 경우가 많음
+
 ## 알려진 한계
 
-- **궤도 다이어그램은 xl(1280px)+ 전용** — 미만 해상도는 카드 그리드 폴백 (Figma 절대좌표 기반이라 축소 시 카드 겹침)
-- **이미지 용량** — hero-bg.jpg(553KB), section-texture.jpg(506KB). 추가 최적화 여지 있음 (todo 참고)
+- **Research Areas pin/scrub은 lg(1024px)+ 전용** — 미만 해상도·`prefers-reduced-motion`은 정적 세로 배치 폴백(pin 없이 스택 1장 + 순차 등장). 2026-07-20 궤도 다이어그램 폐기로 기존 "xl 미만 카드 그리드 폴백" 한계는 해소됨
+- **이미지 용량** — hero-bg.jpg(553KB), section-texture.jpg(506KB), research-stack-3d.png(611KB), research-stack-3d-dim.png(201KB). 추가 최적화 여지 있음 (todo 참고)
 - **스크롤 스파이** — WhyData 섹션은 네비 항목이 없어 히어로~WhyData 구간에서 활성 표시 없음 (의도된 동작)

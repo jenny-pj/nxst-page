@@ -161,6 +161,22 @@ section[id] {
   }
 }
 
+/* 계층 간 데이터 흐름 — 아래에서 위로 흐르는 웨이브 아크 */
+@keyframes flowWave {
+  0% {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  35% {
+    opacity: 1;
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: translateY(-7px);
+  }
+}
+
 /* 스크롤 유도 커서 */
 @keyframes scrollBob {
   0%,

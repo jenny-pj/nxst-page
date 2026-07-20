@@ -72,16 +72,84 @@ export const researchAreas = {
   title: 'Physics-grounded Data & Intelligence',
   support:
     '정밀하게 구조화된 실데이터 위에서 물리 정합 생성 모델을 연구하고,\n검증된 합성 데이터로 Physical AI의 학습을 완성합니다',
-  hub: 'Industrial\nData',
-  // pos: 1320×700 다이어그램 캔버스 기준 좌표(px) — Figma 배치 그대로
-  domains: [
-    { name: '산업 데이터 인프라', items: ['산업 데이터 수집 및 구조화', '데이터 자산화 기반 구축'], pos: { x: 510, y: 36, center: true } },
-    { name: '합성 데이터', items: ['물리 정합된 산업 데이터 생성', '단일&다중 모달리티 데이터 품질 고도화'], pos: { x: 881, y: 142 } },
-    { name: 'Intelligent Agents', items: ['AI 기반 이상 탐지 및 대응 Agent', 'AI 기반 공정 최적화'], pos: { x: 158, y: 158 } },
-    { name: 'Physics-informed AI', items: ['물리 정합 AI 모델 구축', '산업 도메인 지식 반영'], pos: { x: 922, y: 339 } },
-    { name: 'Embodied Intelligence', items: ['Physical AI 지능 구조', '현실 환경과의 상호작용'], pos: { x: 81, y: 365 } },
-    { name: 'Simulation & Digital Twin', items: ['산업 환경 디지털 재현', 'AI 학습·검증 환경 구축'], pos: { x: 743, y: 526 } },
-    { name: 'World Models', items: ['산업 환경 이해 및 예측', '환경 모델링 기술'], pos: { x: 331, y: 546 } },
+  // 계층 스택 — 위(System)에서 아래(Foundation)로 배치, flowAfter는 아래→위 공급 흐름
+  layers: [
+    {
+      key: 'system',
+      badge: 'System layer',
+      tone: 'neutral',
+      caption: '현실과 상호작용하는 지능',
+      cards: [
+        { name: 'Intelligent Agents', sub: '지능형 에이전트', desc: '이상 탐지·공정 최적화를 자율 수행하는 인식·판단·행동 구조 연구' },
+        { name: 'Embodied Intelligence', sub: '체화 지능', desc: '물리 환경과의 상호작용 속에서 학습·적응하는 지능 구조 연구' },
+        { name: 'Simulation & Digital Twin', sub: '시뮬레이션 · 디지털 트윈', desc: 'AI 학습·검증을 반복 가능하게 만드는 디지털 실험 환경 연구' },
+      ],
+      flowAfter: { label: '검증된 학습 데이터 공급', tone: 'accent' },
+    },
+    {
+      key: 'synthetic',
+      badge: 'Data layer — synthetic',
+      tone: 'accent',
+      caption: '생성 모델이 만들어낸 학습 데이터',
+      cards: [
+        {
+          name: 'Synthetic Data',
+          sub: '물리 상호작용 합성 데이터 · Physical-interaction Synthetic Data',
+          desc: '장면과 센서값의 외형적 다양성만 늘리는 단순 합성을 넘어, 결과가 발생한 물리적 원인 변수까지 함께 생성하고 검증합니다. 공정 조건·물리 상태·품질 결과가 인과적으로 연결된 데이터를 연구합니다.',
+          accent: true,
+          chips: [
+            { name: '공정 조건', desc: '속도·압력·하중·이송 조건·소재 물성·장비 온도·공구 마모 상태의 파라미터화' },
+            { name: '물리 상태 변수', desc: '접촉력·마찰력·변형량·열분포·진동 스펙트럼·토크·힘/모멘트·표면 상태를 라벨·메타데이터로 포함' },
+            { name: '결과 변수', desc: '품질 판정·불량 유형·이상 징후·공정 편차·장비 이상 가능성과의 인과 연결' },
+            { name: '물리 검증 함수', desc: '에너지 보존·접촉 조건·마찰 모델·열전달 경계조건·진동 응답 범위·재료 변형 한계 기반 사후 검증' },
+          ],
+        },
+      ],
+      flowAfter: { label: '물리 정합 데이터 생성', tone: 'accent' },
+    },
+    {
+      key: 'model',
+      badge: 'Model layer',
+      tone: 'accent',
+      caption: '합성을 구현하는 물리 정합 생성 모델',
+      cards: [
+        {
+          name: 'Physics-informed Learning',
+          sub: '물리 제약 학습 방법론',
+          desc: '지배 방정식과 도메인 지식을 학습 제약으로 부여해, 데이터 희소 조건에서도 물리적으로 타당한 생성·추론을 보장하는 방법론 연구',
+          accent: true,
+          glyph: 'pinn',
+        },
+        {
+          name: 'Physics-aligned Transformer',
+          sub: '멀티모달 시계열 생성',
+          desc: '물리 법칙에 정렬된 트랜스포머로 센서·비전 등 다중 모달리티 시계열 데이터를 생성하는 모델 연구',
+          accent: true,
+          glyph: 'transformer',
+        },
+        {
+          name: 'Physics-informed Diffusion Model',
+          sub: '테이블 데이터 생성',
+          desc: '물리 제약을 반영한 확산 모델로 공정 변수 간 상관관계를 보존하는 테이블 데이터를 생성하는 연구',
+          accent: true,
+          glyph: 'diffusion',
+        },
+      ],
+      flowAfter: { label: '구조화된 실측 데이터 공급', tone: 'neutral' },
+    },
+    {
+      key: 'foundation',
+      badge: 'Data layer — foundation',
+      tone: 'neutral',
+      caption: '모든 연구의 출발점',
+      cards: [
+        {
+          name: 'Industrial Data Infrastructure',
+          sub: '산업 데이터 인프라',
+          desc: '이기종 산업 데이터의 수집·표준화·자산화 체계 연구. 신뢰할 수 있는 합성은 실데이터의 정밀한 구조화에서 시작됩니다.',
+        },
+      ],
+    },
   ],
 };
 

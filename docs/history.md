@@ -168,3 +168,18 @@
 - `SectionHeader`에 `tight` prop 추가 — Research 섹션 헤더 gap을 32px로 축소했다가, 이후 Research/Framework/Core Expertise/Principles 4개 섹션 모두 16px(`gap-4`)로 통일
 - WhyData 키워드 마퀴가 와이드 화면에서 중간에 끊기는 버그 발견·수정 (원인·해결은 decisions.md/issues.md 참고)
 - 전 작업 미커밋 — dev 서버 로컬 확인만 완료, 커밋·배포는 사용자 후속 요청 대기
+
+## 2026-07-15 — 2026-07-15 작업분 커밋·푸시·Vercel 프로덕션 배포 (commit 68b0463)
+
+- 카피 재작성 + Framework/WhyData/Principles 인터랙티브 리빌드 + Expertise 역량 그룹 카드 개편 등 그동안 미커밋 상태였던 작업 17개 파일을 하나의 커밋으로 통합
+- `git push origin light` + `npx vercel --prod` 프로덕션 배포, `www.nextstud.io` 도메인 alias 확인
+
+## 2026-07-20 — Research Areas 섹션: 궤도 다이어그램 → 등각 레이어 스택 전면 리빌드
+
+- Figma 신규 시안(System→Synthetic→Model→Foundation 4계층)에 맞춰 기존 궤도 다이어그램(중심 Industrial Data 공전) 폐기, `copy.js`에 `researchAreas.layers` 데이터 구조 신설
+- 1차: 라이트 배경 + 직접 그린 SVG 아이소메트릭 플레이트로 정적 스택 구현
+- 2차: Figma MCP로 선택 프레임 재확인 → 다크 배경 그라디언트 + 유리질 3D 렌더 이미지 시안으로 확정되어 있어 SVG 플레이트 폐기, Figma 렌더 에셋(밝은/딤 2종)으로 교체 + 섹션 pin/scrub 스크롤 인터랙션 신규 구현(GSAP 없이 기존 sticky+rAF 패턴)
+- 계층 간 흐름 라벨을 화살표에서 위로 흐르는 아크 웨이브 애니메이션(`flowWave`)으로 교체, 다크 글래스 필로 가독성 확보
+- Figma에서 계층별 마스크 이미지가 갱신될 때마다 MCP로 재확인해 동기화(2회) — 최종적으로 하단 판부터 활성 계층까지 컬러가 누적되는 방식으로 확정
+- CSS `mask-image`가 조용히 드롭되는 버그 발견·근본 원인 규명·해결 (Vite SVG data URI의 따옴표 미이스케이프 — 상세는 decisions.md/issues.md)
+- 전 작업 미커밋 — dev 서버 로컬 확인만 완료, 커밋·배포는 사용자 후속 요청 대기

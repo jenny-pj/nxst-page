@@ -39,7 +39,8 @@ src/
 │   ├── Nav.jsx              # 오버레이 네비 (스크롤 시 다크 반투명 전환, scrollspy)
 │   ├── Hero.jsx             # 히어로 + 키워드 마퀴 + 선언 배너
 │   ├── WhyData.jsx          # 플로우 다이어그램 (5노드, 산업 데이터 강조)
-│   ├── ResearchAreas.jsx    # 궤도 다이어그램 (xl+ 절대배치 / 미만 그리드 폴백)
+│   ├── ResearchAreas.jsx    # 등각 레이어 스택(2026-07-20): System→Synthetic→Model→Foundation,
+│   │                        #   스크롤 pin/scrub 전환 + 누적 하이라이트 마스크 + 흐름 웨이브
 │   ├── Framework.jsx        # L01~L05 등각 슬랩 스택 — 인터랙티브(2026-07-15): 파이프라인
 │   │                        #   크럼, 호버/클릭-고정 디테일 펼침, 흐름 커넥터, 물리 검증 레일
 │   ├── Expertise.jsx        # L01~L05 파이프라인 축 + 역량 그룹 카드 2×2(G01~G04, 커버리지 바,

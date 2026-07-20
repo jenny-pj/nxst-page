@@ -2,6 +2,15 @@
 
 최신순. 각 항목은 "무엇을, 왜"를 기록한다.
 
+## 2026-07-20 — Research Areas 섹션: 궤도 다이어그램 → 등각 레이어 스택 + 스크롤 pin/scrub 리빌드
+
+- 배경: 기존 궤도 다이어그램(중심 Industrial Data + 카드 7개 공전)을 Figma 신규 시안(System→Synthetic→Model→Foundation 4계층 아키텍처 다이어그램)으로 전면 교체 요청. 계층 구조를 `copy.js`의 `researchAreas.layers` 배열로 데이터화(orbit용 `domains`/좌표 필드 폐기)
+- 1차 구현은 라이트 배경 + 직접 그린 SVG 아이소메트릭 플레이트(등각 좌표 헬퍼로 큐브·슬랩 렌더)였으나, "figma mcp로 확인해서 스크롤 애니메이션 넣어달라"는 요청에 따라 Figma를 재조회하니 다크 배경(`#010A12→#001625→#2D4C6F` 그라디언트) + 유리질 3D 렌더 이미지 시안으로 확정되어 있어 SVG 플레이트를 폐기하고 Figma 렌더 에셋으로 교체
+- 스크롤 인터랙션: 프로젝트에 GSAP 등 애니메이션 라이브러리가 없어 의존성 추가 없이 기존 `sticky` + rAF 기반 스크롤 진행도(scrub) 패턴(Reveal 컴포넌트와 같은 계열)으로 구현 — 섹션 `h-[380vh]` pin, Foundation→Model→Synthetic→System 순으로 콘텐츠 전환
+- 흐름 웨이브: 계층 간 데이터 공급 라벨(구조화된 실측 데이터 공급 등)을 화살표 아이콘에서 **위로 흐르는 아크 웨이브 애니메이션**(`flowWave` 키프레임, 아크 3개가 위상차를 두고 점멸·상승)으로 교체 — "화살표보다 웨이브/흐름으로 표현해달라"는 요청 반영. 3D 이미지 위 계층 seam에 다크 글래스 필(`bg-dark/70`)로 얹어 가독성 확보(초기엔 흰색 반투명 필이었으나 이미지와 겹쳐 잘 안 보인다는 피드백으로 교체 + y축 10px 하향)
+- **CSS `mask-image` 조용한 드롭 버그**: Figma가 반환하는 마스크 SVG를 Vite가 URL-인코딩 raw data URI로 인라인하는데(`data:image/svg+xml,%3csvg...preserveAspectRatio='none'...`), 내부에 SVG 속성용 홑따옴표가 포함되어 있어 `url(${dataUri})`처럼 따옴표 없이 CSS에 넣으면 파싱 오류로 `mask-image` 선언 전체가 조용히 드롭됨(형제 선언인 mask-position/size는 정상 적용되어 원인 특정이 까다로웠음). `url("${dataUri}")`로 따옴표를 씌워 해결 — 상세 진단 과정은 issues.md 참고
+- 계층 하이라이트 방식: 최초엔 "활성 계층만 컬러, 나머지는 흑백"인 단일 레이어 마스크였으나, "하단 판부터 위로 쭉 컬러로 변하는 게 낫겠다"는 피드백에 따라 Figma에서 마스크를 하단부터 누적되는 도형으로 재수정 확인 → 마스크 SVG 3종(Model/Synthetic/System)을 재다운로드해 누적형으로 교체. 기존 크로스페이드(전 단계 페이드아웃-현 단계 페이드인) 로직은 마스크가 이미 누적형이라 변경 없이 그대로 자연스러운 아래→위 누적 효과를 냄
+
 ## 2026-07-15 — Expertise 섹션: 아이콘 클러스터 그리드 → L01~L05 매핑 역량 그룹 카드로 전면 교체
 
 - 배경: 기존 5칼럼 아이콘 그리드(AI Foundation·Industrial Intelligence 등)가 Framework의 L01~L05 파이프라인과 아무 매핑 관계를 보여주지 못함. 사용자가 제공한 HTML 목업(`nextstudio-core-expertise-interactive.html`)의 `.groups` 구조(G01~G04, 아이템별 hover 상세 펼침)를 이식해 매핑을 시각화하기로 결정

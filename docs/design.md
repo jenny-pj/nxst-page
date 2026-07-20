@@ -52,7 +52,12 @@ Figma에 없는 하위 섹션(Expertise·Principles·Collaboration·Contact·Foo
 
 - **WhyData 플로우(2026-07-15 Figma 재동기화)**: 기존 5노드 단순 직선 플로우 → **6노드 분기/합류 구조**로 개편. 산업 환경 → (산업 데이터 / 합성 데이터로 대각선 분기, 각각 서브텍스트 "Real-World Data Collection"/"Physics-Constrained Synthesis") → AI 학습(서브텍스트 포함, 대각선 합류) → 추론 및 의사결정 → Physical AI. 분기 구간은 `FlowArrow`에 추가한 `angle` prop(CSS `rotate()`)으로 대각선 화살표 2개(±22deg) 구현 — 새 벡터 에셋 없이 기존 화살표 아이콘 재사용. 모바일은 분기 표현이 어려워 `flatFlow`로 순차 나열 평탄화
 - 아이콘: 160px 원 + Figma 시안 아이콘(industry·database·brain·chart-line·robot, FA solid 계열) — 원은 CSS(호버·펄스 유지), 아이콘만 인라인 SVG `currentColor`
-- **Research 궤도**: 중앙 Industrial Data + 글로우 링 PNG + 궤도 SVG, 카드 7개 절대배치(1320×700 캔버스). xl(1280px) 미만은 그리드 폴백
+- **Research Areas 등각 레이어 스택(2026-07-20, Figma 재동기화)**: 기존 궤도 다이어그램(중심 Industrial Data 공전)을 폐기하고, System layer → Data layer(synthetic) → Model layer → Data layer(foundation) 4계층 아키텍처 다이어그램으로 전면 교체. `copy.js`의 `researchAreas.layers` 배열이 단일 소스
+  - 섹션 전체를 다크 배경(`#010A12→#001625→#2D4C6F` 그라디언트)으로 전환, Figma에서 받은 유리질 3D 렌더 이미지(딤 그레이스케일 베이스 + 밝은 컬러 버전) 사용
+  - **스크롤 pin/scrub**: 섹션을 `h-[380vh]` + `sticky top-0`으로 고정하고 rAF 기반 스크롤 진행도 훅(`useScrollProgress`)으로 4단계 진행 — Foundation→Model→Synthetic→System 순으로 오른쪽 콘텐츠(배지→항목 스태거 페이드업)가 전환됨. GSAP 등 라이브러리 없이 기존 `sticky`+rAF 패턴만으로 구현
+  - **누적 하이라이트 마스크**: 딤(그레이스케일) 베이스 위에 밝은 렌더를 계층별 마스크 SVG(CSS `mask-image`)로 오려 얹어 활성 계층을 드러냄. Figma 시안에 맞춰 **하단 판부터 활성 계층까지 누적으로 컬러가 이어지는 방식**(단일 레이어만 밝아지는 방식에서 전환) — 이전 단계 마스크가 페이드아웃, 다음 단계 마스크가 페이드인하는 크로스페이드로 자연스럽게 연결
+  - **흐름 웨이브**: 계층 간 데이터 공급 관계를 화살표 대신 위로 흐르는 아크 웨이브 애니메이션(`flowWave` 키프레임)으로 표현, 라벨 텍스트는 유지. 3D 이미지 위 계층 경계(seam)에 다크 글래스 필(`bg-dark/70`, 이미지와 겹쳐도 가독)로 얹음
+  - 모바일(lg 미만)·`prefers-reduced-motion`: pin 없이 정적 스택 이미지 1장 + 계층 블록이 `Reveal`로 순차 등장하는 세로 배치로 폴백
 - **Framework 슬랩 — 인터랙티브(2026-07-15)**: 등각 판 SVG 인라인 재현은 유지하되 사용자가 제공한 HTML 목업(`nextstudio-framework-interactive.html`)의 인터랙션을 라이트 톤·Pretendard로 이식
   - 헤더 아래 **파이프라인 크럼**(ACQUISITION → SYNTHESIS → VALIDATION → DEPLOYMENT) — 호버 또는 클릭 고정된 슬랩의 stage가 액센트로 점등
   - 슬랩 **호버 시 디테일 펼침**(role 태그·caption·상세 설명 3줄) — **클릭하면 고정**되어 마우스가 떠나도 유지, 다른 슬랩 클릭 시 이전 고정 해제, 슬랩 바깥 클릭 시 전체 해제(`document` click 리스너, 슬랩 클릭은 `stopPropagation`)

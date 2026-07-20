@@ -2,7 +2,8 @@
 
 ## 할 일
 
-- [ ] **2026-07-15 작업분 커밋·배포** — 카피 재작성(Hero/WhyData/Research/Framework/Expertise) + Framework 인터랙티브 리빌드 + Principles 5원칙 전면 재작성(배지·보더·레이아웃) + 섹션 eyebrow 영문화 + WhyData 플로우 분기 구조 개편(Figma 재동기화) + line-height 150% 전환 + 키워드 마퀴 버그 수정 + **Expertise 역량 그룹 카드 전면 교체**(L01~L05 매핑 축·커버리지 바, 섹션 전역 클릭-고정, 서포트 텍스트 추가) — 현재 로컬 dev 서버 확인만 완료, 미커밋
+- [x] **2026-07-15 작업분 커밋·배포** — 카피 재작성(Hero/WhyData/Research/Framework/Expertise) + Framework 인터랙티브 리빌드 + Principles 5원칙 전면 재작성(배지·보더·레이아웃) + 섹션 eyebrow 영문화 + WhyData 플로우 분기 구조 개편(Figma 재동기화) + line-height 150% 전환 + 키워드 마퀴 버그 수정 + Expertise 역량 그룹 카드 전면 교체 — 2026-07-15 완료(commit `68b0463`, push+vercel 프로덕션 배포)
+- [ ] **Research Areas 등각 레이어 스택 커밋·배포** — 궤도 다이어그램 → System/Synthetic/Model/Foundation 4계층 등각 스택 전면 교체, 스크롤 pin/scrub 전환, 누적 하이라이트 마스크, 흐름 웨이브 애니메이션 — 현재 로컬 dev 서버 확인만 완료, 미커밋
 - [ ] `public/llms.txt`를 2026-07-15 신규 카피 + Framework 계층(L02/L03/L05) + Principles 5원칙 + WhyData 분기 구조 기준으로 갱신, Collaboration 섹션 제거 반영
 - [x] 카피 v2 확정 후 정리 — 2026-07-10 완료 (copy.js 병합, v1/v2/토글 제거, llms.txt 갱신)
 - [ ] 모바일 실기기에서 인터랙션 검수 (reduced-motion 포함 — 데스크톱은 2026-07-02 검증 완료)
@@ -23,6 +24,5 @@
 
 ## 고민 중
 
-- 궤도 다이어그램의 태블릿(1024~1280px) 대응 — 현재 xl 미만은 그리드 폴백인데, 스케일 축소 방식도 검토 가능
-- hero-bg/section-texture 추가 최적화 (WebP 변환, 반응형 srcset)
+- hero-bg/section-texture/research-stack-3d 추가 최적화 (WebP 변환, 반응형 srcset) — 3D 렌더 PNG 2장(611KB+201KB) 추가로 필요성 커짐
 - Expertise(화이트) ↔ Principles(다크) 섹션 리듬이 시안 확장으로 적절한지 사용자 확인 필요
