@@ -17,15 +17,15 @@ const N = STACK.length;
 
 /* Figma 하이라이트 마스크 — 딤 베이스 위에 밝은 렌더를 계층 영역만 잘라 얹는다.
    각 마스크는 하단(foundation)부터 해당 단계까지 누적된 도형 — 아래→위로 컬러가 쭉 이어져 보인다.
-   pos/size는 566×750 렌더 좌표 기준 (Figma mask-position/mask-size 그대로) */
+   pos/size는 Figma 551×594 좌표에 데스크톱 확대 배율(1.1×)을 곱한 값 (2026-07-20 이미지 전면 교체 + PC 10% 확대) */
 const HIGHLIGHTS = {
-  foundation: { mask: maskFoundation, pos: '67.5px 447px', size: '438px 202.5px' },
-  model: { mask: maskModel, pos: '74px 343px', size: '420px 302.5px' },
-  synthetic: { mask: maskSynthetic, pos: '74.5px 212.5px', size: '409px 439px' },
-  system: { mask: maskSystem, pos: '74px 189.5px', size: '416px 455.5px' },
+  foundation: { mask: maskFoundation, pos: '65.45px 409.2px', size: '481.8px 222.75px' },
+  model: { mask: maskModel, pos: '65.45px 304.15px', size: '481.8px 327.8px' },
+  synthetic: { mask: maskSynthetic, pos: '65.45px 173.8px', size: '481.8px 458.15px' },
+  system: { mask: maskSystem, pos: '65.45px 117.7px', size: '481.8px 514.25px' },
 };
 
-/* 계층 세로 앵커(컨테이너 비율) — 마스크 중심에서 산출, 흐름 라벨 seam 위치 계산용 */
+/* 계층 세로 앵커(컨테이너 비율) — 흐름 라벨 seam 위치 계산용 (기존 배치 유지) */
 const PLATE_ANCHORS = [0.79, 0.59, 0.39, 0.3];
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
@@ -115,10 +115,10 @@ function StackVisual({ activeIdx, lps }) {
   };
 
   return (
-    <div className="relative h-[600px] w-[400px]">
-      {/* Figma 배치 그대로 — 566×750 렌더를 400×600 박스에 클립 */}
+    <div className="relative h-[660px] w-[440px]">
+      {/* Figma 배치(551×594 → 400×600 클립)에 PC 10% 확대(440×660) 적용 */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute left-1/2 top-[-75px] h-[750px] w-[566px] -translate-x-1/2">
+        <div className="absolute left-[-79.2px] top-0 h-[653.4px] w-[606.1px]">
           <img src={stackDim} alt="" aria-hidden="true" className="pointer-events-none absolute inset-0 size-full max-w-none" />
           {STACK.map((layer, si) => {
             const hl = HIGHLIGHTS[layer.key];
@@ -212,7 +212,7 @@ function PinnedSection() {
           <SectionHeader dark tight eyebrow={researchAreas.eyebrow} title={researchAreas.title} support={researchAreas.support} />
         </div>
 
-        <div className="grid w-full max-w-[1320px] grid-cols-[400px_minmax(0,1fr)] items-center gap-x-10">
+        <div className="grid w-full max-w-[1320px] grid-cols-[440px_minmax(0,1fr)] items-center gap-x-10">
           <StackVisual activeIdx={activeIdx} lps={lps} />
 
           {/* 활성 계층 콘텐츠 — 단계 전환 시 배지→항목 순 스태거 등장 */}
@@ -233,7 +233,7 @@ function StaticSection() {
     <div className="relative mx-auto flex max-w-[1440px] flex-col items-center gap-14 px-5 py-28 md:gap-20 md:px-[60px] md:py-[160px]">
       <SectionHeader dark tight eyebrow={researchAreas.eyebrow} title={researchAreas.title} support={researchAreas.support} />
 
-      <Reveal className="w-full max-w-[380px]">
+      <Reveal className="w-full max-w-[460px] sm:max-w-[540px] md:max-w-[620px]">
         <img src={stackBright} alt="" aria-hidden="true" className="w-full" />
       </Reveal>
 
