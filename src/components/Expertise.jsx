@@ -210,11 +210,7 @@ function GroupCard({ group, index, openKey, setOpenKey, coverage = false, onEnte
       onMouseMove={onMouseMove}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
-      className={`group/card relative h-full overflow-hidden rounded-2xl border transition-all duration-300 ${
-        isCore
-          ? 'border-accent bg-accent-soft'
-          : 'border-line bg-surface hover:border-accent/50 hover:shadow-[0_8px_24px_rgba(1,10,18,0.07)]'
-      }`}
+      className="group/card relative h-full overflow-hidden rounded-2xl border border-line bg-surface transition-all duration-300 hover:border-accent/50 hover:shadow-[0_8px_24px_rgba(1,10,18,0.07)]"
     >
       {/* 커서 추적 글로우 */}
       <div
@@ -236,7 +232,7 @@ function GroupCard({ group, index, openKey, setOpenKey, coverage = false, onEnte
             </span>
           )}
         </div>
-        <h3 className="mt-2 text-[20px] font-semibold leading-[1.4] text-ink md:text-[22px]">{group.name}</h3>
+        <h3 className={`mt-2 text-[20px] font-semibold leading-[1.4] md:text-[22px] ${isCore ? 'text-accent' : 'text-ink'}`}>{group.name}</h3>
         <p className="mt-1 text-[14px] leading-[1.5] text-ink-dim md:text-[15px]">{group.cap}</p>
       </div>
 

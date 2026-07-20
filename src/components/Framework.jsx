@@ -84,8 +84,8 @@ function FlowLabel({ label, lit, className = '' }) {
   );
 }
 
-/* 보더는 CORE(L03)만 액센트 — 나머지는 회색, 점등 시에만 액센트 */
-const slabStroke = (layer, lit) => (lit || layer.core ? '#5183e8' : '#d6d6d6');
+/* 보더는 점등(호버/포커스) 시에만 액센트 — CORE도 다른 슬랩과 동일하게 동작 */
+const slabStroke = (layer, lit) => (lit ? '#5183e8' : '#d6d6d6');
 
 /* 데스크톱 슬랩 — 호버/포커스 시 디테일 펼침, 클릭 시 고정(다른 슬랩 클릭 전까지 유지) */
 function DesktopSlab({ layer, lit, open, onEnter, onLeave, onClick }) {
@@ -127,7 +127,7 @@ function DesktopSlab({ layer, lit, open, onEnter, onLeave, onClick }) {
         </div>
         <div className="flex min-h-[100px] items-center gap-8">
           <div className="w-[360px] shrink-0">
-            <p className={`text-[24px] leading-[1.5] text-ink xl:text-[26px] ${layer.core || layer.terminal ? 'font-semibold' : 'font-normal'}`}>
+            <p className={`text-[24px] leading-[1.5] xl:text-[26px] ${layer.core ? 'text-accent' : 'text-ink'} ${layer.core || layer.terminal ? 'font-semibold' : 'font-normal'}`}>
               <ScrambleText text={layer.name} duration={650} />
             </p>
             <p className="mt-2 text-[15px] leading-[1.5] text-ink-dim">{layer.caption}</p>
@@ -180,7 +180,7 @@ function MobileSlab({ layer, open, onToggle }) {
             <p className="text-[14px] text-ink-dim">{layer.no}</p>
           </div>
         </div>
-        <p className={`mt-2 text-[20px] leading-[1.3] text-ink ${layer.core || layer.terminal ? 'font-semibold' : 'font-normal'}`}>
+        <p className={`mt-2 text-[20px] leading-[1.3] ${layer.core ? 'text-accent' : 'text-ink'} ${layer.core || layer.terminal ? 'font-semibold' : 'font-normal'}`}>
           {layer.name}
         </p>
         <p className="mt-1.5 text-[14px] leading-[1.5] text-ink-dim">{layer.caption}</p>

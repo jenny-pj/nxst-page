@@ -32,13 +32,11 @@ export default function Principles() {
               key={p.illo}
               as="li"
               delay={i * 80}
-              className="h-full w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
+              className={`h-full w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] ${p.core ? 'order-first sm:order-none' : ''}`}
             >
               <div
                 tabIndex={0}
-                className={`group relative flex h-full min-h-[420px] flex-col overflow-hidden rounded-2xl bg-white outline-none transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(81,131,232,0.18)] focus:-translate-y-1 focus:shadow-[0_16px_40px_rgba(81,131,232,0.18)] ${
-                  p.core ? 'border-2 border-accent' : ''
-                }`}
+                className="group relative flex h-full min-h-[420px] flex-col overflow-hidden rounded-2xl bg-white outline-none transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(81,131,232,0.18)] focus:-translate-y-1 focus:shadow-[0_16px_40px_rgba(81,131,232,0.18)]"
               >
                 {/* 액센트 틴트 — 아래에서 은은하게 차오르는 그라데이션 워시 */}
                 <div
@@ -59,7 +57,11 @@ export default function Principles() {
                 <div className="relative flex flex-1 flex-col justify-between px-7 pb-8 pt-7">
                   <div>
                     <div className="flex items-start justify-between gap-3">
-                      <h3 className="whitespace-pre-line text-[26px] font-semibold leading-[1.2] text-ink transition-colors duration-500 group-hover:text-accent group-focus:text-accent md:text-[30px]">
+                      <h3
+                        className={`whitespace-pre-line text-[26px] font-semibold leading-[1.2] transition-colors duration-500 group-hover:text-accent group-focus:text-accent md:text-[30px] ${
+                          p.core ? 'text-accent' : 'text-ink'
+                        }`}
+                      >
                         {p.name}
                       </h3>
                       {p.tag && (
