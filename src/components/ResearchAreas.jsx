@@ -169,37 +169,47 @@ function StackVisual({ activeIdx, lps }) {
 /* 고정 Nav(데스크톱 88px) + 여백 — pin 헤더가 nav 뒤에 가려지지 않도록 항상 확보하는 최소 상단 여백 */
 const NAV_CLEARANCE = 104;
 const BOTTOM_BREATHING = 24;
+const GRID_GAP = 40; // 헤더 ↔ 그리드 사이 gap-10
+const STACK_W = 440;
+const STACK_H = 660;
+/* pin 레이아웃 최소 뷰포트 높이 — nav(104) + 헤더(205) + gap(40) + 최장 계층 패널(429, synthetic)
+   실측 합(≈778)에 여유를 둔 값. 이보다 낮으면 텍스트 원본 크기로는 물리적으로 안 들어가므로
+   StaticSection으로 폴백 (1280×800 노트북까지는 pin 유지) */
+const PIN_MIN_VH = 790;
 
-/* ── 콘텐츠 실측 높이 기준 상단 여백/축소 배율 계산 ──
-   h-screen 고정(스크롤 scrub 수학 유지)은 그대로 두고, 내부 콘텐츠만
-   짧은 뷰포트에서 nav 아래로 밀고 필요시 비율 축소해 겹침·잘림을 막는다. */
-function useFitToViewport(contentRef) {
+/* ── 짧은 뷰포트 대응 — 텍스트는 항상 원본 크기 유지, 3D 스택 이미지만 비율 축소 ──
+   scale은 뷰포트에서 nav·헤더·gap·하단 여백을 뺀 나머지 대비 이미지 높이(660)로 계산.
+   paddingTop은 실측 콘텐츠 높이 기준 중앙 정렬(최소 nav 여백 보장). */
+function useStackFit(contentRef, headerRef) {
   const [fit, setFit] = useState({ paddingTop: NAV_CLEARANCE, scale: 1 });
 
   useEffect(() => {
-    const el = contentRef.current;
-    if (!el) return;
+    const content = contentRef.current;
+    const header = headerRef.current;
+    if (!content || !header) return;
     let raf = 0;
     const update = () => {
       raf = 0;
-      const naturalH = el.offsetHeight;
-      if (!naturalH) return;
       const vh = window.innerHeight;
-      const centered = (vh - naturalH) / 2;
-      const paddingTop = Math.max(NAV_CLEARANCE, centered);
-      const available = vh - paddingTop - BOTTOM_BREATHING;
-      setFit({ paddingTop, scale: Math.min(1, available / naturalH) });
+      const headerH = header.offsetHeight;
+      const scale = Math.min(1, (vh - NAV_CLEARANCE - headerH - GRID_GAP - BOTTOM_BREATHING) / STACK_H);
+      const paddingTop = Math.max(NAV_CLEARANCE, (vh - content.offsetHeight) / 2);
+      setFit((prev) => (prev.scale === scale && prev.paddingTop === paddingTop ? prev : { paddingTop, scale }));
     };
-    const onResize = () => {
+    const schedule = () => {
       if (!raf) raf = requestAnimationFrame(update);
     };
     update();
-    window.addEventListener('resize', onResize);
+    // scale 적용 → 콘텐츠 높이 변화 → paddingTop 재계산까지 ResizeObserver로 수렴
+    const ro = new ResizeObserver(schedule);
+    ro.observe(content);
+    window.addEventListener('resize', schedule);
     return () => {
-      window.removeEventListener('resize', onResize);
+      ro.disconnect();
+      window.removeEventListener('resize', schedule);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, [contentRef]);
+  }, [contentRef, headerRef]);
 
   return fit;
 }
@@ -238,8 +248,9 @@ function useScrollProgress(ref) {
 function PinnedSection() {
   const wrapRef = useRef(null);
   const contentRef = useRef(null);
+  const headerRef = useRef(null);
   const progress = useScrollProgress(wrapRef);
-  const { paddingTop, scale } = useFitToViewport(contentRef);
+  const { paddingTop, scale } = useStackFit(contentRef, headerRef);
 
   // 계층별 로컬 진행도 — 구간의 앞 80%에서 등장, 뒤 20%는 홀드
   const seg = progress * N;
@@ -252,17 +263,18 @@ function PinnedSection() {
         className="sticky top-0 flex h-screen flex-col items-center overflow-hidden px-5 md:px-[60px]"
         style={{ paddingTop }}
       >
-        <div
-          ref={contentRef}
-          className="flex w-full flex-col items-center gap-10"
-          style={{ transform: `scale(${scale})`, transformOrigin: 'top center' }}
-        >
-          <div className="w-full max-w-[1320px]">
+        <div ref={contentRef} className="flex w-full flex-col items-center gap-10">
+          <div ref={headerRef} className="w-full max-w-[1320px]">
             <SectionHeader dark tight eyebrow={researchAreas.eyebrow} title={researchAreas.title} support={researchAreas.support} />
           </div>
 
-          <div className="grid w-full max-w-[1320px] grid-cols-[440px_minmax(0,1fr)] items-center gap-x-10">
-            <StackVisual activeIdx={activeIdx} lps={lps} />
+          <div className="grid w-full max-w-[1320px] grid-cols-[auto_minmax(0,1fr)] items-center gap-x-10">
+            {/* 스택 이미지만 축소 — 래퍼가 축소된 실제 크기를 차지해 그리드가 빈틈없이 붙는다 */}
+            <div style={{ width: STACK_W * scale, height: STACK_H * scale }}>
+              <div style={{ transform: `scale(${scale})`, transformOrigin: 'top left' }}>
+                <StackVisual activeIdx={activeIdx} lps={lps} />
+              </div>
+            </div>
 
             {/* 활성 계층 콘텐츠 — 단계 전환 시 배지→항목 순 스태거 등장 */}
             <div className="self-center pl-[43px] transition-opacity duration-300" style={{ opacity: lps[activeIdx] > 0.02 ? 1 : 0 }}>
@@ -315,6 +327,8 @@ function StaticSection() {
  */
 export default function ResearchAreas() {
   const desktop = useMediaQuery('(min-width: 1024px)');
+  // pin 레이아웃이 원본 텍스트 크기로 들어가지 않는 낮은 뷰포트는 StaticSection으로 폴백
+  const tallEnough = useMediaQuery(`(min-height: ${PIN_MIN_VH}px)`);
   const reduced = usePrefersReducedMotion();
 
   return (
@@ -323,7 +337,7 @@ export default function ResearchAreas() {
       id="research"
       className="relative overflow-x-clip bg-gradient-to-b from-dark via-[#001625] via-60% to-[#2d4c6f]"
     >
-      {desktop && !reduced ? <PinnedSection /> : <StaticSection />}
+      {desktop && tallEnough && !reduced ? <PinnedSection /> : <StaticSection />}
     </section>
   );
 }
