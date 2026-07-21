@@ -131,6 +131,7 @@ function StackVisual({ activeIdx, lps }) {
                 className="pointer-events-none absolute inset-0 size-full max-w-none"
                 style={{
                   opacity: hlOpacity(si),
+                  willChange: 'opacity',
                   maskImage: `url("${hl.mask}")`,
                   WebkitMaskImage: `url("${hl.mask}")`,
                   maskMode: 'alpha',
@@ -155,7 +156,7 @@ function StackVisual({ activeIdx, lps }) {
             key={`${layer.key}-flow`}
             aria-hidden="true"
             className="pointer-events-none absolute left-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-0.5"
-            style={{ top: `calc(${(seam * 100).toFixed(2)}% + 10px)`, opacity: easeOut(lps[si]) }}
+            style={{ top: `calc(${(seam * 100).toFixed(2)}% + 10px)`, opacity: easeOut(lps[si]), willChange: 'opacity' }}
           >
             <FlowPill label={layer.flowAfter.label} tone={layer.flowAfter.tone} />
           </div>
@@ -163,6 +164,44 @@ function StackVisual({ activeIdx, lps }) {
       })}
     </div>
   );
+}
+
+/* 고정 Nav(데스크톱 88px) + 여백 — pin 헤더가 nav 뒤에 가려지지 않도록 항상 확보하는 최소 상단 여백 */
+const NAV_CLEARANCE = 104;
+const BOTTOM_BREATHING = 24;
+
+/* ── 콘텐츠 실측 높이 기준 상단 여백/축소 배율 계산 ──
+   h-screen 고정(스크롤 scrub 수학 유지)은 그대로 두고, 내부 콘텐츠만
+   짧은 뷰포트에서 nav 아래로 밀고 필요시 비율 축소해 겹침·잘림을 막는다. */
+function useFitToViewport(contentRef) {
+  const [fit, setFit] = useState({ paddingTop: NAV_CLEARANCE, scale: 1 });
+
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const naturalH = el.offsetHeight;
+      if (!naturalH) return;
+      const vh = window.innerHeight;
+      const centered = (vh - naturalH) / 2;
+      const paddingTop = Math.max(NAV_CLEARANCE, centered);
+      const available = vh - paddingTop - BOTTOM_BREATHING;
+      setFit({ paddingTop, scale: Math.min(1, available / naturalH) });
+    };
+    const onResize = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('resize', onResize);
+    return () => {
+      window.removeEventListener('resize', onResize);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [contentRef]);
+
+  return fit;
 }
 
 /* ── 래퍼 대비 스크롤 진행도 0~1 — rAF 스로틀, 의존성 없이 scrub 구현 ── */
@@ -198,7 +237,9 @@ function useScrollProgress(ref) {
 /* ── 데스크톱 — 섹션 pin + 스크럽으로 Foundation→Model→Synthetic→System 진행 ── */
 function PinnedSection() {
   const wrapRef = useRef(null);
+  const contentRef = useRef(null);
   const progress = useScrollProgress(wrapRef);
+  const { paddingTop, scale } = useFitToViewport(contentRef);
 
   // 계층별 로컬 진행도 — 구간의 앞 80%에서 등장, 뒤 20%는 홀드
   const seg = progress * N;
@@ -207,18 +248,27 @@ function PinnedSection() {
 
   return (
     <div ref={wrapRef} className="relative h-[380vh]">
-      <div className="sticky top-0 flex h-screen flex-col items-center justify-center gap-10 overflow-hidden px-5 md:px-[60px]">
-        <div className="w-full max-w-[1320px]">
-          <SectionHeader dark tight eyebrow={researchAreas.eyebrow} title={researchAreas.title} support={researchAreas.support} />
-        </div>
+      <div
+        className="sticky top-0 flex h-screen flex-col items-center overflow-hidden px-5 md:px-[60px]"
+        style={{ paddingTop }}
+      >
+        <div
+          ref={contentRef}
+          className="flex w-full flex-col items-center gap-10"
+          style={{ transform: `scale(${scale})`, transformOrigin: 'top center' }}
+        >
+          <div className="w-full max-w-[1320px]">
+            <SectionHeader dark tight eyebrow={researchAreas.eyebrow} title={researchAreas.title} support={researchAreas.support} />
+          </div>
 
-        <div className="grid w-full max-w-[1320px] grid-cols-[440px_minmax(0,1fr)] items-center gap-x-10">
-          <StackVisual activeIdx={activeIdx} lps={lps} />
+          <div className="grid w-full max-w-[1320px] grid-cols-[440px_minmax(0,1fr)] items-center gap-x-10">
+            <StackVisual activeIdx={activeIdx} lps={lps} />
 
-          {/* 활성 계층 콘텐츠 — 단계 전환 시 배지→항목 순 스태거 등장 */}
-          <div className="self-center pl-[43px] transition-opacity duration-300" style={{ opacity: lps[activeIdx] > 0.02 ? 1 : 0 }}>
-            <div key={activeIdx}>
-              <LayerInfo layer={STACK[activeIdx]} animated />
+            {/* 활성 계층 콘텐츠 — 단계 전환 시 배지→항목 순 스태거 등장 */}
+            <div className="self-center pl-[43px] transition-opacity duration-300" style={{ opacity: lps[activeIdx] > 0.02 ? 1 : 0 }}>
+              <div key={activeIdx}>
+                <LayerInfo layer={STACK[activeIdx]} animated />
+              </div>
             </div>
           </div>
         </div>

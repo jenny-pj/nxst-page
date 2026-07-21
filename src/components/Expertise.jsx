@@ -3,25 +3,30 @@ import { expertise, framework } from '../data/copy.js';
 import Reveal from './Reveal.jsx';
 import SectionHeader from './SectionHeader.jsx';
 
-/* 협력 기관 로고 — 스트립 원본(Figma image 2)을 카드 단위로 슬라이스한 11장 */
+/* 협력 기관 로고 — Figma 개별 에셋 12장 (2026-07-21 로고 세트 갱신).
+   box: Figma 카드(130×100) 기준 로고 크기를 %로 환산한 값 — 로고별로 원본 비율이 제각각이라
+   Figma에서 카드 안에 크기를 다르게 맞춰놓은 걸 그대로 재현 (KAIST처럼 카드보다 넓어 가장자리가
+   잘리는 경우도 포함). Harvard Medical School·GIST는 Figma가 확대 크롭한 영역까지 반영해 이미지
+   자체를 그 영역으로 미리 잘라둠. */
 const PARTNER_LOGOS = Object.entries(
   import.meta.glob('../assets/figma/partners/partner-*.png', { eager: true, import: 'default' })
 )
   .sort(([a], [b]) => a.localeCompare(b))
   .map(([, src], i) => ({
     src,
-    name: [
-      'University of Cambridge',
-      'Harvard Medical School',
-      'Harvard SEAS',
-      'KAIST',
-      'Imperial College London',
-      'GIST',
-      "King's College London",
-      'University of Oxford',
-      'University of Kent',
-      'University of Liverpool',
-      'Mass Eye and Ear',
+    ...[
+      { name: 'University of Cambridge', box: { w: 88.68, h: 25 } },
+      { name: 'Harvard University', box: { w: 84.62, h: 30 } },
+      { name: 'University of Oxford', box: { w: 92.31, h: 36 } },
+      { name: 'Imperial College London', box: { w: 76.92, h: 11 } },
+      { name: "King's College London", box: { w: 61.54, h: 53 } },
+      { name: 'Mass Eye and Ear', box: { w: 92.31, h: 29 } },
+      { name: 'Harvard Medical School', box: { w: 92.31, h: 30 } },
+      { name: 'KAIST', box: { w: 153.85, h: 47 } },
+      { name: 'University of Liverpool', box: { w: 86.15, h: 28 } },
+      { name: 'Durham University', box: { w: 76.92, h: 43 } },
+      { name: 'GIST', box: { w: 46.15, h: 57 } },
+      { name: 'Curtin University', box: { w: 92.31, h: 25 } },
     ][i],
   }));
 
@@ -334,6 +339,38 @@ export default function Expertise() {
             ))}
           </div>
 
+          {/* 협력 기관 로고 마퀴 — 동일 크기 흰색 프레임(Figma 130:100 비율) 안에 로고를 contain으로 배치.
+              동일 세트 2개를 이어 붙여 우→좌 무한 루프, 각 세트에 pr(=gap)을 줘 -50% 이동 주기가 정확히 한 세트가 되도록 */}
+          <Reveal className="w-full">
+            <div className="w-full overflow-hidden" role="img" aria-label="협력 기관 로고 — Cambridge, Harvard, Oxford, Imperial, KAIST, GIST 등">
+              <div className="flex w-max motion-safe:animate-[ticker_40s_linear_infinite]">
+                {[0, 1].map((copy) => (
+                  <div
+                    key={copy}
+                    aria-hidden={copy === 1}
+                    className="flex items-center gap-[10px] pr-[10px] md:gap-[15px] md:pr-[15px]"
+                  >
+                    {PARTNER_LOGOS.map((logo) => (
+                      <div
+                        key={logo.name}
+                        className="relative flex h-[72px] w-[94px] shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white md:h-[111px] md:w-[144px]"
+                      >
+                        <div className="relative" style={{ width: `${logo.box.w}%`, height: `${logo.box.h}%` }}>
+                          <img
+                            src={logo.src}
+                            alt={copy === 0 ? logo.name : ''}
+                            loading="lazy"
+                            className="absolute inset-0 size-full object-cover"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
           <div className="flex w-full flex-col items-center gap-8">
             {/* 논문 리스트 — 연도·게재처 / 논문명 / 협력 기관 칩 3칼럼 */}
             <div className="w-full">
@@ -380,32 +417,6 @@ export default function Expertise() {
                 </Reveal>
               )}
             </div>
-
-            {/* 협력 기관 로고 마퀴 — 동일 세트 2개를 이어 붙여 우→좌 무한 루프.
-                각 세트에 pr(=gap)을 줘 -50% 이동 주기가 정확히 한 세트가 되도록 */}
-            <Reveal className="w-full">
-              <div className="w-full overflow-hidden" role="img" aria-label="협력 기관 로고 — Cambridge, Harvard, KAIST, Imperial, GIST 등">
-                <div className="flex w-max motion-safe:animate-[ticker_40s_linear_infinite]">
-                  {[0, 1].map((copy) => (
-                    <div
-                      key={copy}
-                      aria-hidden={copy === 1}
-                      className="flex items-center gap-[10px] pr-[10px] md:gap-[15px] md:pr-[15px]"
-                    >
-                      {PARTNER_LOGOS.map((logo) => (
-                        <img
-                          key={logo.name}
-                          src={logo.src}
-                          alt={copy === 0 ? logo.name : ''}
-                          loading="lazy"
-                          className="h-[72px] w-auto max-w-none md:h-[111px]"
-                        />
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </Reveal>
           </div>
         </div>
       </div>
