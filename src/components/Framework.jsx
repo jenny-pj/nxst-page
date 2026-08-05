@@ -4,26 +4,84 @@ import Reveal from './Reveal.jsx';
 import SectionHeader from './SectionHeader.jsx';
 import ScrambleText from './ScrambleText.jsx';
 
-/* 등각 레이어 판 — 상단 모서리가 접힌 슬랩 형태. preserveAspectRatio="none"이라
-   콘텐츠(디테일 펼침)에 따라 높이가 늘어나도 형태가 유지된다. */
+/* 등각 레이어 판 — 상단좌·하단우 모서리가 접힌 슬랩 형태.
+   전부 순수 CSS로 그린다 (SVG 없음). 접힘 크기는 카드 크기와 무관한 고정 픽셀(40×24).
+
+   외곽선은 "이중 clip-path 폴리곤"으로 그린다 — 육각형 실루엣(모서리 2곳 대각선 포함)을
+   테두리색으로 채운 바깥 다각형 위에, BORDER(2px)만큼 안쪽으로 당긴 같은 모양의 안쪽 다각형을
+   채움색으로 겹친다. 두 다각형 사이 2px 틈이 테두리로 보인다.
+   → 육각형 전체(직선 4변 + 대각선 2곳)가 "하나의 폴리곤 정의"라 조인트가 어긋날 수 없고,
+     border-width는 스케일과 무관하게 항상 정확히 2px다.
+   (border 속성을 clip-path 도형에 직접 얹는 방식은 대각선으로 잘린 가장자리에는 선이 안 그려져서
+   폐기 — clip-path는 페인트를 잘라낼 뿐 새 테두리를 그려주지 않는다.)
+
+   우상단의 3줄(노치 대각선 + 상단/우측 시임)은 실루엣이 아닌 순수 장식용 — 원본 디자인처럼
+   앞면과 오른쪽 옆면(depth face)을 구분해 입체감을 준다. 우측 시임은 노치 하단(top: FOLD_H)에서
+   우하단 접힘의 실제 시작점(bottom: 0, 즉 컨테이너 맨 아래)까지 끝까지 이어져야 옆면이 끊기지 않는다. */
+const FOLD_W = 40; // px — 접힘 가로 폭
+const FOLD_H = 24; // px — 접힘 세로 두께 (카드 높이와 무관하게 고정)
+const BORDER = 2; // px — 테두리 두께
+const NOTCH_LEN = Math.hypot(FOLD_W, FOLD_H); // 장식용 노치 대각선 길이
+const NOTCH_DEG = -(Math.atan2(FOLD_H, FOLD_W) * 180) / Math.PI; // 노치 회전각 (rotate는 시계방향 양수)
+
+/* 육각형 clip-path — inset만큼 안쪽으로 당긴 버전을 생성. FOLD_W/FOLD_H는 두 대각선 모서리에서
+   "접힘 방향" 축의 좌표라 inset의 영향을 받지 않고, 나머지(직선 변과 맞닿는) 좌표만 inset된다. */
+function hexClip(inset) {
+  const edge = `calc(100% - ${inset}px)`;
+  return [
+    `${FOLD_W}px ${inset}px`,
+    `${edge} ${inset}px`,
+    `${edge} calc(100% - ${FOLD_H}px)`,
+    `calc(100% - ${FOLD_W}px) ${edge}`,
+    `${inset}px ${edge}`,
+    `${inset}px ${FOLD_H}px`,
+  ].join(', ');
+}
+
 function LayerSlab({ stroke, fillOpacity = 0.5 }) {
   return (
-    <svg
-      viewBox="0 0 1206.5 145.517"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-      fill="none"
-      className="absolute inset-0 size-full transition-colors duration-300"
-    >
-      <path d="M1 144.517V23.5167L40 1H1205.5V122L1166.5 144.517H1Z" fill="white" fillOpacity={fillOpacity} />
-      <path
-        d="M1205.5 1V122L1166.5 144.517H1V23.5167L40 1H1205.5ZM1 23.5167H1166.5M1166.5 144.517V23.5167M1166.5 23.5167L1205.5 1"
-        stroke={stroke}
-        strokeWidth="2"
-        vectorEffect="non-scaling-stroke"
-        style={{ transition: 'stroke .25s ease' }}
+    <div className="absolute inset-0">
+      {/* 바깥 육각형 — 테두리색 채움 */}
+      <div
+        className="absolute inset-0 transition-colors duration-300"
+        style={{ backgroundColor: stroke, clipPath: `polygon(${hexClip(0)})` }}
       />
-    </svg>
+      {/* 안쪽 육각형 — BORDER만큼 당긴 동일 모양, 실제 채움색. 바깥과의 틈이 테두리로 보인다.
+          안쪽이 바깥(테두리색) 위에 겹쳐지는 구조라 rgba 반투명을 쓰면 hover로 stroke가 바뀔 때마다
+          채움색도 같이 물드는 버그가 생긴다 — 항상 페이지 배경(--color-bg)과 미리 섞은 불투명색을 써서
+          stroke 값과 무관하게 채움색이 고정되도록 한다. */}
+      <div
+        className="absolute inset-0 transition-colors duration-300"
+        style={{
+          backgroundColor: `color-mix(in srgb, white ${fillOpacity * 100}%, var(--color-bg))`,
+          clipPath: `polygon(${hexClip(BORDER)})`,
+        }}
+      />
+      {/* 우상단 노치 대각선 — 장식용 시임(실루엣 아님) */}
+      <div
+        aria-hidden="true"
+        className="absolute origin-top-left border-t-2 transition-colors duration-300"
+        style={{
+          left: `calc(100% - ${FOLD_W}px)`,
+          top: FOLD_H,
+          width: NOTCH_LEN,
+          borderColor: stroke,
+          transform: `rotate(${NOTCH_DEG}deg)`,
+        }}
+      />
+      {/* 상단 시임 — 좌상단 접힘 밑점과 우상단 노치 사이 수평선 */}
+      <div
+        aria-hidden="true"
+        className="absolute border-t-2 transition-colors duration-300"
+        style={{ left: 0, right: FOLD_W, top: FOLD_H, borderColor: stroke }}
+      />
+      {/* 우측 시임(옆면 경계) — 우상단 노치에서 우하단 접힘 시작점까지 끝까지 이어짐 */}
+      <div
+        aria-hidden="true"
+        className="absolute border-l-2 transition-colors duration-300"
+        style={{ right: FOLD_W, top: FOLD_H, bottom: 0, borderColor: stroke }}
+      />
+    </div>
   );
 }
 
@@ -99,7 +157,7 @@ function DesktopSlab({ layer, lit, open, onEnter, onLeave, onClick }) {
       onFocus={onEnter}
       onBlur={onLeave}
       onClick={onClick}
-      className={`relative w-full outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-accent/40 ${
+      className={`relative w-full overflow-hidden outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-accent/40 ${
         open ? '-translate-y-1 drop-shadow-[0_10px_24px_rgba(81,131,232,0.15)]' : ''
       }`}
     >
@@ -110,8 +168,8 @@ function DesktopSlab({ layer, lit, open, onEnter, onLeave, onClick }) {
           open ? 'pt-[88px]' : 'pt-[74px]'
         }`}
       >
-        {/* 역할 태그 + 배지 — 같은 선상 */}
-        <div className="flex items-center justify-between">
+        {/* 역할 태그 + 배지 — 같은 선상. 좁은 폭에서는 줄바꿈해 잘리지 않도록 flex-wrap */}
+        <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
           <p
             className={`text-[13px] font-medium tracking-[0.08em] transition-colors duration-200 ${
               open ? 'text-accent' : 'text-ink-dim'
@@ -171,11 +229,11 @@ function MobileSlab({ layer, open, onToggle }) {
             onToggle();
           }
         }}
-        className="relative block w-full cursor-pointer px-7 pb-8 pt-10 text-left outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+        className="relative block w-full cursor-pointer overflow-hidden px-7 pb-8 pt-10 text-left outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
       >
-        <div className="flex items-baseline justify-between gap-3">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
           <p className="text-[12px] font-medium tracking-[0.08em] text-ink-dim">{layer.role}</p>
-          <div className="mr-4 flex items-center gap-2">
+          <div className="mr-4 flex shrink-0 items-center gap-2">
             {layer.badge && <Badge kind={layer.badge} />}
             <p className="text-[14px] text-ink-dim">{layer.no}</p>
           </div>
