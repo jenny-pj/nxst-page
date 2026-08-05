@@ -2,6 +2,16 @@
 
 ## 해결됨
 
+### Research Areas pin 헤더가 고정 Nav 뒤에 가려짐 (2026-07-21 발견 → 당일 해결)
+- 증상: 1440×900 등 흔한 노트북 해상도에서 "Physics-grounded Data & Intelligence" 타이틀이 화면 위쪽 고정 Nav 뒤로 가려져 보임 — 사용자는 처음엔 "위 섹션과 겹쳐 보인다"고 인지
+- 원인: pin 콘텐츠가 `h-screen`에서 `justify-center`로 정중앙 배치되는데, Nav(88px, pin 구간 내내 화면에 떠 있음)를 위한 여백이 전혀 없었음. 헤더+이미지+gap 실측 합이 905px라 (뷰포트 높이-905)/2가 88px보다 작은 모든 케이스에서 발생 — 1920×1080도 브라우저 크롬 제외 시 해당
+- 해결: 콘텐츠 실측 높이 기준 상단 여백을 `max(Nav여백, 중앙정렬 오프셋)`으로 계산해 항상 Nav 아래로 밀어냄. 이후 2026-07-21 후속 수정으로 "부족하면 축소"의 대상을 텍스트 전체에서 스택 이미지로만 좁힘(상세는 decisions.md)
+
+### Research Areas 스크롤 버벅임 클레임 (2026-07-21 진단 → 당일 해결)
+- 증상: "Research Area 스크롤할 때 버벅인다"는 사용자 클레임(개발 머신에서는 재현 안 됨)
+- 원인: 마스킹된 스택 이미지·FlowPill의 `opacity`를 매 스크롤 프레임 React state로 직접 갱신하는데 `will-change` 힌트가 없어 매 프레임 재레이어화·래스터 비용 발생 — 저사양 기기·Safari에서 크게 나타날 구조적 문제
+- 해결: 해당 엘리먼트에 `will-change: opacity` 추가. Chrome 트레이스 기준 RasterTask 비용 약 82% 감소 확인 (자세한 수치는 decisions.md)
+
 ### React `fetchPriority` 경고 (2026-07-02 발견 → 당일 해결)
 - 증상: 콘솔에 "React does not recognize the `fetchPriority` prop" 경고
 - 원인: React 18은 소문자 `fetchpriority` 표기 필요 (camelCase는 React 19부터)
@@ -57,6 +67,6 @@
 
 ## 알려진 한계
 
-- **Research Areas pin/scrub은 lg(1024px)+ 전용** — 미만 해상도·`prefers-reduced-motion`은 정적 세로 배치 폴백(pin 없이 스택 1장 + 순차 등장). 2026-07-20 궤도 다이어그램 폐기로 기존 "xl 미만 카드 그리드 폴백" 한계는 해소됨
+- **Research Areas pin/scrub은 lg(1024px)+ 이면서 뷰포트 높이 790px 이상에서만 동작** — 그 외(미만 해상도·`prefers-reduced-motion`·790px 미만 짧은 뷰포트)는 정적 세로 배치 폴백(pin 없이 스택 1장 + 순차 등장). 2026-07-20 궤도 다이어그램 폐기로 기존 "xl 미만 카드 그리드 폴백" 한계는 해소됨, 2026-07-21 뷰포트 높이 임계값 폴백 추가
 - **이미지 용량** — hero-bg.jpg(553KB), section-texture.jpg(506KB), research-stack-3d.png(611KB), research-stack-3d-dim.png(201KB). 추가 최적화 여지 있음 (todo 참고)
 - **스크롤 스파이** — WhyData 섹션은 네비 항목이 없어 히어로~WhyData 구간에서 활성 표시 없음 (의도된 동작)

@@ -58,6 +58,8 @@ Figma에 없는 하위 섹션(Expertise·Principles·Collaboration·Contact·Foo
   - **누적 하이라이트 마스크**: 딤(그레이스케일) 베이스 위에 밝은 렌더를 계층별 마스크 SVG(CSS `mask-image`)로 오려 얹어 활성 계층을 드러냄. Figma 시안에 맞춰 **하단 판부터 활성 계층까지 누적으로 컬러가 이어지는 방식**(단일 레이어만 밝아지는 방식에서 전환) — 이전 단계 마스크가 페이드아웃, 다음 단계 마스크가 페이드인하는 크로스페이드로 자연스럽게 연결
   - **흐름 웨이브**: 계층 간 데이터 공급 관계를 화살표 대신 위로 흐르는 아크 웨이브 애니메이션(`flowWave` 키프레임)으로 표현, 라벨 텍스트는 유지. 3D 이미지 위 계층 경계(seam)에 다크 글래스 필(`bg-dark/70`, 이미지와 겹쳐도 가독)로 얹음
   - 모바일(lg 미만)·`prefers-reduced-motion`: pin 없이 정적 스택 이미지 1장 + 계층 블록이 `Reveal`로 순차 등장하는 세로 배치로 폴백
+  - **뷰포트 높이 대응(2026-07-21)**: pin 콘텐츠(`h-screen` + `sticky`)가 고정 Nav(88px) 뒤에 가려지거나 짧은 뷰포트에서 하단이 잘리던 문제 수정. 처음엔 콘텐츠 전체를 `transform: scale()`로 축소했으나 타이틀·본문 글자 크기가 다른 섹션과 달라 보이는 부작용이 있어, **텍스트(SectionHeader·계층 설명)는 항상 원본 크기로 고정하고 3D 스택 이미지만** 남은 뷰포트 높이에 맞춰 비율 축소하도록 변경 — 이미지 래퍼가 축소된 실제 크기만큼만 차지해 그리드 간격도 벌어지지 않음. 최장 계층 패널(synthetic) 기준 실측 결과 원본 텍스트 크기로는 뷰포트 높이 ~778px가 물리적 하한이라, **790px 미만에서는 pin을 포기하고 모바일과 동일한 StaticSection으로 폴백**
+  - **스크롤 성능(2026-07-21)**: 저사양 기기에서 스크롤 버벅임 클레임 발생 → Chrome 트레이스로 진단한 결과 마스킹된 스택 이미지·FlowPill의 `opacity`를 매 스크롤 프레임 React state로 직접 변경하면서 레이어 승격 힌트가 없어 매번 재레이어화(Layerize)·래스터(RasterTask) 비용이 발생하고 있었음. `will-change: opacity` 추가로 RasterTask 비용 약 82% 감소 확인(자세한 트레이스 수치는 issues.md)
 - **Framework 슬랩 — 인터랙티브(2026-07-15)**: 등각 판 SVG 인라인 재현은 유지하되 사용자가 제공한 HTML 목업(`nextstudio-framework-interactive.html`)의 인터랙션을 라이트 톤·Pretendard로 이식
   - 헤더 아래 **파이프라인 크럼**(ACQUISITION → SYNTHESIS → VALIDATION → DEPLOYMENT) — 호버 또는 클릭 고정된 슬랩의 stage가 액센트로 점등
   - 슬랩 **호버 시 디테일 펼침**(role 태그·caption·상세 설명 3줄) — **클릭하면 고정**되어 마우스가 떠나도 유지, 다른 슬랩 클릭 시 이전 고정 해제, 슬랩 바깥 클릭 시 전체 해제(`document` click 리스너, 슬랩 클릭은 `stopPropagation`)
@@ -75,6 +77,7 @@ Figma에 없는 하위 섹션(Expertise·Principles·Collaboration·Contact·Foo
   - 펼침 애니메이션: hover 150ms 지연 후 펼침 시작(스치듯 지나가면 열리지 않음), duration 500ms `ease-in-out`(휙휙거림 방지)
   - 같은 행 카드 높이는 grid row stretch로 정렬 — 한 카드가 펼쳐지면 같은 행의 카드도 함께 늘어나 행 바닥선 유지(옆 카드만 그대로 두는 `items-start`는 기각)
   - CORE 뱃지는 Framework CORE 배지와 동일 디자인, 카드 모서리는 `rounded-2xl`(목업의 각진 사각형 대체), 폰트는 목업의 IBM Plex Mono 대신 사이트 기본 Pretendard, 카드 hover 시 커서 추적 라디얼 글로우(목업 인터랙션 유지)
+- **Expertise 협력 기관 로고 마퀴(2026-07-21, Figma 재동기화)**: 위치를 논문 리스트 아래 → **"주요 논문 및 협력 기관" 타이틀 위**로 이동. 로고 세트를 Figma 최신본(12개)으로 교체 — Harvard SEAS·University of Kent 제외, Harvard University·Durham University·Curtin University 추가. 각 로고는 Figma 카드(130×100) 안에서의 실제 크기 비율을 그대로 `%` 치수로 재현(예: KAIST는 카드보다 넓게 배치해 가장자리가 잘리는 디자인까지 반영), Harvard Medical School·GIST(아이콘 마크만 남기고 텍스트 제외)는 Figma가 확대 크롭한 영역대로 이미지 자체를 미리 크롭해 새 에셋으로 저장
 
 ## 모션 시스템 (factory.ai 레퍼런스, 2026-07-02 도입)
 

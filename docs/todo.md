@@ -3,7 +3,9 @@
 ## 할 일
 
 - [x] **2026-07-15 작업분 커밋·배포** — 카피 재작성(Hero/WhyData/Research/Framework/Expertise) + Framework 인터랙티브 리빌드 + Principles 5원칙 전면 재작성(배지·보더·레이아웃) + 섹션 eyebrow 영문화 + WhyData 플로우 분기 구조 개편(Figma 재동기화) + line-height 150% 전환 + 키워드 마퀴 버그 수정 + Expertise 역량 그룹 카드 전면 교체 — 2026-07-15 완료(commit `68b0463`, push+vercel 프로덕션 배포)
-- [ ] **Research Areas 등각 레이어 스택 커밋·배포** — 궤도 다이어그램 → System/Synthetic/Model/Foundation 4계층 등각 스택 전면 교체, 스크롤 pin/scrub 전환, 누적 하이라이트 마스크, 흐름 웨이브 애니메이션 — 현재 로컬 dev 서버 확인만 완료, 미커밋
+- [x] **Research Areas 등각 레이어 스택 커밋·배포** — 궤도 다이어그램 → System/Synthetic/Model/Foundation 4계층 등각 스택 전면 교체, 스크롤 pin/scrub 전환, 누적 하이라이트 마스크, 흐름 웨이브 애니메이션 — 2026-07-20 완료(commit `9054b35`, `161f234`)
+- [x] **Research Areas pin — nav 겹침·스크롤 성능·짧은 뷰포트 대응** — 고정 Nav 뒤에 헤더가 가려지는 문제, 스크롤 버벅임(`will-change` 누락), 짧은 뷰포트에서 텍스트까지 축소되던 문제(이미지만 축소하도록 개선 + 790px 미만 StaticSection 폴백) — 2026-07-21 완료(commit `e2f537b`, `0a9f05f`)
+- [x] **Expertise 협력 기관 로고 Figma 재동기화** — 로고 세트 갱신(11→12개), 위치를 논문 리스트 위로 이동, Figma 카드 비율·수동 크롭까지 정확히 재현 — 2026-07-21 완료(commit `e2f537b`)
 - [ ] `public/llms.txt`를 2026-07-15 신규 카피 + Framework 계층(L02/L03/L05) + Principles 5원칙 + WhyData 분기 구조 기준으로 갱신, Collaboration 섹션 제거 반영
 - [x] 카피 v2 확정 후 정리 — 2026-07-10 완료 (copy.js 병합, v1/v2/토글 제거, llms.txt 갱신)
 - [ ] 모바일 실기기에서 인터랙션 검수 (reduced-motion 포함 — 데스크톱은 2026-07-02 검증 완료)
