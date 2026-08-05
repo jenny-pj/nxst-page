@@ -18,9 +18,11 @@ import ScrambleText from './ScrambleText.jsx';
    우상단의 3줄(노치 대각선 + 상단/우측 시임)은 실루엣이 아닌 순수 장식용 — 원본 디자인처럼
    앞면과 오른쪽 옆면(depth face)을 구분해 입체감을 준다. 우측 시임은 노치 하단(top: FOLD_H)에서
    우하단 접힘의 실제 시작점(bottom: 0, 즉 컨테이너 맨 아래)까지 끝까지 이어져야 옆면이 끊기지 않는다. */
-const FOLD_W = 40; // px — 접힘 가로 폭
+const FOLD_W = 40; // px — 접힘 가로 폭. 오른쪽 옆면(depth face) 폭과 같아 좌우 대칭 계산에도 재사용
 const FOLD_H = 24; // px — 접힘 세로 두께 (카드 높이와 무관하게 고정)
 const BORDER = 2; // px — 테두리 두께
+const DESKTOP_PAD_X = 40; // px — 데스크톱 앞면 좌우 대칭 패딩 (px-10)
+const MOBILE_PAD_X = 28; // px — 모바일 앞면 좌우 대칭 패딩 (px-7)
 const NOTCH_LEN = Math.hypot(FOLD_W, FOLD_H); // 장식용 노치 대각선 길이
 const NOTCH_DEG = -(Math.atan2(FOLD_H, FOLD_W) * 180) / Math.PI; // 노치 회전각 (rotate는 시계방향 양수)
 
@@ -162,11 +164,16 @@ function DesktopSlab({ layer, lit, open, onEnter, onLeave, onClick }) {
       }`}
     >
       <LayerSlab stroke={slabStroke(layer, lit)} />
-      {/* 접힘 밴드는 슬랩 높이의 ~16%로 늘어남 — 펼침 시 pt를 함께 키워 콘텐츠가 면의 세로 중앙에 오도록 보정 */}
+      {/* 접힘 밴드는 슬랩 높이의 ~16%로 늘어남 — 펼침 시 pt를 함께 키워 콘텐츠가 면의 세로 중앙에 오도록 보정.
+          좌우 패딩은 앞면 기준으로 대칭(40px)이어야 하는데, 오른쪽은 옆면(depth face, FOLD_W=40px)까지
+          추가로 비켜줘야 하므로 pr만 FOLD_W만큼 더 크다 — 이 여백은 래퍼 하나에서만 계산하고, 개별
+          요소(배지·번호·디테일)에 mr을 따로 붙이지 않는다(전에는 mr-6=24px씩 흩어져 있어 좌 40px/우
+          64px로 어긋났고, 그마저도 FOLD_W(40px)보다 작아 칩이 옆면 경계를 넘어갈 수 있었다). */}
       <div
-        className={`relative flex flex-col px-10 pb-9 transition-[padding] duration-300 ${
+        className={`relative flex flex-col pl-10 pb-9 transition-[padding] duration-300 ${
           open ? 'pt-[88px]' : 'pt-[74px]'
         }`}
+        style={{ paddingRight: DESKTOP_PAD_X + FOLD_W }}
       >
         {/* 역할 태그 + 배지 — 같은 선상. 좁은 폭에서는 줄바꿈해 잘리지 않도록 flex-wrap */}
         <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
@@ -177,11 +184,7 @@ function DesktopSlab({ layer, lit, open, onEnter, onLeave, onClick }) {
           >
             {layer.role}
           </p>
-          {layer.badge && (
-            <div className="mr-6">
-              <Badge kind={layer.badge} />
-            </div>
-          )}
+          {layer.badge && <Badge kind={layer.badge} />}
         </div>
         <div className="flex min-h-[100px] items-center gap-8">
           <div className="w-[360px] shrink-0">
@@ -190,19 +193,19 @@ function DesktopSlab({ layer, lit, open, onEnter, onLeave, onClick }) {
             </p>
             <p className="mt-2 text-[15px] leading-[1.5] text-ink-dim">{layer.caption}</p>
           </div>
-          <ul className="flex flex-1 flex-wrap items-center gap-4">
+          {/* min-w-0 없으면 flex-1 컨테이너가 자식의 min-content 폭까지 넓어지려 해서 줄바꿈 대신
+              박스 밖으로 넘칠 수 있다 */}
+          <ul className="flex min-w-0 flex-1 flex-wrap items-center gap-4">
             {layer.items.map((item) => (
               <Chip key={item}>{item}</Chip>
             ))}
           </ul>
-          {/* 슬랩 면의 오른쪽 경계는 접힘 때문에 40px 안쪽 — mr로 보정 */}
-          <p className="mr-6 shrink-0 self-end pb-2 text-[20px] leading-[1.5] text-ink-dim">{layer.no}</p>
+          <p className="shrink-0 self-end pb-2 text-[20px] leading-[1.5] text-ink-dim">{layer.no}</p>
         </div>
 
         {/* 디테일 — 호버/포커스 시 펼침 */}
         <div className={`overflow-hidden transition-all duration-300 ${open ? 'mt-3 max-h-[300px] opacity-100' : 'max-h-0 opacity-0'}`}>
-          {/* 슬랩 오른쪽 접힘 보정과 동일하게 mr-6으로 좌우 여백을 맞춤 */}
-          <div className="mr-6 border-t border-line pb-2 pt-5">
+          <div className="border-t border-line pb-2 pt-5">
             <span className="mb-2.5 block text-[13px] font-medium tracking-[0.08em] text-accent">{layer.detailTag}</span>
             <p className="w-full text-[15px] leading-[1.75] text-ink-dim">{layer.detail}</p>
           </div>
@@ -229,11 +232,12 @@ function MobileSlab({ layer, open, onToggle }) {
             onToggle();
           }
         }}
-        className="relative block w-full cursor-pointer overflow-hidden px-7 pb-8 pt-10 text-left outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+        className="relative block w-full cursor-pointer overflow-hidden pl-7 pb-8 pt-10 text-left outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
+        style={{ paddingRight: MOBILE_PAD_X + FOLD_W }}
       >
         <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
           <p className="text-[12px] font-medium tracking-[0.08em] text-ink-dim">{layer.role}</p>
-          <div className="mr-4 flex shrink-0 items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2">
             {layer.badge && <Badge kind={layer.badge} />}
             <p className="text-[14px] text-ink-dim">{layer.no}</p>
           </div>
