@@ -60,7 +60,7 @@ Figma에 없는 하위 섹션(Expertise·Principles·Collaboration·Contact·Foo
   - 모바일(lg 미만)·`prefers-reduced-motion`: pin 없이 정적 스택 이미지 1장 + 계층 블록이 `Reveal`로 순차 등장하는 세로 배치로 폴백
   - **뷰포트 높이 대응(2026-07-21)**: pin 콘텐츠(`h-screen` + `sticky`)가 고정 Nav(88px) 뒤에 가려지거나 짧은 뷰포트에서 하단이 잘리던 문제 수정. 처음엔 콘텐츠 전체를 `transform: scale()`로 축소했으나 타이틀·본문 글자 크기가 다른 섹션과 달라 보이는 부작용이 있어, **텍스트(SectionHeader·계층 설명)는 항상 원본 크기로 고정하고 3D 스택 이미지만** 남은 뷰포트 높이에 맞춰 비율 축소하도록 변경 — 이미지 래퍼가 축소된 실제 크기만큼만 차지해 그리드 간격도 벌어지지 않음. 최장 계층 패널(synthetic) 기준 실측 결과 원본 텍스트 크기로는 뷰포트 높이 ~778px가 물리적 하한이라, **790px 미만에서는 pin을 포기하고 모바일과 동일한 StaticSection으로 폴백**
   - **스크롤 성능(2026-07-21)**: 저사양 기기에서 스크롤 버벅임 클레임 발생 → Chrome 트레이스로 진단한 결과 마스킹된 스택 이미지·FlowPill의 `opacity`를 매 스크롤 프레임 React state로 직접 변경하면서 레이어 승격 힌트가 없어 매번 재레이어화(Layerize)·래스터(RasterTask) 비용이 발생하고 있었음. `will-change: opacity` 추가로 RasterTask 비용 약 82% 감소 확인(자세한 트레이스 수치는 issues.md)
-- **Framework 슬랩 — 인터랙티브(2026-07-15)**: 등각 판 SVG 인라인 재현은 유지하되 사용자가 제공한 HTML 목업(`nextstudio-framework-interactive.html`)의 인터랙션을 라이트 톤·Pretendard로 이식
+- **Framework 슬랩 — 인터랙티브(2026-07-15)**: 등각 판은 원래 SVG 인라인 재현이었으나 **2026-08-05 순수 CSS로 전면 재구현**(상세는 아래), 목업(`nextstudio-framework-interactive.html`)의 인터랙션은 라이트 톤·Pretendard로 이식
   - 헤더 아래 **파이프라인 크럼**(ACQUISITION → SYNTHESIS → VALIDATION → DEPLOYMENT) — 호버 또는 클릭 고정된 슬랩의 stage가 액센트로 점등
   - 슬랩 **호버 시 디테일 펼침**(role 태그·caption·상세 설명 3줄) — **클릭하면 고정**되어 마우스가 떠나도 유지, 다른 슬랩 클릭 시 이전 고정 해제, 슬랩 바깥 클릭 시 전체 해제(`document` click 리스너, 슬랩 클릭은 `stopPropagation`)
   - 펼침 시 콘텐츠가 슬랩 세로 중앙에 오도록 상단 패딩을 `74px→88px`로 함께 전환(`transition-[padding]`)
@@ -70,6 +70,8 @@ Figma에 없는 하위 섹션(Expertise·Principles·Collaboration·Contact·Foo
   - 폰트는 시안의 IBM Plex Mono 대신 **사이트 기본 Pretendard로 통일**(크럼·역할 태그·흐름 라벨·레일 전부)
   - 모바일(lg 미만)은 호버가 없어 **탭으로 디테일 토글**, 세로 레일은 L03 위 가로 라벨로 대체
   - 계층 콘텐츠도 함께 갱신: L02 Trusted Data **Infrastructure**(Standardization & Interop 등), L03 **Physics-Grounded Generative Core**(CORE 배지), L05 칩 Security & Insider Risk → Process Optimization
+  - **등각 판 SVG → 순수 CSS 재구현(2026-08-05)**: 접힘 밴드(위·아래 시임)를 카드 실제 높이와 무관한 고정 픽셀(가로 40px·세로 24px, `FOLD_W`/`FOLD_H`)로 고정. 외곽 실루엣(대각선 모서리 2곳 포함)은 **이중 clip-path 폴리곤**(테두리색 육각형 위에 `BORDER`(2px)만큼 안쪽으로 당긴 채움색 육각형을 겹치는 방식)으로 그려 앞면 직선 테두리와 대각선 모서리 두께가 스케일과 무관하게 항상 동일. 우상단 노치 대각선 + 상단/우측 시임 3줄은 실루엣이 아닌 순수 장식(오른쪽 옆면=depth face를 표현). 채움색은 `rgba` 반투명 대신 페이지 배경(`--color-bg`)과 미리 섞은 불투명색(`color-mix`)을 써서 hover로 테두리색이 바뀌어도 채움색은 항상 고정
+  - **앞면 콘텐츠 좌우 대칭(2026-08-05)**: 옆면(depth face) 폭(`FOLD_W`=40px)을 콘텐츠 padding이 아니라 컨테이너의 `padding-right`에서 일괄 계산 — 데스크톱 `pl-10` + `paddingRight: 40+40=80px`, 모바일 `pl-7` + `paddingRight: 28+40=68px`. 앞면 실사용 영역 기준 좌우 정확히 대칭이 되도록 배지·번호·디테일 블록에 흩어져 있던 개별 `mr-6` 보정을 제거. 칩 목록(`ul`)에는 `min-w-0`을 추가해 `flex-1` + `flex-wrap` 조합에서도 컨테이너 자체가 제대로 줄어들며 줄바꿈되도록 함(태그가 옆면 경계를 넘어가던 원인)
 - **Expertise 역량 그룹 카드 — L01~L05 매핑 시각화(2026-07-15)**: 기존 5칼럼 아이콘 클러스터 그리드를 사용자 제공 HTML 목업(`nextstudio-core-expertise-interactive.html`)의 `.groups` 구조로 전면 교체 — G01~G04 4개 역량 그룹(Data Engineering & Synthesis / Foundation & Generative Models / Perception & Prediction / Optimization & Deployment), 2×2 카드 그리드(`copy.js`의 `expertise.groups`, 각 그룹에 매핑 레이어 `layers: [1,2,3]` 등 명시)
   - 카드 그리드 위에 Framework와 동일한 **L01→L05 파이프라인 축**(Framework `layers[].name`을 그대로 병기) — 카드 hover 시 해당 그룹이 커버하는 레이어가 축에서 액센트 점등(연속 구간이면 연결선도 점등)
   - 각 카드 헤더에는 상시 노출되는 **5칸 커버리지 바**(`CoverageBar`, hover 없이도 매핑 범위 파악 가능) — `G0n / MAPS TO ...` 텍스트 라벨은 정보 중복이라 제거
