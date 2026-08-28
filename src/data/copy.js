@@ -1,146 +1,515 @@
 /**
- * 사이트 전역 카피 텍스트 (스펙 §4).
- * i18n 대비 상수 분리 — EN 페이지는 작업 범위 외이나 구조상 추후 대응 가능.
+ * 사이트 전역 카피 텍스트 — Figma 시안(Desktop - 1) 기준.
+ * 2026-07-10 카피 v2 확정 병합: 타이틀은 한 호흡, 핵심 설명은 보조문으로 이관.
+ * (히어로 h1·선언 배너는 v1 원문 유지 결정 — 2026-07-08)
+ * 각 섹션 eyebrow는 질문, 타이틀은 그 답이 되는 구조.
  */
 
 export const site = {
-  name: 'nextstud.io',
+  name: 'NEXTSTUDIO',
   nameKo: '넥스트스튜디오',
+  tagline: 'Industrial Data for Physical AI',
   email: 'jin@nextstud.io',
   phone: '+82 055 320 4132',
   addressKo: '경상남도 김해시 인제로 197, 성산관 904호',
-  addressEn: 'Seongsan Hall 904, 197, Inje-ro, Gimhae-si, Gyeongsangnam-do, Republic of Korea',
+  addressEn: 'Seongsan Hall 904, 197 Inje-ro, Gimhae-si, Gyeongsangnam-do, Republic of Korea',
 };
 
 export const nav = [
-  { id: 'technology', label: 'Technology' },
   { id: 'research', label: 'Research' },
-  { id: 'use-cases', label: 'Use Cases' },
-  { id: 'news', label: 'News' },
-  { id: 'about', label: 'About' },
+  { id: 'framework', label: 'Framework' },
+  { id: 'expertise', label: 'Core Expertise' },
+  { id: 'principles', label: 'Principles' },
   { id: 'contact', label: 'Contact' },
 ];
 
+/* ── HERO ──────────────────────────────────────────────────────── */
+
 export const hero = {
-  eyebrow: 'SYNTHETIC DATA · PHYSICAL AI',
-  h1: '측정의 한계를 넘어서,\n물리가 데이터를 만든다',
-  h1En: 'Physics-Grounded Synthetic Data for Physical AI',
-  sub: '제조 현장의 희소한 비정상 데이터를 물리정합 합성데이터로 보완하여,\nPhysical AI가 미경험 상황에서도 신뢰할 수 있게 합니다.',
-  cta: '연구 보기 ↓',
-  ctaTarget: 'research',
+  h1: 'Real-world Scarcity, Synthetic Abundance.\nPhysical AI의 데이터 병목을 합성데이터로 해결합니다',
+  // 키워드 마퀴 — 연구 정체성을 흐르는 스트립으로
+  keywords: [
+    'Industrial Data Infrastructure',
+    'Synthetic Data',
+    'Physical AI',
+    'World Models',
+    'Embodied Intelligence',
+    'Physics-informed AI',
+    'Simulation & Digital Twin',
+    'Intelligent Agents',
+  ],
+  banner:
+    'NEXTSTUDIO는 물리 시뮬레이션과 생성형 AI를 결합해,\n실제 현장에서 수집이 불가능하거나 극히 희소한 산업 데이터(결함, 이상 상황, 극한 조건)를\n물리적으로 타당한 합성데이터로 구현합니다\n\n데이터 수집 인프라부터 합성·검증·공급까지,\nPhysical AI를 위한 데이터 파이프라인 전체를 제공합니다',
 };
 
-export const proofBar = [
-  'Berkeley AgentX 2025 — 1st Place (Agent Architecture)',
-  'IEEE TNNLS',
-  'Neurocomputing',
-  'ICRA',
-  'IEEE T-ITS',
-  'IEEE TII',
-  'Information Sciences',
-];
+/* ── SECTION · WHY INDUSTRIAL DATA ─────────────────────────────── */
 
-export const problem = {
-  title: '제조 AI의 데이터 역설',
-  titleEn: 'The Data Paradox of Manufacturing AI',
-  points: [
+export const whyData = {
+  eyebrow: '현실이 데이터를 충분히 내어주지 않을 때, Physical AI는 무엇으로 학습하는가',
+  title: '현실을 반영한 산업 데이터가\nPhysical AI의 인식과 판단을 만듭니다\n우리는 그 데이터를 \'생성\'하는 방법을 연구합니다',
+  support:
+    'Physical AI의 성능은 데이터의 양이 아니라, 데이터가 물리적 현실을 얼마나 충실히 담고 있는지가 결정합니다\nNEXTSTUDIO는 물리 제약 기반 생성 모델과 정량 검증 방법론을 통해,\n현장에서 수집할 수 없는 희소 데이터를 과학적으로 합성하는 방법을 연구합니다',
+  // Flow의 중심은 AI가 아니라 산업 데이터 — accent: true 노드만 강조
+  // 2026-07-15 Figma 동기화: 산업 환경 → (산업 데이터 / 합성 데이터) 분기 → AI 학습 합류 → 추론 및 의사결정 → Physical AI
+  flow: [
+    { ko: '산업 환경', icon: 'industry' },
     {
-      title: '정상 편중',
-      body: '실측 제조데이터의 대부분은 정상 가동 데이터. 품질 저하·설비 고장 등 정작 학습이 필요한 비정상 데이터는 희소합니다.',
+      branch: [
+        { ko: '산업 데이터', icon: 'database', accent: true, subtitle: 'Real-World Data Collection' },
+        { ko: '합성 데이터', icon: 'network', accent: true, subtitle: 'Physics-Constrained Synthesis' },
+      ],
+    },
+    { ko: 'AI 학습', icon: 'brain', subtitle: '합성데이터 기반 도메인 커버리지 확대 및 모델 성능 개선' },
+    { ko: '추론 및 의사결정', icon: 'chart' },
+    { ko: 'Physical AI', icon: 'robot' },
+  ],
+};
+
+/* ── SECTION · RESEARCH AREAS ──────────────────────────────────── */
+
+export const researchAreas = {
+  eyebrow: 'Research Areas',
+  title: 'Physics-grounded Data & Intelligence',
+  support:
+    '정밀하게 구조화된 실데이터 위에서 물리 정합 생성 모델을 연구하고,\n검증된 합성 데이터로 Physical AI의 학습을 완성합니다',
+  // 계층 스택 — 위(System)에서 아래(Foundation)로 배치, flowAfter는 아래→위 공급 흐름
+  layers: [
+    {
+      key: 'system',
+      badge: 'System layer',
+      tone: 'neutral',
+      caption: '현실과 상호작용하는 지능',
+      cards: [
+        { name: 'Intelligent Agents', sub: '지능형 에이전트', desc: '이상 탐지·공정 최적화를 자율 수행하는 인식·판단·행동 구조 연구' },
+        { name: 'Embodied Intelligence', sub: '체화 지능', desc: '물리 환경과의 상호작용 속에서 학습·적응하는 지능 구조 연구' },
+        { name: 'Simulation & Digital Twin', sub: '시뮬레이션 · 디지털 트윈', desc: 'AI 학습·검증을 반복 가능하게 만드는 디지털 실험 환경 연구' },
+      ],
+      flowAfter: { label: '검증된 학습 데이터 공급', tone: 'accent' },
     },
     {
-      title: '수집 불가능성',
-      body: '비정상 상황은 발생 빈도가 낮고 조건 예측이 어려워, 충분한 양의 실측 확보가 구조적으로 불가능합니다.',
+      key: 'synthetic',
+      badge: 'Data layer — synthetic',
+      tone: 'accent',
+      caption: '생성 모델이 만들어낸 학습 데이터',
+      cards: [
+        {
+          name: 'Synthetic Data',
+          sub: '물리 상호작용 합성 데이터 · Physical-interaction Synthetic Data',
+          desc: '장면과 센서값의 외형적 다양성만 늘리는 단순 합성을 넘어, 결과가 발생한 물리적 원인 변수까지 함께 생성하고 검증합니다. 공정 조건·물리 상태·품질 결과가 인과적으로 연결된 데이터를 연구합니다.',
+          accent: true,
+          chips: [
+            { name: '공정 조건', desc: '속도·압력·하중·이송 조건·소재 물성·장비 온도·공구 마모 상태의 파라미터화' },
+            { name: '물리 상태 변수', desc: '접촉력·마찰력·변형량·열분포·진동 스펙트럼·토크·힘/모멘트·표면 상태를 라벨·메타데이터로 포함' },
+            { name: '결과 변수', desc: '품질 판정·불량 유형·이상 징후·공정 편차·장비 이상 가능성과의 인과 연결' },
+            { name: '물리 검증 함수', desc: '에너지 보존·접촉 조건·마찰 모델·열전달 경계조건·진동 응답 범위·재료 변형 한계 기반 사후 검증' },
+          ],
+        },
+      ],
+      flowAfter: { label: '물리 정합 데이터 생성', tone: 'accent' },
     },
     {
-      title: '오염과 비정합',
-      body: '수집된 데이터조차 센서 오작동·누락으로 오염되어 있고, 시계열·제어값·품질결과·경계조건이 연결된 정합 데이터셋 형태가 아닙니다.',
+      key: 'model',
+      badge: 'Model layer',
+      tone: 'accent',
+      caption: '합성을 구현하는 물리 정합 생성 모델',
+      cards: [
+        {
+          name: 'Physics-informed Learning',
+          sub: '물리 제약 학습 방법론',
+          desc: '지배 방정식과 도메인 지식을 학습 제약으로 부여해, 데이터 희소 조건에서도 물리적으로 타당한 생성·추론을 보장하는 방법론 연구',
+          accent: true,
+          glyph: 'pinn',
+        },
+        {
+          name: 'Physics-aligned Transformer',
+          sub: '멀티모달 시계열 생성',
+          desc: '물리 법칙에 정렬된 트랜스포머로 센서·비전 등 다중 모달리티 시계열 데이터를 생성하는 모델 연구',
+          accent: true,
+          glyph: 'transformer',
+        },
+        {
+          name: 'Physics-informed Diffusion Model',
+          sub: '테이블 데이터 생성',
+          desc: '물리 제약을 반영한 확산 모델로 공정 변수 간 상관관계를 보존하는 테이블 데이터를 생성하는 연구',
+          accent: true,
+          glyph: 'diffusion',
+        },
+      ],
+      flowAfter: { label: '구조화된 실측 데이터 공급', tone: 'neutral' },
+    },
+    {
+      key: 'foundation',
+      badge: 'Data layer — foundation',
+      tone: 'neutral',
+      caption: '모든 연구의 출발점',
+      cards: [
+        {
+          name: 'Industrial Data Infrastructure',
+          sub: '산업 데이터 인프라',
+          desc: '이기종 산업 데이터의 수집·표준화·자산화 체계 연구. 신뢰할 수 있는 합성은 실데이터의 정밀한 구조화에서 시작됩니다.',
+        },
+      ],
     },
   ],
-  closing: '이 간극을 메우는 것이 물리정합 합성데이터입니다.',
 };
 
-export const technology = {
-  title: 'Physics-Grounded Synthetic Data Stack',
-  titleKo: '기술 스택',
-  intro: '다이어그램의 모든 박스와 데이터 소스는 실제 논문 실적으로 추적됩니다. 각 항목을 선택하면 근거 논문을 확인할 수 있습니다.',
+/* ── SECTION · RESEARCH FRAMEWORK ──────────────────────────────── */
+
+export const framework = {
+  eyebrow: 'Research Framework',
+  title: '실측에서 합성으로, 검증에서 적용까지\n하나의 연구 체계로 Physical AI를 구현합니다',
+  // 파이프라인 크럼 — 슬랩 호버 시 해당 stage가 점등
+  stages: [
+    { key: 'acq', label: 'ACQUISITION' },
+    { key: 'syn', label: 'SYNTHESIS' },
+    { key: 'val', label: 'VALIDATION' },
+    { key: 'dep', label: 'DEPLOYMENT' },
+  ],
+  // L03~L05 오른쪽 물리 검증 레일
+  railLabel: 'PHYSICS VALIDATION — 물리 검증',
+  railNote: 'Physics validation은 L03에서 L05까지 전 단계에 적용됩니다',
+  layers: [
+    {
+      no: 'L01',
+      role: 'DATA ACQUISITION',
+      stage: 'acq',
+      name: 'Multimodal Industrial Data',
+      caption: '산업 현장의 다중 모달 데이터 수집',
+      items: ['Vision & Video', 'IoT & Sensor', 'Process & Quality Records'],
+      detailTag: 'DETAIL // 수집 체계',
+      detail:
+        '비전·영상, IoT 시계열, 공정·품질 이력을 단일 파이프라인으로 수집합니다. 엣지 수집기와 스트리밍 적재 구조를 연구하며, 이 단계의 실측 데이터가 물리 상호작용 합성의 원료가 됩니다.',
+      flow: '구조화된 실측 데이터',
+    },
+    {
+      no: 'L02',
+      role: 'TRUST FOUNDATION',
+      stage: 'acq',
+      name: 'Trusted Data Infrastructure',
+      caption: '표준 기반 상호운용성과 데이터 신뢰 체계',
+      items: ['Standardization & Interop', 'Privacy & Consent', 'Data Quality'],
+      detailTag: 'DETAIL // 신뢰 기반',
+      detail:
+        'AAS 등 산업 표준 기반의 시맨틱 상호운용성, 접근 권한·동의 관리, 결측·이상 정제와 품질 지표화를 연구합니다. 신뢰할 수 있는 합성은 실데이터의 정밀한 구조화에서 시작됩니다.',
+      flow: '학습 가능한 정제 데이터',
+    },
+    {
+      no: 'L03',
+      role: 'GENERATIVE CORE',
+      stage: 'syn',
+      name: 'Physics-Grounded Generative Core',
+      caption: '물리 상호작용 합성 데이터 생성 — 원인 변수까지 포함한 인과적 합성',
+      badge: 'CORE',
+      core: true,
+      rail: true,
+      items: ['Physics-informed Learning', 'Physics-aligned Transformer', 'Physics-informed Diffusion'],
+      detailTag: 'DETAIL // 물리 상호작용 합성',
+      detail:
+        '장면·센서값의 외형적 다양성을 넘어, 공정 조건·물리 상태 변수·결과 변수를 함께 생성합니다. 물리 제약 학습을 기반으로 트랜스포머(멀티모달 시계열)와 디퓨전 모델(테이블 데이터)이 합성을 구현하고, 에너지 보존·접촉 조건·열전달 경계조건 등 물리 검증 함수로 사후 검증합니다.',
+      flow: '검증된 합성 데이터',
+    },
+    {
+      no: 'L04',
+      role: 'INTELLIGENCE',
+      stage: 'val',
+      name: 'Perception & Predictive Intelligence',
+      caption: '합성·실측 데이터로 학습되는 인식·예측 지능',
+      rail: true,
+      items: ['Anomaly Detection', 'Spatiotemporal Graph', 'Predictive Modeling'],
+      detailTag: 'DETAIL // 지능 학습',
+      detail:
+        '합성과 실측을 혼합 학습해 희소한 이상 상황에 대한 대응력을 확보합니다. 이상 탐지, 시공간 그래프, 예측 모델링을 통해 물리적으로 타당한 인식·판단을 수행하는 지능을 연구합니다.',
+      flow: '학습된 지능',
+    },
+    {
+      no: 'L05',
+      role: 'DEPLOYMENT',
+      stage: 'dep',
+      name: 'Industrial Physics AI',
+      caption: '산업 현장에 배치되는 Physical AI 응용',
+      badge: 'OUTCOME',
+      terminal: true,
+      rail: true,
+      items: ['Inspection & Safety', 'Process Optimization', 'Mobility & Energy'],
+      detailTag: 'DETAIL // 현장 적용',
+      detail:
+        '검사·안전, 공정 최적화, 모빌리티·에너지 영역에서 도메인 파트너와 함께 실증합니다. 연구 체계의 산출물이 현장의 판단과 행동으로 이어지는 단계입니다.',
+    },
+  ],
 };
 
-export const research = {
-  title: '10년의 연구 궤적',
-  titleEn: 'A Decade of Research Toward Synthetic Data',
-  intro:
-    '비정상 데이터의 희소성은 당사가 10년간 풀어온 문제입니다. 비지도 이상탐지에서 출발해 적대적 생성과 확산모델로, 그리고 실제 산업 현장 적용으로 이어진 연구의 자연스러운 다음 단계가 물리정합 합성데이터입니다.',
-  filterAll: '전체',
+/* ── SECTION · CORE EXPERTISE ──────────────────────────────────── */
+
+export const expertise = {
+  eyebrow: 'Core Expertise',
+  title: '데이터를 만드는 역량에서,\n현장에 배치하는 역량까지',
+  support: '산업 데이터를 중심으로 연구 역량을 융합합니다\n모든 역량은 연구 파이프라인 L01-L05에 매핑됩니다',
+  // 역량 그룹 카드 — 연구 파이프라인 L01~L05 매핑. badge: 'CORE' = 핵심 그룹
+  groups: [
+    {
+      layers: [1, 2, 3],
+      badge: 'CORE',
+      name: 'Data Engineering & Synthesis',
+      cap: '물리 상호작용 합성 데이터를 만들고 검증하는 역량',
+      items: [
+        {
+          name: 'Physical-interaction Synthetic Data Generation',
+          detail:
+            '장면·센서값을 넘어 공정 조건, 물리 상태 변수, 품질 결과를 함께 생성하는 인과적 합성. 결과와 원인이 연결된 학습 데이터를 만듭니다.',
+        },
+        {
+          name: 'Physics Simulation & Validation Metrics',
+          detail: '에너지 보존, 접촉 조건, 열전달 경계조건 등 물리 검증 함수와 합성 품질의 정량 지표를 설계합니다.',
+        },
+        {
+          name: 'Multimodal Data Infrastructure',
+          detail: '비전·센서·공정 이력 등 이기종 데이터의 수집, 표준화, 자산화 파이프라인을 구축합니다.',
+        },
+        {
+          name: 'Data Quality Engineering',
+          detail: '결측·이상 정제, 라벨 일관성 관리, 학습 기여도 평가로 데이터의 신뢰성을 정량 관리합니다.',
+        },
+      ],
+    },
+    {
+      layers: [3],
+      name: 'Foundation & Generative Models',
+      cap: '합성을 구현하는 물리 정합 생성 모델 역량',
+      items: [
+        {
+          name: 'Physics-informed Generative Models',
+          detail: '물리 제약 트랜스포머(멀티모달 시계열)와 디퓨전 모델(테이블 데이터)로 물리 정합 데이터를 생성합니다.',
+        },
+        {
+          name: 'Industrial Foundation Model',
+          detail: '산업 도메인 데이터로 특화된 파운데이션 모델을 구축하고 현장 과업에 적응시킵니다.',
+        },
+        {
+          name: 'Multi-modal LLM',
+          detail: '텍스트·비전·센서 신호를 통합 이해하는 멀티모달 언어 모델을 연구합니다.',
+        },
+        {
+          name: 'Vision-Language-Action Model',
+          detail: '인식과 언어 이해를 물리적 행동으로 연결하는 VLA 모델로 Physical AI의 판단-행동 고리를 연구합니다.',
+        },
+      ],
+    },
+    {
+      layers: [4],
+      name: 'Perception & Prediction',
+      cap: '합성·실측 데이터로 학습되는 인식·예측 역량',
+      items: [
+        {
+          name: 'Industrial Vision Inspection',
+          detail: '결함 검출과 품질 판정을 위한 비전 검사. 영상 분석과 이미지 이해 역량을 산업 검사 문제로 통합했습니다.',
+        },
+        {
+          name: 'Time-series Forecasting',
+          detail: '공정·설비 시계열의 미래 상태를 예측해 운전 조건 최적화와 사전 대응을 지원합니다.',
+        },
+        {
+          name: 'Anomaly Detection',
+          detail: '희소한 이상 상황을 탐지하고 조기 경보하는 모델. 합성 데이터로 이상 사례의 부족을 보완합니다.',
+        },
+      ],
+    },
+    {
+      layers: [5],
+      name: 'Optimization & Deployment',
+      cap: '현장에 배치되는 경량화·운영 역량',
+      items: [
+        {
+          name: 'Edge AI',
+          detail: '현장 엣지 디바이스에서 동작하는 추론 최적화. 네트워크 단절 환경에서도 판단이 이어지도록 합니다.',
+        },
+        {
+          name: 'Model Optimization',
+          detail: '경량화·양자화·지연시간 최적화로 연구 모델을 현장 요구 사양에 맞춥니다.',
+        },
+        {
+          name: 'On-site AI Deployment',
+          detail: '현장 배치, 모니터링, 재학습을 포함한 AI 수명주기 운영. 연구 산출물이 현장 성과로 이어지는 마지막 단계입니다.',
+        },
+      ],
+    },
+  ],
+  // 연구 성과 하이라이트 — Figma 155:1574: 타이틀 + 지표 3종 + 논문 리스트 + 로고 스트립
+  research: {
+    title: '글로벌 연구 협력을 통해\n신뢰할 수 있는 연구 성과를 만들어 갑니다',
+    stats: [
+      { value: '12+', label: 'Peer-reviewed Publications' },
+      { value: '20+', label: 'Global Research Partners' },
+      { value: '10+', label: 'Years of Research Experience' },
+    ],
+    publicationsTitle: '주요 논문 및 협력 기관',
+    publications: [
+      {
+        year: '2026',
+        venue: 'Neurocomputing',
+        title: 'Normality-calibrated autoencoder for unsupervised anomaly detection on data contamination',
+        partners: ['KAIST', 'Harvard Medical School', 'Harvard University'],
+      },
+      {
+        year: '2026',
+        venue: 'The International Journal of Advanced Manufacturing Technology',
+        title: 'Resource-Efficient Adaptation of Large Vision–Language Models for Multimodal Defect Inspection in LNG Tank Manufacturing',
+        partners: ['INJE University', 'Kyungnam University'],
+      },
+      {
+        year: '2026',
+        venue: 'IEEE Access',
+        title: 'Beyond Simple Character Recognition: A Comparative Study of Vision-Language Models and Dedicated OCR Systems in Edge Cases',
+        partners: ['INJE University', 'Kyungnam University', 'Sortech'],
+      },
+      {
+        year: '2025',
+        venue: "Proceedings of ICAIF '25",
+        title: 'From News to Returns: A Granger-Causal Hypergraph Transformer on the Sphere',
+        partners: ['University of Cambridge', 'University of Kent'],
+      },
+      {
+        year: '2025',
+        venue: 'ACML (PMLR 304)',
+        title: 'MagicMask: A Fast and High-fidelity Face Swapping Method Robust to Face Pose',
+        partners: [
+          'University of Cambridge',
+          'Imperial College London',
+          "King's College London",
+          'Inje University',
+          'University of Kent',
+        ],
+      },
+      {
+        year: '2025',
+        venue: 'ACM Web Conference 2025 (Companion)',
+        title: 'Advanced Hypergraph Mining for Web Applications Using Sphere Neural Networks',
+        partners: ['University of Cambridge', 'University of Oxford', 'University of Kent', 'Durham University'],
+      },
+      {
+        year: '2024',
+        venue: 'IEEE ICRA 2024',
+        title:
+          'Multi-class Road Defect Detection and Segmentation using Spatial and Channel-wise Attention for Autonomous Road Repairing',
+        partners: [
+          'University of Cambridge',
+          "King's College London",
+          'University of Liverpool',
+          'Robotiz3D Ltd.',
+        ],
+      },
+      {
+        year: '2024',
+        venue: 'Pattern Recognition Letters',
+        title: 'Denoising diffusion model with adversarial learning for unsupervised anomaly detection on brain MRI images',
+        partners: ['KAIST', 'Gwangju Institute of Science and Technology (GIST)', 'Inje University'],
+      },
+      {
+        year: '2024',
+        venue: 'IEEE Transactions on Intelligent Transportation Systems',
+        title: 'Road surface defect detection—From image-based to non-image-based: A survey',
+        partners: ['University of Cambridge', "King's College London", 'Robotiz3D Ltd.'],
+      },
+      {
+        year: '2024',
+        venue: 'NeurIPS 2024 Workshop on Behavioral Machine Learning',
+        title: 'Monitoring Behavioral Changes Using Spatiotemporal Graphs: A Case Study on the StudentLife Dataset',
+        partners: ['University of Cambridge', 'University of Kent', 'Durham University'],
+      },
+      {
+        year: '2024',
+        venue: 'IEEE Transactions on Neural Networks and Learning Systems',
+        title: 'Weakly supervised contrastive learning for unsupervised vehicle re-identification',
+        partners: ['KAIST', 'Harvard University'],
+      },
+      {
+        year: '2024',
+        venue: 'IEEE Transactions on Neural Networks and Learning Systems',
+        title: 'An iterative method for unsupervised robust anomaly detection under data contamination',
+        partners: ['KAIST', "King's College London", 'Harvard University', 'POSTECH', 'Yonsei University'],
+      },
+    ],
+    caption: '국내외 유수 연구기관과의 지속적인 협력을 통해 연구의 깊이와 영역을 확장하고 있습니다',
+  },
 };
 
-export const useCases = {
-  title: '적용 분야',
-  titleEn: 'Use Cases',
+/* ── SECTION · RESEARCH PRINCIPLES ─────────────────────────────── */
+
+export const principles = {
+  eyebrow: 'Research Principles',
+  title: '물리 세계와 산업 현장을 이해하는\n지속 가능한 고지능 기술을 연구합니다',
+  // Figma 27:321 — 화이트 카드(r16) 상단 2행 타이틀 + 하단 라인 일러스트
+  // hover 시 액센트 틴트 워시 + 설명(desc) 페이드인. core: true = 핵심 원칙 배지 표시
+  // subtitle: 카드에 항상 노출되는 한 줄 선언, desc: hover 시 펼쳐지는 상세 설명
   items: [
     {
-      id: 'fault-diagnosis',
-      icon: 'waveform',
-      title: '고장진단',
-      body: '희소 고장 신호의 물리제약 합성으로 진단 모델 성능 확보 (진동·전류·토크 시계열)',
+      name: 'Industrial\nFirst',
+      illo: 'industrial-first',
+      subtitle: '연구 질문은 논문이 아니라 산업 현장에서 나옵니다',
+      desc: '현장에서 정의되지 않은 문제는 연구 과제로 채택하지 않습니다.\n모든 연구는 실제 공정·설비·품질 문제에서 출발하고, 그 현장으로 돌아가 끝납니다.',
     },
     {
-      id: 'quality-inspection',
-      icon: 'lens',
-      title: '품질검사',
-      body: '정상 이미지 기반 결함 합성으로 비전 검사 모델 학습 (표면 결함, 비파괴검사)',
+      name: 'Physics\nGrounded',
+      tag: 'CORE PRINCIPLE',
+      core: true,
+      illo: 'research-driven',
+      subtitle: '물리 법칙에 정합하지 않는 데이터는 학습 데이터가 아닙니다',
+      desc: '모든 생성 결과는 지배 방정식과 경계조건의 제약 안에서 만들어집니다.\n그럴듯한 이미지가 아니라 물리적으로 성립하는 데이터를 만드는 것이 우리의 기준입니다.',
     },
     {
-      id: 'predictive-maintenance',
-      icon: 'rul-curve',
-      title: '예지보전 (RUL)',
-      body: '열화 동역학 반영 합성데이터로 잔여수명 예측 정밀화',
+      name: 'Data\nCentric',
+      illo: 'data-centric',
+      subtitle: 'Physical AI의 성능은 모델이 아니라 데이터가 결정합니다',
+      desc: '결과값만이 아니라 결과가 발생한 물리적 원인 변수(공정 조건, 물리 상태, 품질 결과)까지 데이터에 담습니다.\n인과가 연결된 데이터만이 판단할 수 있는 지능을 만듭니다.',
     },
     {
-      id: 'process-robot-control',
-      icon: 'robot-arm',
-      title: '공정·로봇 제어',
-      body: '디지털트윈 시뮬레이션 합성데이터로 LAM/PINN 학습 지원',
+      name: 'Validated,\nNot Assumed',
+      illo: 'real-world-validation',
+      subtitle: '검증되지 않은 합성 데이터는 공급하지 않습니다',
+      desc: '에너지 보존, 접촉 조건, 열전달 경계조건 기반의 물리 검증 함수를 통과한 데이터만 학습에 사용합니다.\n최종 검증은 시뮬레이션이 아니라 현장에서 완결합니다.',
+    },
+    {
+      name: 'Research to\nDeployment',
+      illo: 'engineering-oriented',
+      subtitle: '배치되지 않은 연구는 미완성입니다',
+      desc: '논문의 엄밀함으로 시작해, 현장의 제약 조건(엣지 환경, 지연시간, 운영 안정성)에서 끝냅니다.\n연구의 엄밀함과 엔지니어링의 실용성은 선택이 아니라 순서입니다.',
     },
   ],
 };
 
-export const news = {
-  title: 'News',
-  items: [
-    {
-      id: 'agentx-2025',
-      headline: "GNAIX Team, Berkeley AgentX Competition 'Agent Architecture' 부문 1위",
-      date: '2025. 8. 2',
-      place: 'San Francisco, US',
-      body: 'Berkeley RDI 주최 AgentX – LLM Agents MOOC Competition의 Agent Architecture 부문에서 1위를 수상했습니다. 수상 논문 "Agent-based Autonomous Manufacturing from Planning to Production"은 계획 수립부터 생산까지 제조 전 과정을 자율 수행하는 에이전트 프레임워크를 제안합니다.',
-      point: '이 수상은 "제조 자율화"를 향한 당사 비전에 대한 글로벌 검증입니다.',
-    },
-  ],
-};
-
-export const about = {
-  headline: '연구에서 현장으로',
-  body1:
-    'nextstud.io는 KAIST IT융합연구소에서 다수의 중대형 국책과제를 함께 수행해 온 연구진이 설립한 AI 연구기업입니다. 이상탐지·생성모델·데이터 플랫폼 분야에서 축적한 연구를 제조 현장의 합성데이터 기술로 잇고 있습니다.',
-  body2:
-    '국가 제조거점 경남에 자리해, 자동차·조선·방산 제조벨트의 현장 데이터와 가장 가까운 곳에서 Physical AI를 연구합니다.',
-  // 지표 숫자는 자동 집계하지 않고 상수로 유지 — 추후 사용자가 직접 조정 (스펙 §4.8)
-  metrics: [
-    { value: 20, suffix: '+편', label: 'SCI(E)급 게재' },
-    { value: 1, prefix: '', suffix: '위', label: 'Berkeley AgentX 2025' },
-    { value: null, text: '국책과제', suffix: '', label: '공동수행 경험' },
-  ],
-};
-
-export const contact = {
-  title: 'Contact',
-  tagline: '경남 제조벨트의 심장부에서, Physical AI를 연구합니다.',
-  // 구글맵 임베드 URL — 기존 사이트 임베드 재사용 가능 시 교체
-  mapEmbedUrl:
-    'https://www.google.com/maps?q=197+Inje-ro,+Gimhae-si,+Gyeongsangnam-do,+Republic+of+Korea&output=embed',
-};
+/* ── FOOTER ────────────────────────────────────────────────────── */
 
 export const footer = {
-  copyright: '© nextstud.io. All Rights Reserved.',
+  // Figma 81:407 — 다크 배너: 헤드라인 + 서브카피 + Contact Us 버튼 + 로고/네비 행
+  headline: '함께, 산업의 미래를 연구합니다',
+  sub: 'NEXTSTUDIO는 산업 데이터를 기반으로\nPhysical AI의 새로운 가능성을 연구합니다.',
+  cta: 'Contact Us',
+  copyright: '© 2026 nextstud.io. All rights reserved',
+};
+
+/* ── CONTACT FORM (모달) ───────────────────────────────────────── */
+
+export const contactForm = {
+  title: 'Contact Us',
+  sub: '협력·문의 내용을 남겨주시면 확인 후 회신드리겠습니다.',
+  labels: {
+    name: '이름',
+    email: '이메일',
+    organization: '소속 (기관/기업)',
+    topic: '문의 유형',
+    message: '문의 내용',
+  },
+  placeholders: {
+    name: '홍길동',
+    email: 'name@example.com',
+    organization: '소속 기관 또는 기업명',
+    topic: '문의 유형을 선택해주세요',
+    message: '협력 또는 문의하고 싶은 내용을 자유롭게 적어주세요.',
+  },
+  topics: ['공동연구 협력', '정부 R&D 협력', '기술이전 문의', '데이터 구축·활용 문의', '기타'],
+  submit: '보내기',
+  submitting: '전송 중…',
+  successTitle: '문의가 접수되었습니다',
+  successSub: '남겨주신 내용을 확인한 뒤\n입력하신 이메일로 회신드리겠습니다.',
+  close: '닫기',
+  error: '전송에 실패했습니다. 잠시 후 다시 시도해주세요.',
 };
