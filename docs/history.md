@@ -247,3 +247,22 @@
 - 배포 전 로컬 preview ↔ 라이브 데스크톱 side-by-side 대조 완료 — Hero/배너/WhyData/
   ResearchAreas pin/Framework/Expertise/Principles/Footer/scrollspy 전부 동일, 하이드레이션
   경고 없음
+
+## 2026-08-28 — SEO 2차: 정규화·검색엔진 등록·llms-full.txt
+
+- **www/non-www 정규화**: Vercel Domains에서 `nextstud.io`(non-www)를 primary로, `www`는
+  308 리다이렉트로 전환. 모든 메타 태그가 이미 non-www라 코드 변경 없음. 라이브 검증:
+  `curl -sI https://www.nextstud.io` → 308 `location: https://nextstud.io/`
+- **Google Search Console**: GoDaddy 연결로 도메인 속성(DNS TXT `google-site-verification=
+  rkDlCvQp...`) 인증. 메타 태그 불필요
+- **Bing Webmaster Tools**: 사용자가 GSC 임포트로 등록
+- **네이버 서치어드바이저**: `<meta name="naver-site-verification" content="d13e45c3af9dc9...">`
+  를 `index.html`에 추가·배포(commit c4edcd1). 콘솔 "확인" + 사이트맵 제출은 사용자 몫
+- **llms-full.txt**: `public/llms-full.txt` 신규 — 전체 카피 평문 + FAQ 9항목(회사 정체성·
+  물리 상호작용 합성·검증·데이터 병목·연구 분야/체계·협력·연락처). `llms.txt`에 링크 추가
+- **sitemap lastmod 자동화**: `scripts/prerender.mjs`가 빌드 시 `dist/sitemap.xml`의
+  `<lastmod>`를 빌드 날짜(UTC)로 갱신
+- 커밋: `33b5571`(llms-full + sitemap 자동화), `c4edcd1`(네이버 태그)
+- 배포: `npx vercel deploy --prod` → dpl_fuzYbk1GSaCsUbRXfrG16w7Y6Mge, `nextstud.io` alias.
+  라이브 검증: 네이버 태그·llms-full.txt(200, 19,626B)·sitemap lastmod 2026-08-28 확인
+- 남은 사용자 작업: 네이버 콘솔 소유권 확인, GSC·네이버·Bing에 사이트맵 제출, 14일 후 기준선 측정

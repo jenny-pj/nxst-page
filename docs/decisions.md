@@ -2,6 +2,23 @@
 
 최신순. 각 항목은 "무엇을, 왜"를 기록한다.
 
+## 2026-08-28 — SEO 2차: 정규화·검색엔진 등록·llms-full.txt
+
+- **www/non-www 정규화**: canonical·og:url·sitemap·robots는 전부 non-www인데 서버는
+  308로 www 강제 리다이렉트 → 정규 URL이 리다이렉트되는 상태였음. non-www를 정본으로
+  택함(더 짧고, 태그 수정 불필요). Vercel Domains에서 `nextstud.io`를 primary로,
+  `www`를 리다이렉트로 전환.
+- **검색엔진 등록**: Google Search Console은 GoDaddy 연결로 **도메인 속성**(DNS TXT)
+  인증 — URL 접두어보다 커버리지 넓음(www·non-www·하위도메인). Bing은 GSC 임포트.
+  네이버 서치어드바이저는 HTML 메타 태그 방식(`naver-site-verification`).
+- **llms-full.txt**: `llms.txt`(요약)와 별개로 전체 카피 평문 + FAQ Q&A 9항목 추가.
+  GEO/LLMO/AEO 목적. 가시 FAQ 섹션(FAQPage JSON-LD)은 구글 정책상 페이지에 실제 노출이
+  필요해 디자인 작업 수반 → 이번엔 llms-full.txt Q&A 블록으로만(리스크 0), 가시 섹션은
+  보류.
+- **sitemap lastmod**: 수동 고정값(2026-07-07)이었음 → `prerender.mjs`가 빌드 시
+  UTC 날짜로 자동 갱신. `<loc>`는 리다이렉트 안 되는 non-www 유지.
+- `sameAs`: 넣을 공식 표면 URL(링크드인 등)이 아직 없어 보류.
+
 ## 2026-08-28 — 빌드 타임 프리렌더링 도입 (자체 SSG)
 
 - 배경: `fire-your-seo-agency` 스킬로 라이브 사이트를 진단한 결과, Vite React SPA를

@@ -26,8 +26,9 @@ public/                      # 정적 서빙 파일 (Tailwind 스캔 제외 — 
 ├── favicon.ico              # 파비콘 (신규 로고, 2026-07-07)
 ├── apple-touch-icon.png     # iOS 홈 화면 아이콘 (180×180)
 ├── og.png                   # SNS 공유 미리보기 (1200×630)
-├── sitemap.xml / robots.txt # 검색엔진 크롤링
-└── llms.txt                 # AI 검색(GEO)용 사이트 요약 — 카피 변경 시 함께 갱신할 것
+├── sitemap.xml / robots.txt # 검색엔진 크롤링 (<lastmod>는 빌드 시 prerender.mjs가 자동 갱신)
+├── llms.txt                 # AI 검색(GEO)용 사이트 요약 — 카피 변경 시 함께 갱신할 것
+└── llms-full.txt            # 전체 카피 평문 + FAQ Q&A — 카피 변경 시 함께 갱신
 
 src/
 ├── main.jsx                 # 클라이언트 엔트리 — 프리렌더 마크업 있으면 hydrateRoot,
@@ -71,7 +72,8 @@ src/
 1. `vite build` — 클라이언트 번들 + `dist/index.html` 템플릿
 2. `vite build --ssr src/entry-server.jsx --outDir dist/server` — SSR 번들
 3. `node scripts/prerender.mjs` — SSR 렌더 결과를 `dist/index.html`의 `<div id="root">`에
-   주입, `dist/server` 정리, 텍스트 길이 sanity check (500자 미만이면 빌드 실패)
+   주입, `dist/sitemap.xml`의 `<lastmod>`를 빌드 날짜(UTC)로 갱신, `dist/server` 정리,
+   텍스트 길이 sanity check (500자 미만이면 빌드 실패)
 
 - 추가 npm 의존성·헤드리스 브라우저 불필요 (라우트가 `/` 하나뿐이라 `renderToString`만 사용)
 - `npm run build:client` — 프리렌더 없이 클라이언트만 빌드 (디버깅용)
@@ -80,4 +82,6 @@ src/
 
 - Vercel (vercel/env 파일은 gitignore 처리됨)
 - `npm run build` → `dist/` 정적 산출물
-- 도메인 `nextstud.io` / `www.nextstud.io` 는 Vercel 프로젝트에 연결됨 (2026-07~08 DNS 전환 완료)
+- 도메인 `nextstud.io` / `www.nextstud.io` 는 Vercel 프로젝트에 연결됨. **정본은 non-www** —
+  `www`는 308로 `nextstud.io`에 리다이렉트 (2026-08-28 정규화). 모든 메타 태그·sitemap도 non-www
+- DNS: GoDaddy(ns51/52.domaincontrol.com). GSC는 이 DNS의 TXT 레코드로 도메인 속성 인증됨

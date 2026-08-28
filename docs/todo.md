@@ -17,13 +17,14 @@
 ### SEO·AEO·GEO·LLMO·NEO 최적화 (fire-your-seo-agency 진단 기반, 2026-08-28)
 
 - [x] **프리렌더링 배포** — 2026-08-28 `seo` → `main` fast-forward 병합, `vercel deploy --prod` (dpl_A9S3cD77...). 라이브 검증 완료
-- [ ] **www/non-www 정규화** — canonical·og:url·sitemap은 non-www인데 서버는 308로 www 강제. 한쪽으로 통일 (Vercel 도메인 설정 + 태그)
-- [ ] **네이버 서치어드바이저 등록** (searchadvisor.naver.com) — 사용자 계정 필요, verification 메타 태그는 삽입 대행. Yeti 크롤 허용·사이트맵 제출
-- [ ] **Bing Webmaster Tools 등록** — GSC에서 원클릭 임포트. Copilot·ChatGPT 검색이 Bing 색인 의존
-- [ ] Google Search Console 등록 + sitemap.xml 제출 (기준선 측정용)
-- [ ] JSON-LD `sameAs` 추가 — 링크드인·유튜브·보도자료 등 공식 표면 연결
-- [ ] `public/llms-full.txt` 추가 + 회사소개 FAQPage JSON-LD (가시 텍스트와 100% 일치)
-- [ ] `sitemap.xml` lastmod 빌드 시 자동 갱신 + 최종 URL(리다이렉트 안 되는) 사용
+- [x] **www/non-www 정규화** — 2026-08-28 완료. Vercel에서 `nextstud.io`(non-www)를 primary로, `www`는 308 리다이렉트. 모든 태그가 이미 non-www라 코드 수정 없음. 라이브 검증: `www` → `nextstud.io` 308
+- [x] **네이버 서치어드바이저 등록** — 2026-08-28 verification 메타 태그 배포(commit `c4edcd1`). content=`d13e45c3af9dc9...`. **남음: 콘솔에서 "확인" 클릭 + 사이트맵 제출**
+- [x] **Bing Webmaster Tools 등록** — 2026-08-28 사용자가 GSC 임포트로 완료
+- [x] **Google Search Console 등록** — 2026-08-28 완료. GoDaddy 연결로 **도메인 속성**(DNS TXT `google-site-verification=rkDlCvQp...`) 인증 — www·non-www·하위도메인 전부 커버. **남음: 사이트맵 제출**
+- [ ] JSON-LD `sameAs` 추가 — 공식 표면 URL(링크드인 등)이 아직 없음. 생기면 추가
+- [x] `public/llms-full.txt` 추가 — 2026-08-28 완료(commit `33b5571`). 전체 카피 평문 + FAQ Q&A 9항목. `llms.txt`에 링크. 가시 FAQ 섹션(FAQPage JSON-LD)은 디자인 여유 시 별도
+- [x] `sitemap.xml` lastmod 빌드 시 자동 갱신 — 2026-08-28 완료(commit `33b5571`). `prerender.mjs`가 빌드 날짜로 갱신. `<loc>`는 리다이렉트 안 되는 non-www
+- [ ] **사이트맵 제출** — GSC·네이버 서치어드바이저·Bing 각각에 `https://nextstud.io/sitemap.xml` 제출 (사용자 계정)
 - [ ] 측정 기준선 기록(GSC·네이버 노출/클릭·AI 인용 O/X) → 배포 14일 후 재측정
 - [x] 모바일 터치에서 hover 효과 발동 — 2026-07-07 완료 (실기기 확인, commit c27d1b9)
 - [x] `light` 브랜치 커밋 (리뉴얼 + 인터랙션) — 2026-07-06 완료

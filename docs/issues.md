@@ -8,6 +8,10 @@
 - 해결: 빌드 타임 프리렌더링(자체 SSG, `renderToString`). 2026-08-28 배포. 라이브 `curl` 검증 — `<h1>`×1, h2×5, h3×18, 본문 텍스트 ~18,400자. 로컬 preview + 라이브 side-by-side 대조에서 시각적 회귀 없음 (상세는 decisions.md 2026-08-28)
 - 남은 한계: `Reveal` 진입 모션이 브라우저에서 opacity:0에서 시작하므로 하이드레이션 전 짧은 순간 본문이 안 보일 수 있음 (no-JS·크롤러는 `<noscript>` 규칙으로 즉시 노출). 실사용자 체감 개선은 2차 과제
 
+### canonical URL이 리다이렉트됨 — www/non-www 불일치 (2026-08-28 진단 → Vercel 도메인 설정으로 해결)
+- 증상: canonical·og:url·sitemap `<loc>`·robots는 전부 `https://nextstud.io`(non-www)인데 서버는 non-www를 308로 `www.nextstud.io`에 리다이렉트. 크롤러가 "정규 URL이 리다이렉트된다"고 인식 → 색인 신호 분산
+- 해결: Vercel Domains에서 `nextstud.io`를 primary로 지정, `www`를 리다이렉트로 전환(2026-08-28). 이제 태그·서버 모두 non-www. `curl -sI https://www.nextstud.io` → 308 → `https://nextstud.io/`
+
 ### Framework 슬랩 태그·구분선이 접힘선을 넘어간다는 재신고 — 재현 안 됨, 캐시 문제로 확인 (2026-08-06 조사 → 새로고침으로 해소)
 - 증상: 91c5614 배포 이후에도 iPhone 14 Pro Safari에서 L05 카드 "Process Optimization" 태그와 "DETAIL // 현장 적용" 구분선이 우측 접힘 시임선을 넘어간다고 재신고
 - 조사: production 번들에서 fix 마커(`min-w-0` 존재, `mr-6`/`mr-4` 부재, `color-mix` 존재) 확인해 최신 코드가 배포돼 있음을 검증. Chrome 데스크톱에서 iframe 주입으로 375/390px(iPhone 14 Pro 물리 폭 393px과 근접)를 정밀 재현했으나 L01~L05 전 레이어에서 칩·구분선 모두 접힘선 안쪽에 여유 폭을 두고 정상 렌더링됨 (칩 최소 여유 -30px, 구분선 -28px) — DOM 실측 + 확대 스크린샷으로 프로덕션이 정상임을 확인
