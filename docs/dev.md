@@ -29,7 +29,10 @@ npm run preview      # 빌드 결과 로컬 확인 (프리렌더 + 하이드레�
 
 1. Figma 데스크톱 앱에서 프레임 선택 → Claude Code에서 Figma Dev Mode MCP로 추출
 2. 에셋은 `localhost:3845`에서 `src/assets/figma/`로 다운로드해 커밋 (런타임에 MCP 의존 없음)
-3. 대형 PNG는 `sips`로 JPEG 압축 (hero-bg 4.7MB→553KB, section-texture 5.1MB→506KB)
+3. 대형 이미지는 `cwebp`로 WebP 변환 후 커밋 (`<img>` 단일 포맷, 폴백 없음).
+   예: `cwebp -q 72 -resize 1920 0 in.jpg -o out.webp`, alpha 있으면 `-alpha_q 90`.
+   2026-08-28 hero-bg·research-stack-3d(dim 포함) 전환 — 합계 1,722KB→198KB.
+   컴포넌트에서 `import x from '.../foo.webp'`로 참조 (Vite가 해시 파일명으로 번들)
 
 ## 배포
 
