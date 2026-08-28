@@ -27,8 +27,8 @@ public/                      # 정적 서빙 파일 (Tailwind 스캔 제외 — 
 ├── apple-touch-icon.png     # iOS 홈 화면 아이콘 (180×180)
 ├── og.png                   # SNS 공유 미리보기 (1200×630)
 ├── sitemap.xml / robots.txt # 검색엔진 크롤링 (<lastmod>는 빌드 시 prerender.mjs가 자동 갱신)
-├── llms.txt                 # AI 검색(GEO)용 사이트 요약 — 카피 변경 시 함께 갱신할 것
-└── llms-full.txt            # 전체 카피 평문 + FAQ Q&A — 카피 변경 시 함께 갱신
+├── llms.txt                 # AI 검색용 간결 요약 + llms-full.txt 링크 (거의 안 바뀜)
+└── llms-full.txt            # 전체 카피 평문 + FAQ Q&A — 카피(copy.js) 변경 시 이 파일만 동기화
 
 src/
 ├── main.jsx                 # 클라이언트 엔트리 — 프리렌더 마크업 있으면 hydrateRoot,

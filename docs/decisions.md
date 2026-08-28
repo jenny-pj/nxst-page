@@ -2,6 +2,31 @@
 
 최신순. 각 항목은 "무엇을, 왜"를 기록한다.
 
+## 2026-08-28 — llms.txt를 상세본에서 간결본으로 전환
+
+- 문제: `public/llms.txt`가 세부 내용(연구 체계 L01–L05, 핵심 역량, 연구 철학)을 담고
+  있었는데 이게 **구 카피 버전**이라 현행 `src/data/copy.js`와 불일치했음
+  (L02 "Trusted Data Ecosystem" vs 현행 "Trusted Data Infrastructure",
+  L03 "Robust Learning Core" vs "Physics-Grounded Generative Core",
+  철학 "Research Driven / Engineering Oriented" vs "Physics Grounded / Validated Not
+  Assumed / Research to Deployment"). 상세 텍스트를 두 파일에서 동기화하는 부담이 이미
+  드리프트로 이어짐.
+- 결정: `llms.txt`는 자주 안 바뀌는 **핵심 정보 요약 + 링크**(llms.txt 표준 형식에 더
+  가깝게)로 축약하고, 전체·정확한 상세는 `llms-full.txt` 하나가 담당. 카피 변경 시
+  `llms-full.txt`만 갱신하면 됨.
+- 트레이드오프: 툴이 `llms.txt`만 가져갈 경우 세부가 줄지만, `## 자료` 섹션에서
+  `llms-full.txt`를 명시 링크하므로 후속 fetch 가능. 유지보수 정확성이 더 중요하다고 판단.
+
+## 2026-08-28 — 이미지 WebP 전환 (단일 포맷, `<picture>` 미사용)
+
+- `hero-bg.jpg`(553KB)·`research-stack-3d.png`(760KB)·`-dim.png`(409KB)이 페이지
+  전송량의 대부분. `cwebp`로 WebP 변환 시 합계 1,722KB → 198KB(-89%).
+- WebP 단일 포맷으로 교체(JPG/PNG 폴백 `<picture>` 없이). 근거: WebP는 모든 상용
+  브라우저가 2020년부터 지원(Safari 14+), 타깃이 모던 사용자, `<img src>` 한 줄로 끝나
+  마크업 변경 없음. imagetools 같은 빌드 플러그인도 도입 안 함(에셋 3개뿐).
+- `hero-bg`는 배경(오버레이+텍스트 아래, zoom 애니메이션)이라 2944w→1920w 리사이즈도 병행.
+  스택 렌더는 1022w 유지(디테일 보존, alpha q90).
+
 ## 2026-08-28 — SEO 2차: 정규화·검색엔진 등록·llms-full.txt
 
 - **www/non-www 정규화**: canonical·og:url·sitemap·robots는 전부 non-www인데 서버는

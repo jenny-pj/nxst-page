@@ -1,6 +1,6 @@
 import Reveal from './Reveal.jsx';
 import { hero } from '../data/copy.js';
-import heroBg from '../assets/figma/hero-bg.jpg';
+import heroBg from '../assets/figma/hero-bg.webp';
 
 /* 연구 키워드 마퀴 — 동일 리스트 4개를 이어 무한 루프.
    리스트 1개(~1900px)가 와이드 화면보다 좁으면 -50% 이동 중 오른쪽이 비므로,

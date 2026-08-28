@@ -266,3 +266,22 @@
 - 배포: `npx vercel deploy --prod` → dpl_fuzYbk1GSaCsUbRXfrG16w7Y6Mge, `nextstud.io` alias.
   라이브 검증: 네이버 태그·llms-full.txt(200, 19,626B)·sitemap lastmod 2026-08-28 확인
 - 남은 사용자 작업: 네이버 콘솔 소유권 확인, GSC·네이버·Bing에 사이트맵 제출, 14일 후 기준선 측정
+
+## 2026-08-28 — SEO 3차: robots AI 크롤러 명시 · 이미지 WebP · llms.txt 간결화
+
+- **robots.txt**: `User-agent: *  Allow: /` 아래에 AI 크롤러 15종(GPTBot·OAI-SearchBot·
+  ChatGPT-User·ClaudeBot·Claude-Web·anthropic-ai·PerplexityBot·Perplexity-User·
+  Google-Extended·Applebot-Extended·CCBot·Amazonbot·Bytespider·Meta-ExternalAgent·
+  cohere-ai) 명시 Allow 블록 추가 — 생성형 검색·LLM 인용 유입 허용 의도 명확화
+- **이미지 WebP 최적화**: `cwebp`로 변환. `hero-bg.jpg`(553KB) → `hero-bg.webp`(62KB,
+  1920w 리사이즈, q72), `research-stack-3d.png`(760KB) → `.webp`(75KB, q82 alpha),
+  `research-stack-3d-dim.png`(409KB) → `.webp`(61KB). 합계 1,722KB → 198KB(-89%).
+  원본 PNG/JPG 3개 삭제. `Hero.jsx`·`ResearchAreas.jsx`의 import 확장자만 교체(마크업
+  변경 없음). 로컬 preview에서 Hero 배경·ResearchAreas 스택 렌더 확인
+- **llms.txt 간결화**: 기존 상세 섹션(연구 체계·핵심 역량·연구 철학)이 구 카피 버전과
+  불일치(L02 "Trusted Data Ecosystem", L03 "Robust Learning Core", 철학 "Research
+  Driven/Engineering Oriented" 등 — 현행 copy.js와 다름)한 채 드리프트 중이었음.
+  안정적인 핵심 정보 요약 + `## 자료`(llms-full.txt·sitemap 링크) + 연락처 구조로 축약.
+  상세·정확한 내용은 2026-08-28에 copy.js 기준으로 새로 쓴 llms-full.txt가 담당 →
+  이후 카피 변경 시 llms-full.txt만 동기화하면 됨
+- 배포: `npx vercel deploy --prod` → (dpl ID는 배포 후 기록)
