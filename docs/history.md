@@ -236,3 +236,14 @@
   로컬 preview에서 하이드레이션 불일치 경고 없음 + h1/h2/h3 구조 정상 확인.
 - 후속(2차, 미배포): www/non-www 정규화, 네이버·Bing 등록, JSON-LD sameAs, llms-full.txt,
   FAQPage 스키마, sitemap lastmod 자동화 — todo.md 참고
+
+## 2026-08-28 — 프리렌더링 프로덕션 배포
+
+- `seo`(3커밋: SSR-안전 처리 / 프리렌더링 / docs) → `main` fast-forward 병합, `git push origin main`
+- `npx vercel deploy --prod` (dpl_A9S3cD77tLbGjWyPRPXdhEndvK5d) → `www.nextstud.io` alias 반영
+- 라이브 검증: `curl -sL https://nextstud.io` 결과 `<h1>`×1 (기존 0), h2×5, h3×18, 본문 텍스트
+  ~18,400자 (기존 ~2,600 — 대부분 메타/JSON-LD). Expertise·ResearchAreas·Principles 등
+  하위 섹션 카피가 raw HTML에 존재함을 확인
+- 배포 전 로컬 preview ↔ 라이브 데스크톱 side-by-side 대조 완료 — Hero/배너/WhyData/
+  ResearchAreas pin/Framework/Expertise/Principles/Footer/scrollspy 전부 동일, 하이드레이션
+  경고 없음

@@ -8,7 +8,7 @@
 - [x] **Expertise 협력 기관 로고 Figma 재동기화** — 로고 세트 갱신(11→12개), 위치를 논문 리스트 위로 이동, Figma 카드 비율·수동 크롭까지 정확히 재현 — 2026-07-21 완료(commit `e2f537b`)
 - [x] **Framework 슬랩 SVG → CSS 재구현 + 좌우 여백 대칭화** — 모바일 헤더가 접힘 시임선을 뚫는 문제, 앞면/대각선 테두리 두께 불일치, hover 색상 회귀, 앞면 콘텐츠 좌우 여백 비대칭·L05 태그 오버플로우 — 2026-08-05 완료(commit `447d418`, `91c5614`, push+vercel 프로덕션 배포)
 - [x] `public/llms.txt`를 신규 카피(연구기업 포지셔닝, 7개 연구분야 + L01~L05 + Core Expertise + Principles + Collaboration)로 갱신 — `light` 브랜치에서 완료, `main` 병합됨
-- [x] **빌드 타임 프리렌더링 도입** — CSR SPA를 정적 HTML로 서빙, JS 미실행 크롤러(네이버·Bing·AI)가 본문을 보게. 자체 SSG(`renderToString`) — 2026-08-28 `seo` 브랜치에서 완료·로컬 검증, **배포 대기**
+- [x] **빌드 타임 프리렌더링 도입** — CSR SPA를 정적 HTML로 서빙, JS 미실행 크롤러(네이버·Bing·AI)가 본문을 보게. 자체 SSG(`renderToString`) — 2026-08-28 완료·배포. 라이브 `curl` 검증: `<h1>`×1, h2×5, h3×18, 본문 텍스트 ~18,400자 (기존 ~2,600 → 대부분 메타)
 - [x] 카피 v2 확정 후 정리 — 2026-07-10 완료 (copy.js 병합, v1/v2/토글 제거, llms.txt 갱신)
 - [ ] 모바일 실기기에서 인터랙션 검수 (reduced-motion 포함 — 데스크톱은 2026-07-02 검증 완료)
 - [ ] 실기기 모바일 QA (iOS Safari 스크롤 성능)
@@ -16,7 +16,7 @@
 
 ### SEO·AEO·GEO·LLMO·NEO 최적화 (fire-your-seo-agency 진단 기반, 2026-08-28)
 
-- [ ] **프리렌더링 배포** — `seo` → `main` 병합 후 `vercel deploy --prod`, 배포 후 `curl -sL nextstud.io | grep -c '<h1'` 로 검증
+- [x] **프리렌더링 배포** — 2026-08-28 `seo` → `main` fast-forward 병합, `vercel deploy --prod` (dpl_A9S3cD77...). 라이브 검증 완료
 - [ ] **www/non-www 정규화** — canonical·og:url·sitemap은 non-www인데 서버는 308로 www 강제. 한쪽으로 통일 (Vercel 도메인 설정 + 태그)
 - [ ] **네이버 서치어드바이저 등록** (searchadvisor.naver.com) — 사용자 계정 필요, verification 메타 태그는 삽입 대행. Yeti 크롤 허용·사이트맵 제출
 - [ ] **Bing Webmaster Tools 등록** — GSC에서 원클릭 임포트. Copilot·ChatGPT 검색이 Bing 색인 의존
