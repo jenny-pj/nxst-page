@@ -284,4 +284,5 @@
   안정적인 핵심 정보 요약 + `## 자료`(llms-full.txt·sitemap 링크) + 연락처 구조로 축약.
   상세·정확한 내용은 2026-08-28에 copy.js 기준으로 새로 쓴 llms-full.txt가 담당 →
   이후 카피 변경 시 llms-full.txt만 동기화하면 됨
-- 배포: `npx vercel deploy --prod` → (dpl ID는 배포 후 기록)
+- 배포: `npx vercel deploy --prod` → dpl_HnXfZvjxMbcvT2jGcavGZFg3jLWW, `nextstud.io` alias.
+  라이브 검증: robots.txt AI 블록·hero-bg.webp·research-stack-3d.webp·간결화된 llms.txt 확인
