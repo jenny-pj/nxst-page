@@ -219,3 +219,20 @@
 - production 번들에 fix 마커(`min-w-0`, `color-mix`, `mr-6`/`mr-4` 부재) 존재 확인 → 최신 코드 배포 상태였음
 - Chrome에서 iframe 주입으로 375/390px(iPhone 14 Pro 물리 폭 393px과 근접) 정밀 재현 시도 — L01~L05 전 레이어 DOM 실측 + 확대 스크린샷 모두 정상(여유 폭 최소 -28~-30px)으로 나와 코드 버그 아님을 확인
 - 사용자에게 강력 새로고침 요청 → 재확인 결과 정상 동작 확인, 캐시 문제로 결론. 코드 변경 없음
+
+## 2026-08-28 — fire-your-seo-agency 스킬로 SEO 진단 + 브랜치 일원화 + 프리렌더링 도입
+
+- 외부 스킬(`github.com/leopard627/fire-your-seo-agency`) 안전성 검토 후 라이브 사이트 진단:
+  순수 마크다운 스킬로 악성 코드 없음 확인 → Phase 0 진단 수행
+- **점수표**: SEO ❌ (CSR SPA — 크롤러에 빈 페이지), AEO ❌ (직답 문단·FAQ 스키마 없음,
+  Bing WMT 미등록), GEO ⚠️ (llms.txt 양호하나 링크된 페이지가 CSR), LLMO ⚠️ (JSON-LD·
+  엔티티명 양호, sameAs 없음), NEO ❌ (네이버 서치어드바이저 미등록, Yeti가 본문 수집 불가)
+- **브랜치 일원화**: `light`(28커밋)를 `--no-ff`로 `main`에 병합, `main`을 정본으로. 미커밋
+  상태였던 docs 갱신분(447d418·91c5614 기록)도 `light`에 먼저 커밋(44fe9cb) 후 병합.
+  `seo` 브랜치를 `main`에서 분기해 최적화 작업 시작.
+- **프리렌더링(가장 큰 건, seo 브랜치)**: 자체 SSG 스크립트로 `dist/index.html`에 전체
+  본문 베이크. `renderToString` 기반, 새 의존성·헤드리스 브라우저 없음. SSR-안전 처리로
+  훅 2곳의 `window.matchMedia` 호출 제거, CountUp/Reveal의 초기 표시 상태 보정.
+  로컬 preview에서 하이드레이션 불일치 경고 없음 + h1/h2/h3 구조 정상 확인.
+- 후속(2차, 미배포): www/non-www 정규화, 네이버·Bing 등록, JSON-LD sameAs, llms-full.txt,
+  FAQPage 스키마, sitemap lastmod 자동화 — todo.md 참고

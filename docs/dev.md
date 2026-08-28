@@ -4,13 +4,16 @@
 
 ```bash
 npm install
-npm run dev          # Vite dev 서버 (기본 5173)
-npm run build        # dist/ 프로덕션 빌드
-npm run preview      # 빌드 결과 로컬 확인
+npm run dev          # Vite dev 서버 (기본 5173) — 프리렌더 없음, createRoot
+npm run build        # 3단계: vite build → vite build --ssr → prerender (dist/index.html에 본문 베이크)
+npm run build:client # 프리렌더 생략, 클라이언트만 (디버깅용)
+npm run preview      # 빌드 결과 로컬 확인 (프리렌더 + 하이드레이션 검증용)
 ```
 
 - Node.js LTS 기준.
-- 현재 작업 브랜치: `light` (main은 다크 버전 보존용)
+- 현재 작업 브랜치: `seo` (정본은 `main`, `light`는 병합 완료된 리뉴얼 이력)
+- 빌드 검증: `npm run build && npm run preview` 후 preview에서 콘솔에 하이드레이션 불일치
+  경고가 없는지, `dist/index.html`에 `<h1>`·본문 텍스트가 들어갔는지 확인
 
 ## 환경 변수
 
@@ -34,11 +37,11 @@ npm run preview      # 빌드 결과 로컬 확인
 npx vercel deploy --prod   # 프로덕션 배포 (jenny-pj Vercel 계정)
 ```
 
-- GitHub 저장소: `jenny-pj/nxst-page` (main 브랜치)
-- 프로덕션 URL: https://nxst-page.vercel.app
+- GitHub 저장소: `jenny-pj/nxst-page` (정본 브랜치 `main`)
+- 프로덕션 URL: https://nxst-page.vercel.app + 연결 도메인 `nextstud.io` / `www.nextstud.io`
 - Vercel 프로젝트명: `nxst-page` (팀: `jenny-8405s-projects`)
 - 현재 GitHub 자동 배포 연동 없음 — push 후 수동으로 `npx vercel deploy --prod` 실행 필요
-- 배포 플로: `light`에서 커밋 → push → `main`으로 checkout 후 `--ff-only` 머지 → 양쪽 push → `light` 복귀 → vercel 배포
+- 배포 플로: 작업 브랜치에서 커밋·검증 → `main`으로 병합 → push → `npx vercel deploy --prod`
 - `vercel --prod`(deploy 생략형)는 JSON 출력이 잘리는 문제가 있어 `vercel deploy --prod` 사용
 
 ## git 인증 (멀티 계정)

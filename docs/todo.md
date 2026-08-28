@@ -7,12 +7,24 @@
 - [x] **Research Areas pin — nav 겹침·스크롤 성능·짧은 뷰포트 대응** — 고정 Nav 뒤에 헤더가 가려지는 문제, 스크롤 버벅임(`will-change` 누락), 짧은 뷰포트에서 텍스트까지 축소되던 문제(이미지만 축소하도록 개선 + 790px 미만 StaticSection 폴백) — 2026-07-21 완료(commit `e2f537b`, `0a9f05f`)
 - [x] **Expertise 협력 기관 로고 Figma 재동기화** — 로고 세트 갱신(11→12개), 위치를 논문 리스트 위로 이동, Figma 카드 비율·수동 크롭까지 정확히 재현 — 2026-07-21 완료(commit `e2f537b`)
 - [x] **Framework 슬랩 SVG → CSS 재구현 + 좌우 여백 대칭화** — 모바일 헤더가 접힘 시임선을 뚫는 문제, 앞면/대각선 테두리 두께 불일치, hover 색상 회귀, 앞면 콘텐츠 좌우 여백 비대칭·L05 태그 오버플로우 — 2026-08-05 완료(commit `447d418`, `91c5614`, push+vercel 프로덕션 배포)
-- [ ] `public/llms.txt`를 2026-07-15 신규 카피 + Framework 계층(L02/L03/L05) + Principles 5원칙 + WhyData 분기 구조 기준으로 갱신, Collaboration 섹션 제거 반영
+- [x] `public/llms.txt`를 신규 카피(연구기업 포지셔닝, 7개 연구분야 + L01~L05 + Core Expertise + Principles + Collaboration)로 갱신 — `light` 브랜치에서 완료, `main` 병합됨
+- [x] **빌드 타임 프리렌더링 도입** — CSR SPA를 정적 HTML로 서빙, JS 미실행 크롤러(네이버·Bing·AI)가 본문을 보게. 자체 SSG(`renderToString`) — 2026-08-28 `seo` 브랜치에서 완료·로컬 검증, **배포 대기**
 - [x] 카피 v2 확정 후 정리 — 2026-07-10 완료 (copy.js 병합, v1/v2/토글 제거, llms.txt 갱신)
 - [ ] 모바일 실기기에서 인터랙션 검수 (reduced-motion 포함 — 데스크톱은 2026-07-02 검증 완료)
 - [ ] 실기기 모바일 QA (iOS Safari 스크롤 성능)
-- [ ] **nextstud.io 도메인 DNS를 Vercel로 전환** — 현재 옛 S3/CloudFront 사이트(2025-08 빌드)가 서빙 중. 전환 전까지 검색엔진은 옛 사이트를 색인함 (2026-07-07 발견)
-- [ ] 도메인 전환 후 Google Search Console 등록 + sitemap.xml 제출
+- [x] **nextstud.io 도메인 DNS를 Vercel로 전환** — 2026-07~08 완료. 현재 `nextstud.io`/`www.nextstud.io` 모두 Vercel 프로젝트 빌드 서빙 (`x-vercel-cache` 확인)
+
+### SEO·AEO·GEO·LLMO·NEO 최적화 (fire-your-seo-agency 진단 기반, 2026-08-28)
+
+- [ ] **프리렌더링 배포** — `seo` → `main` 병합 후 `vercel deploy --prod`, 배포 후 `curl -sL nextstud.io | grep -c '<h1'` 로 검증
+- [ ] **www/non-www 정규화** — canonical·og:url·sitemap은 non-www인데 서버는 308로 www 강제. 한쪽으로 통일 (Vercel 도메인 설정 + 태그)
+- [ ] **네이버 서치어드바이저 등록** (searchadvisor.naver.com) — 사용자 계정 필요, verification 메타 태그는 삽입 대행. Yeti 크롤 허용·사이트맵 제출
+- [ ] **Bing Webmaster Tools 등록** — GSC에서 원클릭 임포트. Copilot·ChatGPT 검색이 Bing 색인 의존
+- [ ] Google Search Console 등록 + sitemap.xml 제출 (기준선 측정용)
+- [ ] JSON-LD `sameAs` 추가 — 링크드인·유튜브·보도자료 등 공식 표면 연결
+- [ ] `public/llms-full.txt` 추가 + 회사소개 FAQPage JSON-LD (가시 텍스트와 100% 일치)
+- [ ] `sitemap.xml` lastmod 빌드 시 자동 갱신 + 최종 URL(리다이렉트 안 되는) 사용
+- [ ] 측정 기준선 기록(GSC·네이버 노출/클릭·AI 인용 O/X) → 배포 14일 후 재측정
 - [x] 모바일 터치에서 hover 효과 발동 — 2026-07-07 완료 (실기기 확인, commit c27d1b9)
 - [x] `light` 브랜치 커밋 (리뉴얼 + 인터랙션) — 2026-07-06 완료
 - [x] 파비콘 신규 로고 반영 — 2026-07-07 완료 (`favicon.ico` + `apple-touch-icon.png`)

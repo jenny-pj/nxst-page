@@ -2,6 +2,12 @@
 
 ## 해결됨
 
+### CSR SPA라 크롤러에 빈 페이지로 보임 (2026-08-28 진단 → 프리렌더링으로 해결, 배포 대기)
+- 증상: `curl -sL https://nextstud.io` 결과 `<div id="root"></div>`만 있고 `<h1>` 0개, 본문 텍스트 0자. JS를 실행하지 않는 네이버 Yeti·Bingbot·GPTBot·ClaudeBot·PerplexityBot에게는 내용 없는 페이지. 구글만 JS 렌더링으로 부분 색인
+- 영향: 한국 시장 대상 연구기업인데 네이버 노출·AI 인용 기반이 사실상 0. AEO/GEO/NEO 최적화가 전부 무의미해지는 근본 원인
+- 해결: 빌드 타임 프리렌더링(자체 SSG, `renderToString`). `dist/index.html`에 h1 1 / h2 5 / h3 18 + 텍스트 ~9,300자 베이크. `seo` 브랜치에서 완료·로컬 검증, `main` 병합·배포 대기 (상세는 decisions.md 2026-08-28)
+- 남은 한계: `Reveal` 진입 모션이 브라우저에서 opacity:0에서 시작하므로 하이드레이션 전 짧은 순간 본문이 안 보일 수 있음 (no-JS·크롤러는 `<noscript>` 규칙으로 즉시 노출). 실사용자 체감 개선은 2차 과제
+
 ### Framework 슬랩 태그·구분선이 접힘선을 넘어간다는 재신고 — 재현 안 됨, 캐시 문제로 확인 (2026-08-06 조사 → 새로고침으로 해소)
 - 증상: 91c5614 배포 이후에도 iPhone 14 Pro Safari에서 L05 카드 "Process Optimization" 태그와 "DETAIL // 현장 적용" 구분선이 우측 접힘 시임선을 넘어간다고 재신고
 - 조사: production 번들에서 fix 마커(`min-w-0` 존재, `mr-6`/`mr-4` 부재, `color-mix` 존재) 확인해 최신 코드가 배포돼 있음을 검증. Chrome 데스크톱에서 iframe 주입으로 375/390px(iPhone 14 Pro 물리 폭 393px과 근접)를 정밀 재현했으나 L01~L05 전 레이어에서 칩·구분선 모두 접힘선 안쪽에 여유 폭을 두고 정상 렌더링됨 (칩 최소 여유 -30px, 구분선 -28px) — DOM 실측 + 확대 스크린샷으로 프로덕션이 정상임을 확인

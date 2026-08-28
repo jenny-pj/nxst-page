@@ -3,18 +3,21 @@
 ## 개요
 
 - **프로젝트**: nextstud.io 회사 소개 사이트 (NEXTSTUDIO — Industrial Data for Physical AI)
-- **형태**: 단일 페이지 SPA, 정적 빌드. 백엔드 없음.
+- **형태**: 단일 페이지 SPA (React), **빌드 타임 프리렌더링**으로 정적 HTML 서빙. 백엔드 없음.
 - **스택**: React 18 + Vite 6 + Tailwind CSS v4 (`@theme` 토큰 방식)
 - **폰트**: Pretendard Variable (jsdelivr CDN, dynamic subset)
+- **렌더링**: `renderToString` 기반 자체 SSG. `dist/index.html`의 `#root`에 전체 마크업이
+  베이크되고, 브라우저는 `hydrateRoot`로 이어받는다. JS 미실행 크롤러도 본문을 본다.
 
 ## 브랜치 전략
 
 | 브랜치 | 내용 |
 |--------|------|
-| `main` | 기존 다크 테마 사이트 (합성데이터 제품 서사) — 보존용 |
-| `light` | 2026-06 리뉴얼 (연구기업 포지셔닝). 사용자 Figma 시안 "Desktop - 1" 기반 |
+| `main` | **정본 브랜치.** 2026-08-28 `light`(2026 리뉴얼)를 `--no-ff` 병합해 일원화. 프로덕션 배포 대상 |
+| `light` | 리뉴얼 개발 이력 보존용 (병합 완료, 더는 작업 안 함) |
+| `seo` | 검색·AI 인용 최적화 작업 브랜치 (2026-08, `main`에서 분기) |
 
-두 브랜치의 콘텐츠는 서로 매핑되지 않으므로 테마 토글로 합치지 않는다.
+> 구 다크 테마 사이트(합성데이터 제품 서사)는 `main`의 병합 이전 이력(`3848880` 및 그 이전)에만 존재.
 
 ## 폴더 구조
 
@@ -27,7 +30,9 @@ public/                      # 정적 서빙 파일 (Tailwind 스캔 제외 — 
 └── llms.txt                 # AI 검색(GEO)용 사이트 요약 — 카피 변경 시 함께 갱신할 것
 
 src/
-├── main.jsx                 # 엔트리 — touchstart 리스너 (iOS 탭-호버 활성화)
+├── main.jsx                 # 클라이언트 엔트리 — 프리렌더 마크업 있으면 hydrateRoot,
+│                            #   없으면(dev) createRoot. touchstart 리스너(iOS 탭-호버)
+├── entry-server.jsx         # SSG 엔트리 — renderToString(<App/>). scripts/prerender.mjs가 사용
 ├── App.jsx                  # 섹션 조립 (Hero → WhyData → ResearchAreas → Framework
 │                            #   → Expertise → Principles → Footer)
 ├── index.css                # Tailwind @theme 토큰 + 전역 스타일 + 모션 키프레임
@@ -59,7 +64,20 @@ src/
 
 > `Collaboration.jsx`는 2026-07-14 제거됨 (협력 파트너 카드 → Expertise 섹션의 로고 마퀴로 통합). `copy.v1.js`/`copy.v2.js`/`CopyVersionToggle.jsx`는 2026-07-10 카피 확정 시 제거됨 — git 히스토리 참고.
 
+## 빌드 파이프라인
+
+`npm run build` 3단계 (Vercel 빌드도 동일):
+
+1. `vite build` — 클라이언트 번들 + `dist/index.html` 템플릿
+2. `vite build --ssr src/entry-server.jsx --outDir dist/server` — SSR 번들
+3. `node scripts/prerender.mjs` — SSR 렌더 결과를 `dist/index.html`의 `<div id="root">`에
+   주입, `dist/server` 정리, 텍스트 길이 sanity check (500자 미만이면 빌드 실패)
+
+- 추가 npm 의존성·헤드리스 브라우저 불필요 (라우트가 `/` 하나뿐이라 `renderToString`만 사용)
+- `npm run build:client` — 프리렌더 없이 클라이언트만 빌드 (디버깅용)
+
 ## 배포
 
 - Vercel (vercel/env 파일은 gitignore 처리됨)
 - `npm run build` → `dist/` 정적 산출물
+- 도메인 `nextstud.io` / `www.nextstud.io` 는 Vercel 프로젝트에 연결됨 (2026-07~08 DNS 전환 완료)

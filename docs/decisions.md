@@ -2,6 +2,43 @@
 
 최신순. 각 항목은 "무엇을, 왜"를 기록한다.
 
+## 2026-08-28 — 빌드 타임 프리렌더링 도입 (자체 SSG)
+
+- 배경: `fire-your-seo-agency` 스킬로 라이브 사이트를 진단한 결과, Vite React SPA를
+  프리렌더 없이 서빙 중이라 JS를 실행하지 않는 크롤러(네이버 Yeti, Bingbot, GPTBot·
+  ClaudeBot·PerplexityBot)에게 `<div id="root"></div>` 빈 페이지로 보였음. `curl -sL
+  nextstud.io` 결과 `<h1>` 0개·본문 0자. 구글만 JS 렌더링으로 부분 색인. 한국 시장
+  대상 연구기업인데 네이버·AI 인용 기반이 전무.
+- 대안 비교:
+  - **(A, 채택) 자체 SSG 스크립트** — `react-dom/server`의 `renderToString`으로 빌드 시
+    `dist/index.html`에 본문 주입. 라우트가 `/` 하나뿐이라 라우팅 프레임워크 불필요,
+    새 npm 의존성 없음(react-dom는 이미 있음), Vercel 빌드에 헤드리스 브라우저 불필요.
+  - (B) `vite-react-ssg` — 전용 라이브러리지만 엔트리포인트 구조 변경 필요, 단일
+    페이지엔 오버킬.
+  - (C) Playwright 헤드리스 스냅샷 — 컴포넌트 수정 불필요하나 Vercel 빌드에 chromium
+    필요 + 애니메이션 초기 상태가 그대로 박힐 위험.
+- 구현: `src/entry-server.jsx`(renderToString), `scripts/prerender.mjs`(주입 + sanity
+  check), `package.json` build 3단계, `src/main.jsx`를 조건부 `hydrateRoot`/`createRoot`로.
+- SSR-안전 처리: 렌더 중 `window`에 접근하던 곳 제거 —
+  `useMediaQuery`·`usePrefersReducedMotion`의 `useState` 초기화에서 `window.matchMedia`
+  호출 제거(false로 시작 후 effect 보정), `Expertise` CountUp을 `useState(target)`로
+  시작(no-JS에서 최종 숫자 노출), `Reveal`에 `.reveal-anim` 클래스 + `<noscript>` CSS로
+  진입 모션 대기 상태(opacity:0) 해제.
+- 트레이드오프: 데스크톱에서 `ResearchAreas`가 하이드레이션 후 StaticSection→PinnedSection
+  으로 한 번 전환됨(스크롤 전 화면 밖이라 체감 없음). 하이드레이션 불일치 경고는 로컬
+  preview에서 없음 확인.
+- 결과: `dist/index.html`에 h1 1 / h2 5 / h3 18 + 텍스트 ~9,300자 베이크.
+
+## 2026-08-28 — `light` 브랜치를 `main`에 병합, `main`을 정본으로 일원화
+
+- 배경: 2026 리뉴얼 작업이 `light` 브랜치에서만 이뤄지고 `vercel --prod`로 직접
+  배포돼 왔음. `main`은 2026-06 커밋에서 멈춰 있어 "리뉴얼이 배포된 게 맞나"
+  혼선이 생김.
+- 결정: `light`(main보다 28커밋 앞섬, 분기 없음)를 `--no-ff`로 `main`에 병합.
+  fast-forward 대신 병합 커밋을 남긴 이유는 "리뉴얼을 여기서 통합"이라는 시점을
+  이력에 명시하기 위해서. 두 방식 모두 28커밋 전체는 그대로 보존됨.
+- `light` 브랜치는 삭제하지 않고 이력 보존용으로 남김. 이후 작업은 `main` 기준.
+
 ## 2026-08-05 — Framework 슬랩 좌우 여백 대칭화 + 태그 오버플로우 수정 (commit 91c5614)
 
 - 배경: 위 항목(CSS 재구현) 직후 사용자가 "박스 앞면 콘텐츠의 왼쪽/오른쪽 여백이 다르다", "L05 카드의 'Process Optimization' 태그가 옆면 경계를 넘어간다"고 재지적
