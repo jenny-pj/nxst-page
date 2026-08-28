@@ -36,7 +36,8 @@ function CountUp({ value, duration = 1600 }) {
   const [, num, suffix] = value.match(/^(\d+)(.*)$/) ?? [null, '0', ''];
   const target = parseInt(num, 10);
   const ref = useRef(null);
-  const [n, setN] = useState(0);
+  // 프리렌더/no-JS에선 최종값이 보이도록 target으로 시작 — 브라우저에서만 0부터 카운트업
+  const [n, setN] = useState(target);
 
   useEffect(() => {
     const el = ref.current;
@@ -46,6 +47,7 @@ function CountUp({ value, duration = 1600 }) {
       return;
     }
     let raf;
+    setN(0);
     const io = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
