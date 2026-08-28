@@ -7,16 +7,18 @@
  *   3) node scripts/prerender.mjs (이 파일):
  *        - SSR 번들의 render()로 <App/> 마크업 문자열 생성
  *        - dist/index.html 의 <div id="root"></div> 안에 주입
+ *        - dist/sitemap.xml 의 <lastmod>를 빌드 날짜로 갱신
  *        - dist/server/ 정리
  *
  * 라우트가 홈('/') 하나뿐이라 크롤러/헤드리스 브라우저 없이 renderToString만 쓴다.
  */
-import { readFileSync, writeFileSync, rmSync } from 'node:fs';
+import { readFileSync, writeFileSync, rmSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const templatePath = resolve(root, 'dist/index.html');
+const sitemapPath = resolve(root, 'dist/sitemap.xml');
 const serverEntry = resolve(root, 'dist/server/entry-server.js');
 const MARKER = '<div id="root"></div>';
 
@@ -34,6 +36,17 @@ writeFileSync(
   'utf-8',
 );
 rmSync(resolve(root, 'dist/server'), { recursive: true, force: true });
+
+// sitemap.xml <lastmod>를 빌드 날짜(UTC, YYYY-MM-DD)로 갱신 — 배포 때마다 최신 신호 유지
+if (existsSync(sitemapPath)) {
+  const today = new Date().toISOString().slice(0, 10);
+  const sitemap = readFileSync(sitemapPath, 'utf-8');
+  const patched = sitemap.replace(/<lastmod>.*?<\/lastmod>/g, `<lastmod>${today}</lastmod>`);
+  if (patched !== sitemap) {
+    writeFileSync(sitemapPath, patched, 'utf-8');
+    console.log(`prerender: sitemap.xml lastmod → ${today}`);
+  }
+}
 
 const textLen = appHtml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().length;
 console.log(`prerender: 본문 주입 완료 — 마크업 ${appHtml.length}자 / 텍스트 ${textLen}자`);

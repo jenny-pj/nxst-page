@@ -1,0 +1,312 @@
+# NEXTSTUDIO (nextstud.io)
+
+> Industrial Data for Physical AI — 산업 데이터 인프라와 합성데이터 기술을 기반으로,
+> Physical AI를 위한 데이터 기반 기술을 연구하는 연구기업. 대한민국 경상남도 김해 소재.
+
+이 문서는 nextstud.io의 전체 콘텐츠를 평문으로 정리한 것입니다. 사이트의 가시 텍스트와
+일치하며, 요약본은 llms.txt를 참고하세요.
+
+---
+
+## 개요
+
+Physical AI는 산업 데이터를 이해하는 것에서 시작됩니다. 현실을 반영한 산업 데이터가
+Physical AI의 인식과 판단을 만들며, 그 성능은 산업 데이터를 얼마나 신뢰성 있게 확보하고
+활용하는지에 따라 결정됩니다.
+
+NEXTSTUDIO는 물리 시뮬레이션과 생성형 AI를 결합해, 실제 현장에서 수집이 불가능하거나
+극히 희소한 산업 데이터(결함, 이상 상황, 극한 조건)를 물리적으로 타당한 합성데이터로
+구현합니다. 데이터 수집 인프라부터 합성·검증·공급까지, Physical AI를 위한 데이터
+파이프라인 전체를 제공합니다.
+
+핵심 명제: Real-world Scarcity, Synthetic Abundance — 현실의 희소성을 합성의 풍부함으로.
+
+---
+
+## 왜 산업 데이터인가 (Why Industrial Data)
+
+현실이 데이터를 충분히 내어주지 않을 때, Physical AI는 무엇으로 학습하는가.
+
+현실을 반영한 산업 데이터가 Physical AI의 인식과 판단을 만듭니다. NEXTSTUDIO는 그 데이터를
+'생성'하는 방법을 연구합니다.
+
+Physical AI의 성능은 데이터의 양이 아니라, 데이터가 물리적 현실을 얼마나 충실히 담고
+있는지가 결정합니다. NEXTSTUDIO는 물리 제약 기반 생성 모델과 정량 검증 방법론을 통해,
+현장에서 수집할 수 없는 희소 데이터를 과학적으로 합성하는 방법을 연구합니다.
+
+데이터 흐름: 산업 환경 → (산업 데이터: Real-World Data Collection / 합성 데이터:
+Physics-Constrained Synthesis) → AI 학습(합성데이터 기반 도메인 커버리지 확대 및 모델
+성능 개선) → 추론 및 의사결정 → Physical AI.
+
+---
+
+## 연구 분야 (Research Areas)
+
+Physics-grounded Data & Intelligence. 정밀하게 구조화된 실데이터 위에서 물리 정합 생성
+모델을 연구하고, 검증된 합성 데이터로 Physical AI의 학습을 완성합니다. 산업
+데이터(Industrial Data)를 중심으로 7개 연구 분야가 연결됩니다.
+
+### System layer — 현실과 상호작용하는 지능
+
+- Intelligent Agents (지능형 에이전트): 이상 탐지·공정 최적화를 자율 수행하는 인식·판단·행동
+  구조 연구.
+- Embodied Intelligence (체화 지능): 물리 환경과의 상호작용 속에서 학습·적응하는 지능 구조
+  연구.
+- Simulation & Digital Twin (시뮬레이션·디지털 트윈): AI 학습·검증을 반복 가능하게 만드는
+  디지털 실험 환경 연구.
+
+### Data layer — synthetic — 생성 모델이 만들어낸 학습 데이터
+
+- Synthetic Data (물리 상호작용 합성 데이터 · Physical-interaction Synthetic Data):
+  장면과 센서값의 외형적 다양성만 늘리는 단순 합성을 넘어, 결과가 발생한 물리적 원인
+  변수까지 함께 생성하고 검증합니다. 공정 조건·물리 상태·품질 결과가 인과적으로 연결된
+  데이터를 연구합니다.
+  - 공정 조건: 속도·압력·하중·이송 조건·소재 물성·장비 온도·공구 마모 상태의 파라미터화.
+  - 물리 상태 변수: 접촉력·마찰력·변형량·열분포·진동 스펙트럼·토크·힘/모멘트·표면 상태를
+    라벨·메타데이터로 포함.
+  - 결과 변수: 품질 판정·불량 유형·이상 징후·공정 편차·장비 이상 가능성과의 인과 연결.
+  - 물리 검증 함수: 에너지 보존·접촉 조건·마찰 모델·열전달 경계조건·진동 응답 범위·재료
+    변형 한계 기반 사후 검증.
+
+### Model layer — 합성을 구현하는 물리 정합 생성 모델
+
+- Physics-informed Learning (물리 제약 학습 방법론): 지배 방정식과 도메인 지식을 학습
+  제약으로 부여해, 데이터 희소 조건에서도 물리적으로 타당한 생성·추론을 보장하는 방법론
+  연구.
+- Physics-aligned Transformer (멀티모달 시계열 생성): 물리 법칙에 정렬된 트랜스포머로
+  센서·비전 등 다중 모달리티 시계열 데이터를 생성하는 모델 연구.
+- Physics-informed Diffusion Model (테이블 데이터 생성): 물리 제약을 반영한 확산 모델로
+  공정 변수 간 상관관계를 보존하는 테이블 데이터를 생성하는 연구.
+
+### Data layer — foundation — 모든 연구의 출발점
+
+- Industrial Data Infrastructure (산업 데이터 인프라): 이기종 산업 데이터의 수집·표준화·
+  자산화 체계 연구. 신뢰할 수 있는 합성은 실데이터의 정밀한 구조화에서 시작됩니다.
+
+공급 흐름: Foundation → (구조화된 실측 데이터) → Model → (물리 정합 데이터 생성) →
+Synthetic → (검증된 학습 데이터 공급) → System.
+
+---
+
+## 연구 체계 (Research Framework)
+
+실측에서 합성으로, 검증에서 적용까지 하나의 연구 체계로 Physical AI를 구현합니다.
+파이프라인 단계: ACQUISITION → SYNTHESIS → VALIDATION → DEPLOYMENT.
+Physics validation은 L03에서 L05까지 전 단계에 적용됩니다.
+
+- L01 — Multimodal Industrial Data (DATA ACQUISITION): 산업 현장의 다중 모달 데이터 수집.
+  Vision & Video, IoT & Sensor, Process & Quality Records. 비전·영상, IoT 시계열, 공정·
+  품질 이력을 단일 파이프라인으로 수집합니다. 엣지 수집기와 스트리밍 적재 구조를 연구하며,
+  이 단계의 실측 데이터가 물리 상호작용 합성의 원료가 됩니다. → 구조화된 실측 데이터.
+
+- L02 — Trusted Data Infrastructure (TRUST FOUNDATION): 표준 기반 상호운용성과 데이터 신뢰
+  체계. Standardization & Interop, Privacy & Consent, Data Quality. AAS 등 산업 표준 기반의
+  시맨틱 상호운용성, 접근 권한·동의 관리, 결측·이상 정제와 품질 지표화를 연구합니다. →
+  학습 가능한 정제 데이터.
+
+- L03 — Physics-Grounded Generative Core (GENERATIVE CORE, CORE): 물리 상호작용 합성 데이터
+  생성 — 원인 변수까지 포함한 인과적 합성. Physics-informed Learning, Physics-aligned
+  Transformer, Physics-informed Diffusion. 장면·센서값의 외형적 다양성을 넘어, 공정 조건·
+  물리 상태 변수·결과 변수를 함께 생성합니다. 물리 제약 학습을 기반으로 트랜스포머(멀티모달
+  시계열)와 디퓨전 모델(테이블 데이터)이 합성을 구현하고, 에너지 보존·접촉 조건·열전달
+  경계조건 등 물리 검증 함수로 사후 검증합니다. → 검증된 합성 데이터.
+
+- L04 — Perception & Predictive Intelligence (INTELLIGENCE): 합성·실측 데이터로 학습되는
+  인식·예측 지능. Anomaly Detection, Spatiotemporal Graph, Predictive Modeling. 합성과
+  실측을 혼합 학습해 희소한 이상 상황에 대한 대응력을 확보합니다. 이상 탐지, 시공간 그래프,
+  예측 모델링을 통해 물리적으로 타당한 인식·판단을 수행하는 지능을 연구합니다. → 학습된
+  지능.
+
+- L05 — Industrial Physics AI (DEPLOYMENT, OUTCOME): 산업 현장에 배치되는 Physical AI 응용.
+  Inspection & Safety, Process Optimization, Mobility & Energy. 검사·안전, 공정 최적화,
+  모빌리티·에너지 영역에서 도메인 파트너와 함께 실증합니다. 연구 체계의 산출물이 현장의
+  판단과 행동으로 이어지는 단계입니다.
+
+---
+
+## 핵심 연구 역량 (Core Expertise)
+
+데이터를 만드는 역량에서, 현장에 배치하는 역량까지. 산업 데이터를 중심으로 연구 역량을
+융합하며, 모든 역량은 연구 파이프라인 L01–L05에 매핑됩니다.
+
+### Data Engineering & Synthesis (L01–L03, CORE) — 물리 상호작용 합성 데이터를 만들고 검증하는 역량
+
+- Physical-interaction Synthetic Data Generation: 장면·센서값을 넘어 공정 조건, 물리 상태
+  변수, 품질 결과를 함께 생성하는 인과적 합성. 결과와 원인이 연결된 학습 데이터를 만듭니다.
+- Physics Simulation & Validation Metrics: 에너지 보존, 접촉 조건, 열전달 경계조건 등 물리
+  검증 함수와 합성 품질의 정량 지표를 설계합니다.
+- Multimodal Data Infrastructure: 비전·센서·공정 이력 등 이기종 데이터의 수집, 표준화,
+  자산화 파이프라인을 구축합니다.
+- Data Quality Engineering: 결측·이상 정제, 라벨 일관성 관리, 학습 기여도 평가로 데이터의
+  신뢰성을 정량 관리합니다.
+
+### Foundation & Generative Models (L03) — 합성을 구현하는 물리 정합 생성 모델 역량
+
+- Physics-informed Generative Models: 물리 제약 트랜스포머(멀티모달 시계열)와 디퓨전
+  모델(테이블 데이터)로 물리 정합 데이터를 생성합니다.
+- Industrial Foundation Model: 산업 도메인 데이터로 특화된 파운데이션 모델을 구축하고 현장
+  과업에 적응시킵니다.
+- Multi-modal LLM: 텍스트·비전·센서 신호를 통합 이해하는 멀티모달 언어 모델을 연구합니다.
+- Vision-Language-Action Model: 인식과 언어 이해를 물리적 행동으로 연결하는 VLA 모델로
+  Physical AI의 판단-행동 고리를 연구합니다.
+
+### Perception & Prediction (L04) — 합성·실측 데이터로 학습되는 인식·예측 역량
+
+- Industrial Vision Inspection: 결함 검출과 품질 판정을 위한 비전 검사. 영상 분석과 이미지
+  이해 역량을 산업 검사 문제로 통합했습니다.
+- Time-series Forecasting: 공정·설비 시계열의 미래 상태를 예측해 운전 조건 최적화와 사전
+  대응을 지원합니다.
+- Anomaly Detection: 희소한 이상 상황을 탐지하고 조기 경보하는 모델. 합성 데이터로 이상
+  사례의 부족을 보완합니다.
+
+### Optimization & Deployment (L05) — 현장에 배치되는 경량화·운영 역량
+
+- Edge AI: 현장 엣지 디바이스에서 동작하는 추론 최적화. 네트워크 단절 환경에서도 판단이
+  이어지도록 합니다.
+- Model Optimization: 경량화·양자화·지연시간 최적화로 연구 모델을 현장 요구 사양에 맞춥니다.
+- On-site AI Deployment: 현장 배치, 모니터링, 재학습을 포함한 AI 수명주기 운영. 연구
+  산출물이 현장 성과로 이어지는 마지막 단계입니다.
+
+---
+
+## 연구 성과 (Research Highlights)
+
+글로벌 연구 협력을 통해 신뢰할 수 있는 연구 성과를 만들어 갑니다.
+
+- 12+ Peer-reviewed Publications
+- 20+ Global Research Partners
+- 10+ Years of Research Experience
+
+국내외 유수 연구기관과의 지속적인 협력을 통해 연구의 깊이와 영역을 확장하고 있습니다.
+
+### 주요 논문 및 협력 기관
+
+- 2026 · Neurocomputing — "Normality-calibrated autoencoder for unsupervised anomaly
+  detection on data contamination" (KAIST, Harvard Medical School, Harvard University)
+- 2026 · The International Journal of Advanced Manufacturing Technology —
+  "Resource-Efficient Adaptation of Large Vision–Language Models for Multimodal Defect
+  Inspection in LNG Tank Manufacturing" (INJE University, Kyungnam University)
+- 2026 · IEEE Access — "Beyond Simple Character Recognition: A Comparative Study of
+  Vision-Language Models and Dedicated OCR Systems in Edge Cases" (INJE University,
+  Kyungnam University, Sortech)
+- 2025 · Proceedings of ICAIF '25 — "From News to Returns: A Granger-Causal Hypergraph
+  Transformer on the Sphere" (University of Cambridge, University of Kent)
+- 2025 · ACML (PMLR 304) — "MagicMask: A Fast and High-fidelity Face Swapping Method
+  Robust to Face Pose" (University of Cambridge, Imperial College London, King's College
+  London, Inje University, University of Kent)
+- 2025 · ACM Web Conference 2025 (Companion) — "Advanced Hypergraph Mining for Web
+  Applications Using Sphere Neural Networks" (University of Cambridge, University of
+  Oxford, University of Kent, Durham University)
+- 2024 · IEEE ICRA 2024 — "Multi-class Road Defect Detection and Segmentation using
+  Spatial and Channel-wise Attention for Autonomous Road Repairing" (University of
+  Cambridge, King's College London, University of Liverpool, Robotiz3D Ltd.)
+- 2024 · Pattern Recognition Letters — "Denoising diffusion model with adversarial
+  learning for unsupervised anomaly detection on brain MRI images" (KAIST, Gwangju
+  Institute of Science and Technology (GIST), Inje University)
+- 2024 · IEEE Transactions on Intelligent Transportation Systems — "Road surface defect
+  detection—From image-based to non-image-based: A survey" (University of Cambridge,
+  King's College London, Robotiz3D Ltd.)
+- 2024 · NeurIPS 2024 Workshop on Behavioral Machine Learning — "Monitoring Behavioral
+  Changes Using Spatiotemporal Graphs: A Case Study on the StudentLife Dataset"
+  (University of Cambridge, University of Kent, Durham University)
+- 2024 · IEEE Transactions on Neural Networks and Learning Systems — "Weakly supervised
+  contrastive learning for unsupervised vehicle re-identification" (KAIST, Harvard
+  University)
+- 2024 · IEEE Transactions on Neural Networks and Learning Systems — "An iterative method
+  for unsupervised robust anomaly detection under data contamination" (KAIST, King's
+  College London, Harvard University, POSTECH, Yonsei University)
+
+---
+
+## 연구 철학 (Research Principles)
+
+물리 세계와 산업 현장을 이해하는 지속 가능한 고지능 기술을 연구합니다.
+
+- Industrial First: 연구 질문은 논문이 아니라 산업 현장에서 나옵니다. 현장에서 정의되지
+  않은 문제는 연구 과제로 채택하지 않습니다. 모든 연구는 실제 공정·설비·품질 문제에서
+  출발하고, 그 현장으로 돌아가 끝납니다.
+- Physics Grounded (CORE PRINCIPLE): 물리 법칙에 정합하지 않는 데이터는 학습 데이터가
+  아닙니다. 모든 생성 결과는 지배 방정식과 경계조건의 제약 안에서 만들어집니다. 그럴듯한
+  이미지가 아니라 물리적으로 성립하는 데이터를 만드는 것이 우리의 기준입니다.
+- Data Centric: Physical AI의 성능은 모델이 아니라 데이터가 결정합니다. 결과값만이 아니라
+  결과가 발생한 물리적 원인 변수(공정 조건, 물리 상태, 품질 결과)까지 데이터에 담습니다.
+  인과가 연결된 데이터만이 판단할 수 있는 지능을 만듭니다.
+- Validated, Not Assumed: 검증되지 않은 합성 데이터는 공급하지 않습니다. 에너지 보존, 접촉
+  조건, 열전달 경계조건 기반의 물리 검증 함수를 통과한 데이터만 학습에 사용합니다. 최종
+  검증은 시뮬레이션이 아니라 현장에서 완결합니다.
+- Research to Deployment: 배치되지 않은 연구는 미완성입니다. 논문의 엄밀함으로 시작해,
+  현장의 제약 조건(엣지 환경, 지연시간, 운영 안정성)에서 끝냅니다. 연구의 엄밀함과
+  엔지니어링의 실용성은 선택이 아니라 순서입니다.
+
+---
+
+## 협력 (Collaboration)
+
+정부·산업계·학계와 함께 현장에서 활용되는 기술을 연구합니다.
+
+- Government R&D: 국가 전략기술 연구개발, 대형 국가R&D 수행.
+- Industry: 산업 현장 공동 연구, 실증 기반 기술 개발.
+- Academia: 산학 공동 연구, 기술 검증 및 연구 협력.
+- Technology Transfer: 연구성과 확산, 산업 적용 지원.
+
+함께, 산업의 미래를 연구합니다. NEXTSTUDIO는 산업 데이터를 기반으로 Physical AI의 새로운
+가능성을 연구합니다.
+
+---
+
+## 자주 묻는 질문 (FAQ)
+
+Q. NEXTSTUDIO는 어떤 회사인가요?
+A. NEXTSTUDIO(넥스트스튜디오)는 산업 데이터 인프라와 합성데이터 기술을 기반으로 Physical
+AI를 위한 데이터 기반 기술을 연구하는 연구기업입니다. 대한민국 경상남도 김해에 있습니다.
+
+Q. NEXTSTUDIO는 무엇을 하나요?
+A. 물리 시뮬레이션과 생성형 AI를 결합해, 실제 현장에서 수집이 불가능하거나 극히 희소한
+산업 데이터(결함, 이상 상황, 극한 조건)를 물리적으로 타당한 합성데이터로 구현합니다.
+데이터 수집 인프라 구축부터 합성·검증·공급까지 Physical AI를 위한 데이터 파이프라인
+전체를 제공합니다.
+
+Q. "물리 상호작용 합성 데이터(Physical-interaction Synthetic Data)"란 무엇인가요?
+A. 장면과 센서값의 외형적 다양성만 늘리는 단순 합성을 넘어, 결과가 발생한 물리적 원인
+변수(공정 조건, 물리 상태 변수, 품질 결과)까지 함께 생성하고 검증하는 합성 데이터입니다.
+공정 조건·물리 상태·품질 결과가 인과적으로 연결됩니다.
+
+Q. 합성데이터의 품질은 어떻게 검증하나요?
+A. 에너지 보존, 접촉 조건, 마찰 모델, 열전달 경계조건, 진동 응답 범위, 재료 변형 한계에
+기반한 물리 검증 함수로 사후 검증합니다. 이 검증을 통과한 데이터만 학습에 사용하며, 최종
+검증은 시뮬레이션이 아니라 현장에서 완결합니다.
+
+Q. Physical AI에서 데이터 병목이란 무엇인가요?
+A. Physical AI의 성능은 데이터가 물리적 현실을 얼마나 충실히 담고 있는지가 결정하는데,
+결함·이상 상황·극한 조건 같은 핵심 데이터는 현실에서 수집이 불가능하거나 극히 희소합니다.
+이 부족이 데이터 병목이며, NEXTSTUDIO는 이를 물리 제약 기반 합성으로 해결합니다.
+
+Q. 어떤 연구 분야를 다루나요?
+A. 산업 데이터 인프라, 합성 데이터, Physics-informed AI, World Models, Embodied
+Intelligence, Simulation & Digital Twin, Intelligent Agents의 7개 분야가 산업 데이터를
+중심으로 연결됩니다.
+
+Q. 연구 체계는 어떻게 구성되나요?
+A. L01 Multimodal Industrial Data, L02 Trusted Data Infrastructure, L03 Physics-Grounded
+Generative Core, L04 Perception & Predictive Intelligence, L05 Industrial Physics AI의
+5계층으로, ACQUISITION → SYNTHESIS → VALIDATION → DEPLOYMENT 파이프라인을 이룹니다.
+
+Q. 어떤 기관과 협력하나요?
+A. 정부(국가 전략기술 연구개발), 산업계(현장 공동 연구·실증), 학계(산학 공동 연구·기술
+검증), 기술이전(연구성과 확산) 전반에서 협력합니다. KAIST, University of Cambridge,
+Harvard University, Imperial College London, POSTECH, Yonsei University, INJE University
+등과 공동 논문을 발표해 왔습니다.
+
+Q. 어떻게 문의하나요?
+A. 이메일 jin@nextstud.io, 전화 +82 055 320 4132. 주소는 경상남도 김해시 인제로 197,
+성산관 904호(Seongsan Hall 904, 197 Inje-ro, Gimhae-si, Gyeongsangnam-do, Republic of
+Korea). 공동연구 협력, 정부 R&D 협력, 기술이전 문의, 데이터 구축·활용 문의를 받습니다.
+
+---
+
+## 연락처
+
+- Email: jin@nextstud.io
+- Phone: +82 055 320 4132
+- Address: Seongsan Hall 904, 197 Inje-ro, Gimhae-si, Gyeongsangnam-do, Republic of Korea
+- Website: https://nextstud.io/
