@@ -317,3 +317,4 @@
 - 로컬 preview 시각 확인: 푸터 렌더 정상, 탭 제목 반영 확인
 - **미완**(사용자 확인 대기): meta description 한글명 병기 / JSON-LD address·telephone·email /
   llms.txt 제목 한글 병기 / 오프페이지(구글 비즈니스 프로필·네이버 스마트플레이스·스타트업 DB) — todo.md 참고
+- **배포**: `vercel deploy --prod` → dpl_4iZmLWAvvcpZnu1YbwLENqGA7uei, `nextstud.io` alias. IndexNow 통지 `200 OK`. 라이브 검증: title 반영, 본문 "넥스트스튜디오" 0→2회(title+푸터)
