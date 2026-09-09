@@ -31,7 +31,9 @@
 - [ ] **가시 FAQ 섹션 + FAQPage JSON-LD** (AEO) — 현재는 llms-full.txt Q&A로만. Contact 위 접이식 섹션 신설 필요(디자인 작업)
 - [ ] 위키데이터 항목 생성 + 스타트업 DB(더브이씨·로켓펀치·크런치베이스) 등재 (GEO — 사용자)
 - [ ] 네이버 스마트플레이스 등록 (NEO — 지역 비즈니스, 사용자)
+- [x] **IndexNow 도입** — 2026-09-09. `public/<key>.txt` 키 파일 + `scripts/indexnow-ping.mjs`. Bing·Naver·Yandex·Seznam에 URL 갱신 통지(사이트맵 ping은 Google·Bing 모두 2023년 폐기 → IndexNow가 대체). **남음: 배포 후 `node scripts/indexnow-ping.mjs` 1회 실행**
 - [ ] 측정 기준선 기록(GSC·네이버 노출/클릭·AI 인용 O/X) → 배포 14일 후(2026-09-11) 재측정
+  - 2026-09-09 중간 확인: Google 색인 O(홈 1건, 브랜드 검색 1위, 프리렌더 메타 반영). Bing 색인 O(`url:` 확인, 브랜드 검색 1위, 단 마지막 크롤 표기 2026-07-21로 다소 오래됨 → IndexNow로 재크롤 유도). Naver 미확인(콘솔 직접 확인 필요)
 - [x] 모바일 터치에서 hover 효과 발동 — 2026-07-07 완료 (실기기 확인, commit c27d1b9)
 - [x] `light` 브랜치 커밋 (리뉴얼 + 인터랙션) — 2026-07-06 완료
 - [x] 파비콘 신규 로고 반영 — 2026-07-07 완료 (`favicon.ico` + `apple-touch-icon.png`)

@@ -47,6 +47,16 @@ npx vercel deploy --prod   # 프로덕션 배포 (jenny-pj Vercel 계정)
 - 배포 플로: 작업 브랜치에서 커밋·검증 → `main`으로 병합 → push → `npx vercel deploy --prod`
 - `vercel --prod`(deploy 생략형)는 JSON 출력이 잘리는 문제가 있어 `vercel deploy --prod` 사용
 
+### IndexNow (검색엔진 재크롤 통지)
+
+- 키: `3afc99f4fc184de783fd70bf5f4e1db9606ed3c7959a4b3094b0eaee62c4a8bb`
+- 키 파일: `public/<키>.txt` (내용 = 키 문자열 한 줄). 절대 삭제·변경 금지 — 바뀌면 IndexNow 검증 실패
+- 콘텐츠·robots·sitemap·llms.txt 등 크롤 대상이 바뀐 **프로덕션 배포 직후** 실행:
+  ```bash
+  node scripts/indexnow-ping.mjs   # Bing·Naver·Yandex·Seznam 동시 통지
+  ```
+- Google은 IndexNow 미참여 — GSC에서 색인 요청하거나 자연 재크롤 대기
+
 ## git 인증 (멀티 계정)
 
 - gh에 `booo-st`와 `jenny-pj` 두 계정 로그인됨. 저장소 소유는 `jenny-pj`

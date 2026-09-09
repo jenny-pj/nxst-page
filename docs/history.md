@@ -286,3 +286,17 @@
   이후 카피 변경 시 llms-full.txt만 동기화하면 됨
 - 배포: `npx vercel deploy --prod` → dpl_HnXfZvjxMbcvT2jGcavGZFg3jLWW, `nextstud.io` alias.
   라이브 검증: robots.txt AI 블록·hero-bg.webp·research-stack-3d.webp·간결화된 llms.txt 확인
+
+## 2026-09-09 — 색인 상태 확인 + IndexNow 도입
+
+- **색인 확인** (SEO 3차 배포 12일 경과):
+  - Google: `site:nextstud.io` 1건(홈), 브랜드 검색 `nextstud.io NEXTSTUDIO` 1위.
+    설명 스니펫이 프리렌더 메타 반영 — 크롤러가 완성 HTML 수신 확인. 단일 페이지라 커버리지 100%
+  - Bing: `site:` 오퍼레이터는 불안정(무관 결과 폴백)하나 `url:nextstud.io` → 1건,
+    브랜드 검색 1위. 마지막 크롤 표기 2026-07-21 → 캐시가 다소 오래됨. `www.nextstud.io`로 색인됨
+  - Naver: 검색 페이지 자동 접근 차단으로 미확인 — 서치어드바이저 콘솔에서 직접 확인 필요
+  - GSC·Bing WMT·Naver 등록 및 사이트맵 제출은 2026-08-28 완료 상태(todo.md 참고) — 대기·모니터링 단계
+- **IndexNow 도입**: 사이트맵 ping 엔드포인트는 Google(2023)·Bing 모두 폐기 → IndexNow가 표준 대체.
+  - `public/3afc99f4...c4a8bb.txt` — 키 파일(내용 = 키 문자열). Vite `public/` → dist 루트 자동 복사
+  - `scripts/indexnow-ping.mjs` — `api.indexnow.org`에 POST. Bing·Naver·Yandex·Seznam 동시 통지(Naver는 IndexNow 파트너)
+  - **배포 후 `node scripts/indexnow-ping.mjs` 1회 실행** 필요 (키 파일이 라이브여야 검증됨)
