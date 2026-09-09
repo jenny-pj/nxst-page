@@ -25,6 +25,12 @@
 - [x] **robots.txt AI 크롤러 명시 허용** — 2026-08-28 완료. GPTBot·OAI-SearchBot·ClaudeBot·PerplexityBot·Google-Extended·Applebot-Extended·CCBot 등 15개 명시 Allow 블록
 - [x] **이미지 WebP 최적화** — 2026-08-28 완료. `hero-bg`(553KB→62KB, 1920w 리사이즈), `research-stack-3d`(760KB→75KB), `-dim`(409KB→61KB). 합계 1,722KB→198KB. `<img>`·마크업 그대로, import 확장자만 교체. 로컬 preview 시각 확인 OK
 - [ ] JSON-LD `sameAs` 추가 — 공식 표면 URL(링크드인 등)이 아직 없음. 생기면 추가
+- [~] **한글 브랜드명("넥스트스튜디오") 검색 대응** — 2026-09-09 착수
+  - 문제: "넥스트스튜디오"가 크롤 대상 본문에 0회(title·description·h1~·푸터 전부 영문, JSON-LD `alternateName`에만 존재). 동명 선점 경쟁자 `넥스트스튜디오스`(nextstudios.co.kr, 인천 영상 스튜디오, 위키백과·나무위키 보유)가 Google 1페이지 독점
+  - 온페이지 완료: `<title>`/og/twitter → `NEXTSTUDIO(넥스트스튜디오) — ...`, 푸터 copyright 위에 `넥스트스튜디오(NEXTSTUDIO)` 1줄(`footer.entity`) 추가
+  - 온페이지 미완(사용자 확인 대기): meta description 앞에 한글명, JSON-LD `address`/`telephone`/`email` 추가, llms.txt 제목 한글 병기
+  - 오프페이지(핵심 레버, 사용자): 구글 비즈니스 프로필(김해), 네이버 스마트플레이스+기업정보, 스타트업 DB(더브이씨·로켓펀치·혁신의숲·잡코리아), 나무위키/위키백과, 한국어 보도자료 — 모두 "넥스트스튜디오" 표기 통일
+  - 현실: 정확 일치 "넥스트스튜디오" 1페이지는 수개월+오프페이지 싸움. "넥스트스튜디오 김해/합성데이터/physical ai" 조합은 온페이지만으로 단기 가능
 - [x] `public/llms-full.txt` 추가 — 2026-08-28 완료(commit `33b5571`). 전체 카피 평문 + FAQ Q&A 9항목
 - [x] `public/llms.txt` 간결화 — 2026-08-28. 기존 상세 내용이 구 카피 버전(L02/L03/역량/철학)과 불일치해 드리프트 중이었음. 안정적인 핵심 정보 + llms-full.txt 링크 구조로 축약, 상세는 llms-full.txt가 담당
 - [x] `sitemap.xml` lastmod 빌드 시 자동 갱신 — 2026-08-28 완료(commit `33b5571`). `prerender.mjs`가 빌드 날짜로 갱신. `<loc>`는 리다이렉트 안 되는 non-www

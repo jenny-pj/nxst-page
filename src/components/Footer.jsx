@@ -21,9 +21,10 @@ export default function Footer() {
             <p className="whitespace-pre-line text-[16px] font-medium leading-[1.5] text-ink-light-soft md:text-[20px]">
               {footer.sub}
             </p>
-            <p className="mt-2 text-[14px] font-medium leading-[1.5] text-ink-light-soft/70 md:text-[16px]">
-              {footer.copyright}
-            </p>
+            <div className="mt-2 flex flex-col gap-0.5 text-[14px] font-medium leading-[1.5] text-ink-light-soft/70 md:text-[16px]">
+              <p>{footer.entity}</p>
+              <p>{footer.copyright}</p>
+            </div>
           </div>
 
           <button

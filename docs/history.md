@@ -303,3 +303,17 @@
 - **배포**: `npx vercel deploy --prod` → dpl_9ZfB1MHUUrgqiqyEpnYNkhGKuwtw, `nextstud.io` alias.
   라이브 검증: 키 파일 200, sitemap lastmod 2026-09-09, 홈 프리렌더 유지(175,931B)
 - **IndexNow 첫 통지**: `node scripts/indexnow-ping.mjs` → `202 Accepted` (Bing·Naver 등 접수)
+
+## 2026-09-09 — 한글 브랜드명 검색 대응 1차 (온페이지)
+
+- **배경**: "넥스트스튜디오" 검색 시 사이트가 노출되지 않음. 확인 결과 한글 브랜드명이
+  크롤 대상 본문에 0회 등장(title·meta description·h1~h3·푸터 모두 영문 "NEXTSTUDIO",
+  JSON-LD `alternateName`에만 "넥스트스튜디오"). 동명 선점 경쟁자 `넥스트스튜디오스`
+  (nextstudios.co.kr, 인천 영상 스튜디오)가 Google "넥스트스튜디오" 1페이지 독점
+- **`<title>` + og:title + twitter:title**: `NEXTSTUDIO — ...` → `NEXTSTUDIO(넥스트스튜디오) — Industrial Data for Physical AI`
+- **푸터**(`Footer.jsx` + `copy.js` `footer.entity`): copyright(`© 2026 nextstud.io...`) 위에
+  `넥스트스튜디오(NEXTSTUDIO)` 1줄 추가. 기존 copyright와 동일한 흐린 회색 톤, 새 스타일 없음.
+  `copy.js`에 있던 `site.nameKo` 값을 처음으로 화면에 렌더 → 크롤 대상 본문에 한글명 1회 확보
+- 로컬 preview 시각 확인: 푸터 렌더 정상, 탭 제목 반영 확인
+- **미완**(사용자 확인 대기): meta description 한글명 병기 / JSON-LD address·telephone·email /
+  llms.txt 제목 한글 병기 / 오프페이지(구글 비즈니스 프로필·네이버 스마트플레이스·스타트업 DB) — todo.md 참고

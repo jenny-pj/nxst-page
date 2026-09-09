@@ -483,6 +483,7 @@ export const footer = {
   headline: '함께, 산업의 미래를 연구합니다',
   sub: 'NEXTSTUDIO는 산업 데이터를 기반으로\nPhysical AI의 새로운 가능성을 연구합니다.',
   cta: 'Contact Us',
+  entity: '넥스트스튜디오(NEXTSTUDIO)',
   copyright: '© 2026 nextstud.io. All rights reserved',
 };
 
