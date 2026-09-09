@@ -325,3 +325,4 @@
   4곳 모두 `NEXTSTUDIO는 물리 제약...` → `넥스트스튜디오(NEXTSTUDIO)는 물리 제약...`
 - 검색결과 스니펫·SNS 공유 카드에 한글 브랜드명 노출
 - 확인: JSON-LD에 `address`(PostalAddress, 김해)·`telephone`·`email`·`knowsAbout`는 이미 존재 — 별도 추가 불필요
+- **배포**: dpl_AaL9Q43QMLXZt2bNH1QkoN2RwY1c, IndexNow `200 OK`. 라이브 검증: description 3곳 + title 반영 확인
