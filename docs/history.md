@@ -300,3 +300,6 @@
   - `public/3afc99f4...c4a8bb.txt` — 키 파일(내용 = 키 문자열). Vite `public/` → dist 루트 자동 복사
   - `scripts/indexnow-ping.mjs` — `api.indexnow.org`에 POST. Bing·Naver·Yandex·Seznam 동시 통지(Naver는 IndexNow 파트너)
   - **배포 후 `node scripts/indexnow-ping.mjs` 1회 실행** 필요 (키 파일이 라이브여야 검증됨)
+- **배포**: `npx vercel deploy --prod` → dpl_9ZfB1MHUUrgqiqyEpnYNkhGKuwtw, `nextstud.io` alias.
+  라이브 검증: 키 파일 200, sitemap lastmod 2026-09-09, 홈 프리렌더 유지(175,931B)
+- **IndexNow 첫 통지**: `node scripts/indexnow-ping.mjs` → `202 Accepted` (Bing·Naver 등 접수)
