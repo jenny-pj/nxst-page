@@ -28,7 +28,9 @@
 - [~] **한글 브랜드명("넥스트스튜디오") 검색 대응** — 2026-09-09 착수
   - 문제: "넥스트스튜디오"가 크롤 대상 본문에 0회(title·description·h1~·푸터 전부 영문, JSON-LD `alternateName`에만 존재). 동명 선점 경쟁자 `넥스트스튜디오스`(nextstudios.co.kr, 인천 영상 스튜디오, 위키백과·나무위키 보유)가 Google 1페이지 독점
   - 온페이지 완료: `<title>`/og/twitter → `NEXTSTUDIO(넥스트스튜디오) — ...`, 푸터 copyright 위에 `넥스트스튜디오(NEXTSTUDIO)` 1줄(`footer.entity`) 추가
-  - 온페이지 미완(사용자 확인 대기): meta description 앞에 한글명, JSON-LD `address`/`telephone`/`email` 추가, llms.txt 제목 한글 병기
+  - meta description(+og/twitter/JSON-LD description) 앞에 `넥스트스튜디오(NEXTSTUDIO)는...` 병기 — 2026-09-09 완료
+  - 참고: JSON-LD `address`(PostalAddress 김해)·`telephone`·`email`·`knowsAbout`는 이미 있음(추가 불필요)
+  - 온페이지 미완: llms.txt 제목 한글 병기
   - 오프페이지(핵심 레버, 사용자): 구글 비즈니스 프로필(김해), 네이버 스마트플레이스+기업정보, 스타트업 DB(더브이씨·로켓펀치·혁신의숲·잡코리아), 나무위키/위키백과, 한국어 보도자료 — 모두 "넥스트스튜디오" 표기 통일
   - 현실: 정확 일치 "넥스트스튜디오" 1페이지는 수개월+오프페이지 싸움. "넥스트스튜디오 김해/합성데이터/physical ai" 조합은 온페이지만으로 단기 가능
 - [x] `public/llms-full.txt` 추가 — 2026-08-28 완료(commit `33b5571`). 전체 카피 평문 + FAQ Q&A 9항목

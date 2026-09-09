@@ -318,3 +318,10 @@
 - **미완**(사용자 확인 대기): meta description 한글명 병기 / JSON-LD address·telephone·email /
   llms.txt 제목 한글 병기 / 오프페이지(구글 비즈니스 프로필·네이버 스마트플레이스·스타트업 DB) — todo.md 참고
 - **배포**: `vercel deploy --prod` → dpl_4iZmLWAvvcpZnu1YbwLENqGA7uei, `nextstud.io` alias. IndexNow 통지 `200 OK`. 라이브 검증: title 반영, 본문 "넥스트스튜디오" 0→2회(title+푸터)
+
+## 2026-09-09 — 한글 브랜드명 2차: meta description 병기
+
+- `<meta name="description">` + `og:description` + `twitter:description` + JSON-LD `description`
+  4곳 모두 `NEXTSTUDIO는 물리 제약...` → `넥스트스튜디오(NEXTSTUDIO)는 물리 제약...`
+- 검색결과 스니펫·SNS 공유 카드에 한글 브랜드명 노출
+- 확인: JSON-LD에 `address`(PostalAddress, 김해)·`telephone`·`email`·`knowsAbout`는 이미 존재 — 별도 추가 불필요
